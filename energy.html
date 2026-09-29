@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Energy Management | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+<style id="page-layout-adjustments">
+/* ===== Baghewala Energy Page — Layout Only ===== */
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.app-layout {
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Fixed, consistent navigation */
+.sidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 250px !important;
+    height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 1000;
+}
+
+.main-content {
+    width: calc(100% - 250px) !important;
+    min-width: 0 !important;
+    margin-left: 250px !important;
+    padding: 0 !important;
+}
+
+/* Header */
+.top-header {
+    width: 100% !important;
+    min-height: 110px;
+    padding: 24px 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px;
+}
+
+.top-header > div:first-child {
+    min-width: 0;
+}
+
+.top-header h1 {
+    margin: 4px 0 6px !important;
+}
+
+.page-subtitle {
+    max-width: 760px;
+    margin-bottom: 0 !important;
+}
+
+.header-right {
+    flex: 0 0 auto;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+/* Main page area */
+.page-content.energy-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 28px 32px 40px !important;
+}
+
+/* Intro */
+.energy-page-heading {
+    width: 100%;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.energy-page-heading > div:first-child {
+    min-width: 0;
+}
+
+.energy-page-heading p {
+    max-width: 850px;
+}
+
+/* KPI row */
+.kpi-grid.energy-kpis {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    margin-bottom: 22px;
+}
+
+.energy-kpi {
+    min-width: 0;
+}
+
+/* Two-column section */
+.energy-two-column {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+    gap: 20px !important;
+    align-items: stretch;
+    margin-bottom: 20px;
+}
+
+.energy-two-column > .panel {
+    min-width: 0;
+    height: 100%;
+}
+
+/* Panels */
+.energy-page .panel {
+    width: 100%;
+    min-width: 0;
+}
+
+.panel-header {
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.panel-header > div:first-child {
+    min-width: 0;
+}
+
+/* Distribution */
+.energy-distribution {
+    display: grid !important;
+    grid-template-columns: minmax(190px, 0.8fr) minmax(0, 1.2fr) !important;
+    gap: 28px !important;
+    align-items: center;
+}
+
+.energy-breakdown {
+    min-width: 0;
+}
+
+.energy-breakdown-row {
+    min-width: 0;
+}
+
+/* Efficiency */
+.efficiency-score {
+    display: grid !important;
+    grid-template-columns: 150px minmax(0, 1fr) !important;
+    gap: 28px !important;
+    align-items: center;
+}
+
+.efficiency-description {
+    min-width: 0;
+}
+
+.efficiency-metrics {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+}
+
+/* Trend chart */
+.energy-trend-panel {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.energy-chart {
+    width: 100%;
+    min-width: 0;
+}
+
+.energy-chart-area {
+    min-width: 0;
+    width: 100%;
+}
+
+/* Trade-off */
+.tradeoff-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr) minmax(220px, 0.85fr) !important;
+    gap: 18px !important;
+    align-items: center;
+}
+
+.tradeoff-card,
+.tradeoff-result {
+    min-width: 0;
+}
+
+.tradeoff-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Recommendation */
+.energy-recommendation {
+    display: grid !important;
+    grid-template-columns: 64px minmax(0, 1fr) 120px !important;
+    gap: 22px !important;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.recommendation-body {
+    min-width: 0;
+}
+
+.recommendation-reasons {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px 18px !important;
+}
+
+.recommendation-confidence {
+    min-width: 0;
+    text-align: center;
+}
+
+/* Table */
+.energy-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.energy-table-wrapper .data-table {
+    width: 100%;
+    min-width: 900px;
+}
+
+/* Notice */
+.operator-notice {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.operator-notice > div:last-child {
+    min-width: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1250px) {
+    .sidebar {
+        width: 235px !important;
+    }
+
+    .main-content {
+        width: calc(100% - 235px) !important;
+        margin-left: 235px !important;
+    }
+
+    .page-content.energy-page {
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+
+    .top-header {
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+
+    .kpi-grid.energy-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .energy-two-column {
+        grid-template-columns: 1fr !important;
+    }
+
+    .tradeoff-grid {
+        grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr) !important;
+    }
+
+    .tradeoff-result {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 900px) {
+    .top-header {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start !important;
+    }
+
+    .energy-page-heading {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .energy-distribution {
+        grid-template-columns: 190px minmax(0, 1fr) !important;
+    }
+
+    .efficiency-score {
+        grid-template-columns: 130px minmax(0, 1fr) !important;
+    }
+
+    .efficiency-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .energy-recommendation {
+        grid-template-columns: 56px minmax(0, 1fr) !important;
+    }
+
+    .recommendation-confidence {
+        grid-column: 2;
+        text-align: left;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .top-header {
+        padding: 20px 18px !important;
+    }
+
+    .page-content.energy-page {
+        padding: 22px 18px 32px !important;
+    }
+
+    .kpi-grid.energy-kpis {
+        grid-template-columns: 1fr !important;
+    }
+
+    .energy-two-column {
+        grid-template-columns: 1fr !important;
+    }
+
+    .energy-distribution {
+        grid-template-columns: 1fr !important;
+        justify-items: center;
+    }
+
+    .energy-breakdown {
+        width: 100%;
+    }
+
+    .efficiency-score {
+        grid-template-columns: 1fr !important;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .efficiency-description {
+        width: 100%;
+    }
+
+    .tradeoff-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .tradeoff-arrow {
+        transform: rotate(90deg);
+    }
+
+    .tradeoff-result {
+        grid-column: auto;
+    }
+
+    .energy-recommendation {
+        grid-template-columns: 1fr !important;
+    }
+
+    .recommendation-icon {
+        justify-self: start;
+    }
+
+    .recommendation-confidence {
+        grid-column: auto;
+        text-align: left;
+    }
+
+    .recommendation-reasons {
+        grid-template-columns: 1fr !important;
+    }
+
+    .operator-notice {
+        align-items: flex-start;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-mark">BW</div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+        </div>
+
+        <div class="well-selector">
+            <span class="small-label">ACTIVE WELL</span>
+
+            <strong>BW-01</strong>
+
+            <span class="well-status">
+                <span class="status-dot"></span>
+                Producing
+            </span>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">OVERVIEW</div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+
+            <div class="nav-section-title">OPTIMIZATION</div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⚙</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⇄</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>⌁</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+
+            <div class="nav-section-title">ANALYTICS</div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>△</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>▥</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item active">
+                <span>⚡</span>
+                Energy
+            </a>
+
+
+            <div class="nav-section-title">OPERATIONS</div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>✓</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>↻</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+            <span>SIH 2026 Prototype</span>
+            <small>Decision Support System</small>
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    ANALYTICS / ENERGY
+                </div>
+
+                <h1>Energy Management</h1>
+
+                <p class="page-subtitle">
+                    Monitor CSS steam energy, SRP electrical consumption and
+                    production-normalized energy performance.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="well-header">
+                    <span>BAGHEWALA</span>
+                    <strong>WELL BW-01</strong>
+                </div>
+
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    LIVE
+                </div>
+
+                <div class="header-date">
+                    27 Sep 2026
+                </div>
+
+                <div class="operator">
+                    OPERATOR
+                    <strong>Field Operations</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="page-content energy-page">
+
+
+            <!-- PAGE TITLE -->
+
+            <div class="energy-page-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        ENERGY PERFORMANCE
+                    </span>
+
+                    <h2>
+                        CSS + SRP Energy Balance
+                    </h2>
+
+                    <p>
+                        Track where energy is being consumed and how efficiently
+                        it is being converted into incremental oil production.
+                    </p>
+
+                </div>
+
+
+                <div class="energy-status">
+
+                    <span class="energy-status-dot"></span>
+
+                    Energy condition:
+                    <strong>Normal</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 KPI CARDS
+            ================================================== -->
+
+            <div class="kpi-grid energy-kpis">
+
+
+                <div class="kpi-card energy-kpi">
+
+                    <div class="kpi-top">
+
+                        <span>Total Energy</span>
+
+                        <span class="kpi-icon">
+                            ⚡
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span id="totalEnergy">
+                            1,684
+                        </span>
+
+                        <small>
+                            kWh/d
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        +4.2%
+                        <span>vs previous cycle</span>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card energy-kpi">
+
+                    <div class="kpi-top">
+
+                        <span>Steam Energy</span>
+
+                        <span class="kpi-icon">
+                            ♨
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span id="steamEnergy">
+                            1,290
+                        </span>
+
+                        <small>
+                            kWh/d
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        76.6%
+                        <span>of total energy</span>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card energy-kpi">
+
+                    <div class="kpi-top">
+
+                        <span>SRP Energy</span>
+
+                        <span class="kpi-icon">
+                            ⚙
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span id="srpEnergy">
+                            394
+                        </span>
+
+                        <small>
+                            kWh/d
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        23.4%
+                        <span>of total energy</span>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card energy-kpi">
+
+                    <div class="kpi-top">
+
+                        <span>Specific Energy</span>
+
+                        <span class="kpi-icon">
+                            ◈
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span id="specificEnergy">
+                            38.4
+                        </span>
+
+                        <small>
+                            kWh/m³ oil
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change positive">
+                        ▼ 6.8%
+                        <span>improvement</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ENERGY DISTRIBUTION + EFFICIENCY
+            ================================================== -->
+
+            <div class="energy-two-column">
+
+
+                <!-- ENERGY DISTRIBUTION -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                ENERGY DISTRIBUTION
+                            </span>
+
+                            <h3>
+                                Current Energy Consumption
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge success">
+                            Within Envelope
+                        </span>
+
+                    </div>
+
+
+                    <div class="energy-distribution">
+
+                        <div class="donut-chart">
+
+                            <div class="donut-inner">
+
+                                <strong>
+                                    1,684
+                                </strong>
+
+                                <span>
+                                    kWh/day
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="energy-breakdown">
+
+                            <div class="energy-breakdown-row">
+
+                                <div class="energy-name">
+
+                                    <span class="energy-dot steam"></span>
+
+                                    <div>
+                                        <strong>CSS Steam</strong>
+                                        <small>Thermal energy input</small>
+                                    </div>
+
+                                </div>
+
+                                <strong>
+                                    76.6%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="energy-progress">
+
+                                <span style="width:76.6%"></span>
+
+                            </div>
+
+
+                            <div class="energy-breakdown-row">
+
+                                <div class="energy-name">
+
+                                    <span class="energy-dot srp"></span>
+
+                                    <div>
+                                        <strong>SRP Electrical</strong>
+                                        <small>Artificial lift energy</small>
+                                    </div>
+
+                                </div>
+
+                                <strong>
+                                    23.4%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="energy-progress">
+
+                                <span style="width:23.4%"></span>
+
+                            </div>
+
+
+                            <div class="energy-breakdown-row">
+
+                                <div class="energy-name">
+
+                                    <span class="energy-dot auxiliary"></span>
+
+                                    <div>
+                                        <strong>Auxiliary</strong>
+                                        <small>Other field loads</small>
+                                    </div>
+
+                                </div>
+
+                                <strong>
+                                    Included
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ENERGY EFFICIENCY -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                ENERGY EFFICIENCY
+                            </span>
+
+                            <h3>
+                                Production Conversion
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="efficiency-score">
+
+                        <div class="efficiency-ring">
+
+                            <div>
+
+                                <strong>
+                                    82
+                                </strong>
+
+                                <span>
+                                    / 100
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="efficiency-description">
+
+                            <strong>
+                                Efficient operating condition
+                            </strong>
+
+                            <p>
+                                Current thermal input and artificial lift
+                                settings are producing a balanced energy-to-oil
+                                response.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="efficiency-metrics">
+
+                        <div>
+
+                            <span>
+                                Oil Production
+                            </span>
+
+                            <strong>
+                                43.8 m³/d
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Energy Input
+                            </span>
+
+                            <strong>
+                                1,684 kWh/d
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Energy / Oil
+                            </span>
+
+                            <strong>
+                                38.4 kWh/m³
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ENERGY TREND
+            ================================================== -->
+
+            <div class="panel energy-trend-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ENERGY TREND
+                        </span>
+
+                        <h3>
+                            Energy Consumption vs Oil Production
+                        </h3>
+
+                        <p>
+                            Relationship between energy input and production
+                            response across the current CSS cycle.
+                        </p>
+
+                    </div>
+
+
+                    <div class="trend-legend">
+
+                        <span>
+                            <i class="trend-energy"></i>
+                            Energy
+                        </span>
+
+                        <span>
+                            <i class="trend-production"></i>
+                            Oil Production
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="energy-chart">
+
+                    <div class="energy-y-axis">
+
+                        <span>2,000</span>
+                        <span>1,600</span>
+                        <span>1,200</span>
+                        <span>800</span>
+                        <span>400</span>
+                        <span>0</span>
+
+                    </div>
+
+
+                    <div class="energy-chart-area">
+
+                        <div class="energy-grid g1"></div>
+                        <div class="energy-grid g2"></div>
+                        <div class="energy-grid g3"></div>
+                        <div class="energy-grid g4"></div>
+                        <div class="energy-grid g5"></div>
+                        <div class="energy-grid g6"></div>
+
+
+                        <div class="energy-css-zone zone-a">
+                            <span>CSS</span>
+                        </div>
+
+                        <div class="energy-css-zone zone-b">
+                            <span>CSS</span>
+                        </div>
+
+
+                        <svg
+                            viewBox="0 0 1000 300"
+                            preserveAspectRatio="none"
+                            class="energy-svg">
+
+                            <polyline
+                                class="energy-line"
+                                points="
+                                0,190
+                                50,180
+                                100,165
+                                150,150
+                                200,125
+                                250,90
+                                300,70
+                                350,100
+                                400,130
+                                450,150
+                                500,165
+                                550,145
+                                600,105
+                                650,70
+                                700,55
+                                750,80
+                                800,110
+                                850,135
+                                900,150
+                                950,160
+                                1000,170
+                                "
+                            />
+
+                            <polyline
+                                class="production-line"
+                                points="
+                                0,220
+                                50,218
+                                100,210
+                                150,195
+                                200,170
+                                250,145
+                                300,125
+                                350,135
+                                400,155
+                                450,175
+                                500,180
+                                550,165
+                                600,140
+                                650,115
+                                700,100
+                                750,112
+                                800,130
+                                850,148
+                                900,158
+                                950,165
+                                1000,170
+                                "
+                            />
+
+                        </svg>
+
+
+                        <div class="energy-x-axis">
+
+                            <span>
+                                01 Sep
+                            </span>
+
+                            <span>
+                                06 Sep
+                            </span>
+
+                            <span>
+                                11 Sep
+                            </span>
+
+                            <span>
+                                16 Sep
+                            </span>
+
+                            <span>
+                                21 Sep
+                            </span>
+
+                            <span>
+                                27 Sep
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 OPTIMIZATION TRADE-OFF
+            ================================================== -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            JOINT ENERGY OPTIMIZATION
+                        </span>
+
+                        <h3>
+                            CSS Steam vs SRP Energy Trade-off
+                        </h3>
+
+                        <p>
+                            The Digital Twin evaluates thermal input and artificial
+                            lift together instead of optimizing them independently.
+                        </p>
+
+                    </div>
+
+                    <span class="status-badge success">
+                        Balanced Point
+                    </span>
+
+                </div>
+
+
+                <div class="tradeoff-grid">
+
+
+                    <div class="tradeoff-card">
+
+                        <div class="tradeoff-card-header">
+
+                            <span class="tradeoff-icon steam-icon">
+                                ♨
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    CSS Steam
+                                </strong>
+
+                                <small>
+                                    Thermal energy
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="tradeoff-value">
+
+                            <strong>
+                                65
+                            </strong>
+
+                            <span>
+                                tonnes/cycle
+                            </span>
+
+                        </div>
+
+
+                        <div class="tradeoff-bar">
+
+                            <span style="width:65%"></span>
+
+                        </div>
+
+
+                        <div class="tradeoff-footer">
+
+                            <span>
+                                Current
+                            </span>
+
+                            <strong>
+                                Within target
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="tradeoff-arrow">
+                        ⇄
+                    </div>
+
+
+                    <div class="tradeoff-card">
+
+                        <div class="tradeoff-card-header">
+
+                            <span class="tradeoff-icon srp-icon">
+                                ⚙
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    SRP Load
+                                </strong>
+
+                                <small>
+                                    Electrical energy
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="tradeoff-value">
+
+                            <strong>
+                                394
+                            </strong>
+
+                            <span>
+                                kWh/day
+                            </span>
+
+                        </div>
+
+
+                        <div class="tradeoff-bar">
+
+                            <span style="width:58%"></span>
+
+                        </div>
+
+
+                        <div class="tradeoff-footer">
+
+                            <span>
+                                Current
+                            </span>
+
+                            <strong>
+                                Moderate
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="tradeoff-result">
+
+                        <span class="tradeoff-result-label">
+                            OPTIMIZED ENERGY POINT
+                        </span>
+
+                        <strong>
+                            38.4
+                        </strong>
+
+                        <span>
+                            kWh / m³ oil
+                        </span>
+
+                        <p>
+                            Estimated reduction of
+                            <b>6.8%</b>
+                            in specific energy while maintaining the current
+                            production response.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ENERGY RECOMMENDATION
+            ================================================== -->
+
+            <div class="energy-recommendation panel">
+
+                <div class="recommendation-icon">
+                    ⚡
+                </div>
+
+
+                <div class="recommendation-body">
+
+                    <span class="section-kicker">
+                        DIGITAL TWIN RECOMMENDATION
+                    </span>
+
+                    <h3>
+                        Maintain thermal input and avoid unnecessary SRP acceleration
+                    </h3>
+
+                    <p>
+                        The current production response is being supported primarily
+                        by the thermal condition created by CSS. Increasing SRP speed
+                        further is predicted to provide limited incremental oil while
+                        increasing electrical consumption and mechanical exposure.
+                    </p>
+
+
+                    <div class="recommendation-reasons">
+
+                        <div>
+                            <span>01</span>
+                            Reservoir temperature remains favorable.
+                        </div>
+
+                        <div>
+                            <span>02</span>
+                            Pump efficiency is already above the target threshold.
+                        </div>
+
+                        <div>
+                            <span>03</span>
+                            Additional SPM provides diminishing production benefit.
+                        </div>
+
+                        <div>
+                            <span>04</span>
+                            Current specific energy remains within the preferred envelope.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="recommendation-confidence">
+
+                    <span>
+                        MODEL CONFIDENCE
+                    </span>
+
+                    <strong>
+                        91%
+                    </strong>
+
+                    <small>
+                        High
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ENERGY TABLE
+            ================================================== -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ENERGY HISTORY
+                        </span>
+
+                        <h3>
+                            Daily Energy Performance
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="secondary-btn energy-export-btn"
+                        onclick="exportEnergyData()">
+
+                        Export Data
+                    </button>
+
+                </div>
+
+
+                <div class="energy-table-wrapper">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Oil Rate</th>
+                                <th>Steam</th>
+                                <th>Steam Energy</th>
+                                <th>SRP Energy</th>
+                                <th>Total Energy</th>
+                                <th>Specific Energy</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>27 Sep</td>
+
+                                <td>
+                                    43.8 m³/d
+                                </td>
+
+                                <td>
+                                    65 t
+                                </td>
+
+                                <td>
+                                    1,290 kWh
+                                </td>
+
+                                <td>
+                                    394 kWh
+                                </td>
+
+                                <td>
+                                    1,684 kWh
+                                </td>
+
+                                <td class="positive-text">
+                                    38.4 kWh/m³
+                                </td>
+
+                                <td>
+                                    <span class="status-badge success">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>26 Sep</td>
+
+                                <td>
+                                    44.2 m³/d
+                                </td>
+
+                                <td>
+                                    65 t
+                                </td>
+
+                                <td>
+                                    1,294 kWh
+                                </td>
+
+                                <td>
+                                    401 kWh
+                                </td>
+
+                                <td>
+                                    1,695 kWh
+                                </td>
+
+                                <td>
+                                    38.3 kWh/m³
+                                </td>
+
+                                <td>
+                                    <span class="status-badge success">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>25 Sep</td>
+
+                                <td>
+                                    45.1 m³/d
+                                </td>
+
+                                <td>
+                                    65 t
+                                </td>
+
+                                <td>
+                                    1,300 kWh
+                                </td>
+
+                                <td>
+                                    410 kWh
+                                </td>
+
+                                <td>
+                                    1,710 kWh
+                                </td>
+
+                                <td>
+                                    37.9 kWh/m³
+                                </td>
+
+                                <td>
+                                    <span class="status-badge success">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>24 Sep</td>
+
+                                <td>
+                                    45.8 m³/d
+                                </td>
+
+                                <td>
+                                    70 t
+                                </td>
+
+                                <td>
+                                    1,390 kWh
+                                </td>
+
+                                <td>
+                                    418 kWh
+                                </td>
+
+                                <td>
+                                    1,808 kWh
+                                </td>
+
+                                <td>
+                                    39.5 kWh/m³
+                                </td>
+
+                                <td>
+                                    <span class="status-badge warning">
+                                        Watch
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>23 Sep</td>
+
+                                <td>
+                                    46.7 m³/d
+                                </td>
+
+                                <td>
+                                    70 t
+                                </td>
+
+                                <td>
+                                    1,388 kWh
+                                </td>
+
+                                <td>
+                                    421 kWh
+                                </td>
+
+                                <td>
+                                    1,809 kWh
+                                </td>
+
+                                <td>
+                                    38.7 kWh/m³
+                                </td>
+
+                                <td>
+                                    <span class="status-badge success">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 OPERATOR NOTICE
+            ================================================== -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <strong>
+                        Operator Decision Support
+                    </strong>
+
+                    <p>
+                        Energy values and optimization results shown here are
+                        illustrative prototype outputs. Actual steam enthalpy,
+                        generator efficiency, motor efficiency, pump load and field
+                        measurements must be validated before operational use.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+function exportEnergyData() {
+
+    const rows = [
+        [
+            "Date",
+            "Oil Rate",
+            "Steam",
+            "Steam Energy",
+            "SRP Energy",
+            "Total Energy",
+            "Specific Energy"
+        ],
+
+        [
+            "27 Sep",
+            "43.8 m3/d",
+            "65 t",
+            "1290 kWh",
+            "394 kWh",
+            "1684 kWh",
+            "38.4 kWh/m3"
+        ],
+
+        [
+            "26 Sep",
+            "44.2 m3/d",
+            "65 t",
+            "1294 kWh",
+            "401 kWh",
+            "1695 kWh",
+            "38.3 kWh/m3"
+        ],
+
+        [
+            "25 Sep",
+            "45.1 m3/d",
+            "65 t",
+            "1300 kWh",
+            "410 kWh",
+            "1710 kWh",
+            "37.9 kWh/m3"
+        ]
+    ];
+
+
+    const csv = rows
+        .map(row => row.join(","))
+        .join("\n");
+
+
+    const blob = new Blob(
+        [csv],
+        {
+            type: "text/csv;charset=utf-8;"
+        }
+    );
+
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "BW-01-energy-performance.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+</script>
+
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

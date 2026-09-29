@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Baghewala Well-to-Surface Digital Twin"
+    >
+
+    <title>Baghewala Digital Twin | Dashboard</title>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Dashboard Styles -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Responsive Styles -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                ◇
+            </div>
+
+            <div class="brand-text">
+
+                <h2>BAGHEWALA</h2>
+
+                <span>DIGITAL TWIN</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <!-- OVERVIEW -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    OVERVIEW
+                </span>
+
+
+                <a
+                    href="index.html"
+                    class="nav-item active"
+                >
+
+                    <span class="nav-icon">
+                        ▦
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="digital-twin.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ◎
+                    </span>
+
+                    <span>
+                        Digital Twin
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- OPTIMIZATION -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    OPTIMIZATION
+                </span>
+
+
+                <a
+                    href="css-optimization.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ♨
+                    </span>
+
+                    <span>
+                        CSS Optimization
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="srp-optimization.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    <span>
+                        SRP Optimization
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="joint-optimization.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ⇄
+                    </span>
+
+                    <span>
+                        Joint CSS–SRP
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- MONITORING -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    MONITORING
+                </span>
+
+
+                <a
+                    href="simulator.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ◇
+                    </span>
+
+                    <span>
+                        What-If Simulator
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="operating-envelope.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        △
+                    </span>
+
+                    <span>
+                        Operating Envelope
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="predictions.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ⌁
+                    </span>
+
+                    <span>
+                        Predictions
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="risk-monitoring.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        !
+                    </span>
+
+                    <span>
+                        Risk Monitoring
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ANALYTICS -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    ANALYTICS
+                </span>
+
+
+                <a
+                    href="production.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ▥
+                    </span>
+
+                    <span>
+                        Production
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="energy.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ⚡
+                    </span>
+
+                    <span>
+                        Energy
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="history.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ◷
+                    </span>
+
+                    <span>
+                        Well History
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SYSTEM -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    SYSTEM
+                </span>
+
+
+                <a
+                    href="alerts.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ♢
+                    </span>
+
+                    <span>
+                        Alerts
+                    </span>
+
+                    <b class="notification">
+                        3
+                    </b>
+
+                </a>
+
+
+                <a
+                    href="recommendations.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ✦
+                    </span>
+
+                    <span>
+                        Recommendations
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="calibration.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ↻
+                    </span>
+
+                    <span>
+                        Calibration
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="data-management.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ▤
+                    </span>
+
+                    <span>
+                        Data Management
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="settings.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- SIDEBAR FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Operational
+                    </strong>
+
+                    <small>
+                        All services running
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN APPLICATION
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="topbar">
+
+
+            <!-- HEADER LEFT -->
+
+            <div class="topbar-left">
+
+                <div class="breadcrumb">
+
+                    FIELD
+
+                    <span>/</span>
+
+                    BAGHEWALA
+
+                    <span>/</span>
+
+                    WELL BW-01
+
+                </div>
+
+
+                <h1>
+                    Production Dashboard
+                </h1>
+
+            </div>
+
+
+
+            <!-- HEADER RIGHT -->
+
+            <div class="header-right">
+
+
+                <!-- WELL STATUS -->
+
+                <div class="well-selector">
+
+                    <span class="status-dot"></span>
+
+                    <strong>
+                        BW-01
+                    </strong>
+
+                    <span class="live-text">
+                        LIVE
+                    </span>
+
+                </div>
+
+
+
+                <!-- DATE / TIME -->
+
+                <div class="header-time">
+
+                    <strong>
+                        27 Sep 2026
+                    </strong>
+
+                    <span id="currentTime">
+                        --:--:--
+                    </span>
+
+                </div>
+
+
+
+                <!-- USER -->
+
+                <div class="user">
+
+                    <div class="avatar">
+                        OP
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Operator
+                        </strong>
+
+                        <small>
+                            Control Room
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="content">
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="page-intro">
+
+
+                <div class="intro-left">
+
+                    <h2>
+                        Well Performance Overview
+                    </h2>
+
+                    <p>
+                        Real-time virtual representation of
+                        reservoir, wellbore, SRP and surface
+                        production.
+                    </p>
+
+                </div>
+
+
+                <div class="last-update">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        Digital Twin Updated
+                    </span>
+
+                    <strong>
+                        12 sec ago
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 KPI CARDS
+            ================================================== -->
+
+            <div class="kpi-grid">
+
+
+                <!-- OIL PRODUCTION -->
+
+                <div class="kpi-card">
+
+                    <div class="kpi-header">
+
+                        <span>
+                            Oil Production
+                        </span>
+
+                        <span class="kpi-icon">
+                            ◉
+                        </span>
+
+                    </div>
+
+
+                    <div class="kpi-value">
+
+                        31.4
+
+                        <small>
+                            m³/day
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-change positive">
+
+                        ↑ 8.4%
+
+                    </div>
+
+
+                    <div class="kpi-label">
+
+                        vs previous cycle
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RESERVOIR TEMPERATURE -->
+
+                <div class="kpi-card">
+
+                    <div class="kpi-header">
+
+                        <span>
+                            Reservoir Temperature
+                        </span>
+
+                        <span class="kpi-icon">
+                            ♨
+                        </span>
+
+                    </div>
+
+
+                    <div class="kpi-value">
+
+                        47.2
+
+                        <small>
+                            °C
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-change warning">
+
+                        ↓ 2.1°C
+
+                    </div>
+
+
+                    <div class="kpi-label">
+
+                        cooling trend
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- VISCOSITY -->
+
+                <div class="kpi-card">
+
+                    <div class="kpi-header">
+
+                        <span>
+                            Oil Viscosity
+                        </span>
+
+                        <span class="kpi-icon">
+                            ≋
+                        </span>
+
+                    </div>
+
+
+                    <div class="kpi-value">
+
+                        1,850
+
+                        <small>
+                            cP
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-change warning">
+
+                        ↑ 6.8%
+
+                    </div>
+
+
+                    <div class="kpi-label">
+
+                        estimated
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PUMP EFFICIENCY -->
+
+                <div class="kpi-card">
+
+                    <div class="kpi-header">
+
+                        <span>
+                            Pump Efficiency
+                        </span>
+
+                        <span class="kpi-icon">
+                            ⚙
+                        </span>
+
+                    </div>
+
+
+                    <div class="kpi-value">
+
+                        71
+
+                        <small>
+                            %
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-change positive">
+
+                        ↑ 3.2%
+
+                    </div>
+
+
+                    <div class="kpi-label">
+
+                        current cycle
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STEAM -->
+
+                <div class="kpi-card">
+
+                    <div class="kpi-header">
+
+                        <span>
+                            Steam Injection
+                        </span>
+
+                        <span class="kpi-icon">
+                            ♨
+                        </span>
+
+                    </div>
+
+
+                    <div class="kpi-value">
+
+                        120
+
+                        <small>
+                            m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-change neutral">
+
+                        Current cycle
+
+                    </div>
+
+
+                    <div class="kpi-label">
+
+                        steam volume
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ROD LOADING -->
+
+                <div class="kpi-card">
+
+                    <div class="kpi-header">
+
+                        <span>
+                            Rod Loading
+                        </span>
+
+                        <span class="kpi-icon">
+                            ↕
+                        </span>
+
+                    </div>
+
+
+                    <div class="kpi-value">
+
+                        68
+
+                        <small>
+                            %
+                        </small>
+
+                    </div>
+
+
+                    <div class="kpi-change positive">
+
+                        LOW RISK
+
+                    </div>
+
+
+                    <div class="kpi-label">
+
+                        mechanical load
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DASHBOARD GRID
+            ================================================== -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- =================================================
+                     PRODUCTION PERFORMANCE
+                ================================================== -->
+
+                <div class="panel large">
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Production Performance
+                            </h3>
+
+                            <p>
+                                Oil production over current CSS cycle
+                            </p>
+
+                        </div>
+
+
+                        <div class="chart-controls">
+
+                            <select
+                                id="productionPeriod"
+                            >
+
+                                <option>
+                                    24 Hours
+                                </option>
+
+                                <option>
+                                    7 Days
+                                </option>
+
+                                <option>
+                                    30 Days
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="productionChart"
+                        ></canvas>
+
+                    </div>
+
+
+                    <div class="chart-footer">
+
+                        <div class="chart-legend">
+
+                            <span class="legend-item">
+
+                                <span
+                                    class="legend-line blue"
+                                ></span>
+
+                                Oil Production
+
+                            </span>
+
+
+                            <span class="legend-item">
+
+                                <span
+                                    class="legend-line steam"
+                                ></span>
+
+                                CSS Cycle
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-current">
+
+                            Current
+
+                            <strong>
+                                31.4 m³/day
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     DIGITAL TWIN STATUS
+                ================================================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Digital Twin Status
+                            </h3>
+
+                            <p>
+                                Current virtual state
+                            </p>
+
+                        </div>
+
+
+                        <span class="live-badge">
+                            LIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-list">
+
+
+                        <div class="status-row">
+
+                            <span>
+                                Reservoir
+                            </span>
+
+                            <b class="status-normal">
+                                ● NORMAL
+                            </b>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <span>
+                                Thermal State
+                            </span>
+
+                            <b class="status-warning">
+                                ● COOLING
+                            </b>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <span>
+                                Fluid State
+                            </span>
+
+                            <b class="status-normal">
+                                ● STABLE
+                            </b>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <span>
+                                SRP
+                            </span>
+
+                            <b class="status-normal">
+                                ● NORMAL
+                            </b>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <span>
+                                Rod Condition
+                            </span>
+
+                            <b class="status-normal">
+                                ● LOW RISK
+                            </b>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <span>
+                                Surface
+                            </span>
+
+                            <b class="status-normal">
+                                ● NORMAL
+                            </b>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="digital-twin.html"
+                        class="panel-link"
+                    >
+                        Open Digital Twin →
+                    </a>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     THERMAL STATE
+                ================================================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Thermal State
+                            </h3>
+
+                            <p>
+                                Reservoir temperature
+                            </p>
+
+                        </div>
+
+
+                        <span class="metric-value">
+                            47.2°C
+                        </span>
+
+                    </div>
+
+
+                    <div class="mini-chart">
+
+                        <canvas
+                            id="temperatureChart"
+                        ></canvas>
+
+                    </div>
+
+
+                    <div class="metric-footer">
+
+                        <span>
+                            Cooling rate
+                        </span>
+
+                        <strong class="warning">
+                            -0.18 °C/hr
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SRP PERFORMANCE
+                ================================================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                SRP Performance
+                            </h3>
+
+                            <p>
+                                Current operating condition
+                            </p>
+
+                        </div>
+
+
+                        <span class="live-badge">
+                            NORMAL
+                        </span>
+
+                    </div>
+
+
+                    <div class="srp-stats">
+
+
+                        <div>
+
+                            <span>
+                                SPM
+                            </span>
+
+                            <strong>
+                                5.2
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Stroke
+                            </span>
+
+                            <strong>
+                                2.4 m
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                VFD
+                            </span>
+
+                            <strong>
+                                55 Hz
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-condition">
+
+                        <div>
+
+                            <span>
+                                Pump Efficiency
+                            </span>
+
+                            <strong>
+                                71%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width:71%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="srp-optimization.html"
+                        class="panel-link"
+                    >
+                        Open SRP Optimization →
+                    </a>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AI RECOMMENDATION
+                ================================================== -->
+
+                <div class="panel recommendation-panel">
+
+
+                    <div class="recommendation-header">
+
+
+                        <div class="recommendation-icon">
+                            ✦
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                DIGITAL TWIN RECOMMENDATION
+                            </span>
+
+                            <h3>
+                                Optimize SRP Speed
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        Predicted fluid viscosity is increasing.
+                        Reducing SPM from
+
+                        <strong>
+                            6.0
+                        </strong>
+
+                        to
+
+                        <strong>
+                            5.2
+                        </strong>
+
+                        may reduce rod loading while
+                        maintaining production.
+
+                    </p>
+
+
+                    <div class="recommendation-impact">
+
+
+                        <div>
+
+                            <span>
+                                Production
+                            </span>
+
+                            <strong class="positive">
+                                +8.4%
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Rod Loading
+                            </span>
+
+                            <strong class="positive">
+                                -14.2%
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Energy
+                            </span>
+
+                            <strong class="positive">
+                                -6.1%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="recommendation-actions">
+
+                        <a
+                            href="simulator.html"
+                            class="btn primary"
+                        >
+                            Simulate
+                        </a>
+
+
+                        <a
+                            href="recommendations.html"
+                            class="btn secondary"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ACTIVE ALERTS
+                ================================================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Active Alerts
+                            </h3>
+
+                            <p>
+                                Requires operator attention
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="alerts.html"
+                            class="panel-link-top"
+                        >
+                            View All
+                        </a>
+
+                    </div>
+
+
+                    <div class="alert-list">
+
+
+                        <!-- ALERT 1 -->
+
+                        <div class="alert warning-alert">
+
+
+                            <div class="alert-icon">
+                                !
+                            </div>
+
+
+                            <div class="alert-content">
+
+                                <strong>
+                                    Reservoir Cooling
+                                </strong>
+
+                                <p>
+                                    Temperature decreasing after
+                                    production phase.
+                                </p>
+
+                                <small>
+                                    8 min ago
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ALERT 2 -->
+
+                        <div class="alert info-alert">
+
+
+                            <div class="alert-icon">
+                                i
+                            </div>
+
+
+                            <div class="alert-content">
+
+                                <strong>
+                                    Optimization Available
+                                </strong>
+
+                                <p>
+                                    New CSS–SRP scenario available.
+                                </p>
+
+                                <small>
+                                    15 min ago
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ALERT 3 -->
+
+                        <div class="alert success-alert">
+
+
+                            <div class="alert-icon">
+                                ✓
+                            </div>
+
+
+                            <div class="alert-content">
+
+                                <strong>
+                                    Pump Performance Stable
+                                </strong>
+
+                                <p>
+                                    Pump efficiency within expected
+                                    operating range.
+                                </p>
+
+                                <small>
+                                    22 min ago
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CURRENT CSS CYCLE
+                ================================================== -->
+
+                <div class="panel css-cycle-panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Current CSS Cycle
+                            </h3>
+
+                            <p>
+                                Thermal recovery operation
+                            </p>
+
+                        </div>
+
+
+                        <span class="cycle-badge">
+                            PRODUCTION
+                        </span>
+
+                    </div>
+
+
+                    <div class="cycle-timeline">
+
+
+                        <div class="cycle-step completed">
+
+                            <div class="cycle-dot">
+                                ✓
+                            </div>
+
+                            <span>
+                                Injection
+                            </span>
+
+                            <small>
+                                Complete
+                            </small>
+
+                        </div>
+
+
+                        <div class="cycle-line completed-line">
+                        </div>
+
+
+                        <div class="cycle-step completed">
+
+                            <div class="cycle-dot">
+                                ✓
+                            </div>
+
+                            <span>
+                                Soak
+                            </span>
+
+                            <small>
+                                Complete
+                            </small>
+
+                        </div>
+
+
+                        <div class="cycle-line active-line">
+                        </div>
+
+
+                        <div class="cycle-step active">
+
+                            <div class="cycle-dot">
+                                ●
+                            </div>
+
+                            <span>
+                                Production
+                            </span>
+
+                            <small>
+                                Active
+                            </small>
+
+                        </div>
+
+
+                        <div class="cycle-line">
+                        </div>
+
+
+                        <div class="cycle-step">
+
+                            <div class="cycle-dot">
+                                4
+                            </div>
+
+                            <span>
+                                Cooling
+                            </span>
+
+                            <small>
+                                Pending
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cycle-details">
+
+
+                        <div>
+
+                            <span>
+                                Steam
+                            </span>
+
+                            <strong>
+                                120 m³
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Injection Pressure
+                            </span>
+
+                            <strong>
+                                105 bar
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Soak Time
+                            </span>
+
+                            <strong>
+                                24 hr
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Cycle Day
+                            </span>
+
+                            <strong>
+                                Day 3
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTTOM STATUS BAR
+            ================================================== -->
+
+            <div class="bottom-status">
+
+
+                <div class="bottom-status-item">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        Data Connection
+                    </span>
+
+                    <strong>
+                        Connected
+                    </strong>
+
+                </div>
+
+
+                <div class="bottom-status-item">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        Digital Twin
+                    </span>
+
+                    <strong>
+                        Synchronized
+                    </strong>
+
+                </div>
+
+
+                <div class="bottom-status-item">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        Prediction Model
+                    </span>
+
+                    <strong>
+                        Ready
+                    </strong>
+
+                </div>
+
+
+                <div class="bottom-status-item">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        Last Calibration
+                    </span>
+
+                    <strong>
+                        2h 14m ago
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="js/app.js"></script>
+
+<script src="js/dashboard.js"></script>
+
+
+</body>
+
+</html>

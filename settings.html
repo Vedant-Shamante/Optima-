@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Settings | Baghewala Digital Twin</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .settings-page {
+      padding: 24px;
+    }
+
+    .settings-intro {
+      margin-bottom: 24px;
+    }
+
+    .settings-intro h1 {
+      margin: 0 0 6px;
+      color: #0f172a;
+      font-size: 28px;
+    }
+
+    .settings-intro p {
+      margin: 0;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .settings-menu {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, .04);
+    }
+
+    .settings-tab {
+      width: 100%;
+      padding: 12px 13px;
+      margin-bottom: 4px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #64748b;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .settings-tab:hover {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .settings-tab.active {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .settings-content {
+      min-width: 0;
+    }
+
+    .settings-section {
+      display: none;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, .04);
+    }
+
+    .settings-section.active {
+      display: block;
+    }
+
+    .section-heading {
+      margin-bottom: 22px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      color: #334155;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      background: #fff;
+      color: #334155;
+      font-size: 13px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px #dbeafe;
+    }
+
+    .field-help {
+      color: #94a3b8;
+      font-size: 10px;
+    }
+
+    .limit-card {
+      padding: 16px;
+      margin-bottom: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .limit-card h3 {
+      margin: 0 0 14px;
+      color: #334155;
+      font-size: 14px;
+    }
+
+    .limit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .toggle-row:last-child {
+      border-bottom: 0;
+    }
+
+    .toggle-title {
+      color: #334155;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .toggle-description {
+      margin-top: 3px;
+      color: #64748b;
+      font-size: 11px;
+    }
+
+    .switch {
+      position: relative;
+      width: 42px;
+      height: 23px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #cbd5e1;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: .2s;
+    }
+
+    .switch input:checked + .slider {
+      background: #2563eb;
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(19px);
+    }
+
+    .model-health {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .health-card {
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .health-label {
+      color: #64748b;
+      font-size: 11px;
+    }
+
+    .health-value {
+      margin-top: 5px;
+      color: #0f172a;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 9px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .save-message {
+      display: none;
+      padding: 9px 12px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 7px;
+      color: #166534;
+      font-size: 11px;
+    }
+
+    .warning-box {
+      padding: 14px;
+      margin-top: 18px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 9px;
+      color: #92400e;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-menu {
+        display: flex;
+        overflow-x: auto;
+        gap: 5px;
+      }
+
+      .settings-tab {
+        min-width: max-content;
+      }
+
+      .limit-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .settings-page {
+        padding: 15px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .limit-grid,
+      .model-health {
+        grid-template-columns: 1fr;
+      }
+
+      .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .action-buttons {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo-area">
+      <div class="logo-mark">BW</div>
+
+      <div>
+        <strong>Baghewala DT</strong>
+        <span>Well Intelligence</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <div class="nav-section">Overview</div>
+
+      <a href="index.html">Dashboard</a>
+      <a href="digital-twin.html">Digital Twin</a>
+
+      <div class="nav-section">Optimization</div>
+
+      <a href="css-optimization.html">CSS Optimization</a>
+      <a href="srp-optimization.html">SRP Optimization</a>
+      <a href="joint-optimization.html">Joint Optimization</a>
+      <a href="simulator.html">What-if Simulator</a>
+      <a href="operating-envelope.html">Operating Envelope</a>
+
+      <div class="nav-section">Analytics</div>
+
+      <a href="predictions.html">Predictions</a>
+      <a href="risk-monitoring.html">Risk Monitoring</a>
+      <a href="production.html">Production</a>
+      <a href="energy.html">Energy</a>
+
+      <div class="nav-section">Operations</div>
+
+      <a href="history.html">History</a>
+      <a href="alerts.html">Alerts</a>
+      <a href="recommendations.html">Recommendations</a>
+      <a href="calibration.html">Calibration</a>
+
+      <div class="nav-section">System</div>
+
+      <a href="data-management.html">Data Management</a>
+      <a href="settings.html" class="active">Settings</a>
+
+    </nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <header class="top-header">
+
+      <div>
+        <strong>BAGHEWALA / WELL BW-01</strong>
+        <span class="live-badge">● LIVE</span>
+      </div>
+
+      <div class="header-right">
+        <span>27 Sep 2026</span>
+        <span>Operator: Control Room</span>
+      </div>
+
+    </header>
+
+    <section class="settings-page">
+
+      <div class="settings-intro">
+
+        <h1>System Settings</h1>
+
+        <p>
+          Configure well parameters, operating limits, model behavior and operator preferences.
+        </p>
+
+      </div>
+
+      <div class="settings-layout">
+
+        <!-- SETTINGS MENU -->
+
+        <div class="settings-menu">
+
+          <button class="settings-tab active"
+                  onclick="showTab('well', this)">
+            Well Configuration
+          </button>
+
+          <button class="settings-tab"
+                  onclick="showTab('limits', this)">
+            Operating Limits
+          </button>
+
+          <button class="settings-tab"
+                  onclick="showTab('model', this)">
+            Model Settings
+          </button>
+
+          <button class="settings-tab"
+                  onclick="showTab('notifications', this)">
+            Notifications
+          </button>
+
+          <button class="settings-tab"
+                  onclick="showTab('display', this)">
+            Display & Units
+          </button>
+
+          <button class="settings-tab"
+                  onclick="showTab('operator', this)">
+            Operator
+          </button>
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="settings-content">
+
+          <!-- WELL -->
+
+          <section class="settings-section active" id="well">
+
+            <div class="section-heading">
+
+              <h2>Well Configuration</h2>
+
+              <p>
+                Basic information used by the Well-to-Surface Digital Twin.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label>Field Name</label>
+                <input id="fieldName" value="Baghewala Heavy Oil Field">
+              </div>
+
+              <div class="form-group">
+                <label>Well ID</label>
+                <input id="wellId" value="BW-01">
+              </div>
+
+              <div class="form-group">
+                <label>Reservoir</label>
+                <input id="reservoir" value="Jodhpur Sandstone">
+              </div>
+
+              <div class="form-group">
+                <label>Well Type</label>
+
+                <select id="wellType">
+                  <option>Heavy Oil Producer</option>
+                  <option>Steam Injection Well</option>
+                  <option>Thermal Production Well</option>
+                </select>
+
+              </div>
+
+              <div class="form-group">
+                <label>API Gravity</label>
+                <input value="18" type="number">
+                <span class="field-help">
+                  Prototype field value
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label>Initial Reservoir Temperature</label>
+                <input value="47" type="number">
+              </div>
+
+              <div class="form-group">
+                <label>Reservoir Pressure</label>
+                <input value="28" type="number">
+              </div>
+
+              <div class="form-group">
+                <label>Current Production Rate</label>
+                <input value="44.8" type="number">
+              </div>
+
+            </div>
+
+            <div class="warning-box">
+              These configuration values define the context used by the
+              prototype Digital Twin. Production-critical field limits should
+              only be changed using approved engineering and operating procedures.
+            </div>
+
+          </section>
+
+          <!-- LIMITS -->
+
+          <section class="settings-section" id="limits">
+
+            <div class="section-heading">
+
+              <h2>Operating Limits</h2>
+
+              <p>
+                Constraints used by the joint CSS + SRP optimization engine.
+              </p>
+
+            </div>
+
+            <div class="limit-card">
+
+              <h3>CSS / Steam Parameters</h3>
+
+              <div class="limit-grid">
+
+                <div class="form-group">
+                  <label>Min Steam Volume (t)</label>
+                  <input id="steamMin" value="40" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Max Steam Volume (t)</label>
+                  <input id="steamMax" value="90" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Min Pressure (bar)</label>
+                  <input value="10" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Max Pressure (bar)</label>
+                  <input value="18" type="number">
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="limit-card">
+
+              <h3>SRP Parameters</h3>
+
+              <div class="limit-grid">
+
+                <div class="form-group">
+                  <label>Min SPM</label>
+                  <input id="spmMin" value="3" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Max SPM</label>
+                  <input id="spmMax" value="12" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Min Stroke (in)</label>
+                  <input value="36" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Max Stroke (in)</label>
+                  <input value="72" type="number">
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="limit-card">
+
+              <h3>Risk Constraints</h3>
+
+              <div class="limit-grid">
+
+                <div class="form-group">
+                  <label>Max Rod Load (%)</label>
+                  <input value="80" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Min Pump Fillage (%)</label>
+                  <input value="70" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Max SOR</label>
+                  <input value="4.5" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label>Max Risk Score (%)</label>
+                  <input value="70" type="number">
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- MODEL -->
+
+          <section class="settings-section" id="model">
+
+            <div class="section-heading">
+
+              <h2>Digital Twin Model Settings</h2>
+
+              <p>
+                Configure prediction and calibration behavior.
+              </p>
+
+            </div>
+
+            <div class="model-health">
+
+              <div class="health-card">
+                <div class="health-label">Overall Model Health</div>
+                <div class="health-value">94%</div>
+              </div>
+
+              <div class="health-card">
+                <div class="health-label">Last Calibration</div>
+                <div class="health-value">26 Sep</div>
+              </div>
+
+              <div class="health-card">
+                <div class="health-label">Prediction Confidence</div>
+                <div class="health-value">87%</div>
+              </div>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  Automatic Model Calibration
+                </div>
+
+                <div class="toggle-description">
+                  Use validated actual-vs-predicted results to update the model.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  Confidence Adjustment
+                </div>
+
+                <div class="toggle-description">
+                  Reduce recommendation confidence when data quality falls.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  Explainable Recommendations
+                </div>
+
+                <div class="toggle-description">
+                  Display the engineering reasons behind each recommendation.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  Operator Approval Required
+                </div>
+
+                <div class="toggle-description">
+                  Recommendations remain decision-support and require operator action.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+          </section>
+
+          <!-- NOTIFICATIONS -->
+
+          <section class="settings-section" id="notifications">
+
+            <div class="section-heading">
+
+              <h2>Notifications</h2>
+
+              <p>
+                Configure operational alerts and recommendation notifications.
+              </p>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  High Mechanical Risk
+                </div>
+
+                <div class="toggle-description">
+                  Alert when rod load, impact loading or floating risk becomes high.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  High Viscosity Condition
+                </div>
+
+                <div class="toggle-description">
+                  Notify when estimated viscosity approaches the operating limit.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  Production Deviation
+                </div>
+
+                <div class="toggle-description">
+                  Alert when actual production significantly deviates from prediction.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="toggle-row">
+
+              <div>
+                <div class="toggle-title">
+                  Data Quality Warning
+                </div>
+
+                <div class="toggle-description">
+                  Notify when missing, delayed or anomalous data affects confidence.
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+          </section>
+
+          <!-- DISPLAY -->
+
+          <section class="settings-section" id="display">
+
+            <div class="section-heading">
+
+              <h2>Display & Units</h2>
+
+              <p>
+                Configure how measurements are displayed throughout the dashboard.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label>Temperature Unit</label>
+
+                <select id="temperatureUnit">
+                  <option selected>°C — Celsius</option>
+                  <option>°F — Fahrenheit</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Pressure Unit</label>
+
+                <select>
+                  <option selected>bar</option>
+                  <option>psi</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Production Unit</label>
+
+                <select>
+                  <option selected>m³/day</option>
+                  <option>bbl/day</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Energy Unit</label>
+
+                <select>
+                  <option selected>kWh</option>
+                  <option>MJ</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Dashboard Refresh Rate</label>
+
+                <select>
+                  <option>5 seconds</option>
+                  <option selected>10 seconds</option>
+                  <option>30 seconds</option>
+                  <option>60 seconds</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Theme</label>
+
+                <select>
+                  <option selected>Light</option>
+                  <option>Dark</option>
+                  <option>System</option>
+                </select>
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- OPERATOR -->
+
+          <section class="settings-section" id="operator">
+
+            <div class="section-heading">
+
+              <h2>Operator Settings</h2>
+
+              <p>
+                Current control-room user and session preferences.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label>Operator Name</label>
+                <input id="operatorName" value="Control Room">
+              </div>
+
+              <div class="form-group">
+                <label>Role</label>
+
+                <select>
+                  <option selected>Production Operator</option>
+                  <option>Production Engineer</option>
+                  <option>Reservoir Engineer</option>
+                  <option>Administrator</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Shift</label>
+
+                <select>
+                  <option selected>Day Shift</option>
+                  <option>Night Shift</option>
+                  <option>General</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Session Timeout</label>
+
+                <select>
+                  <option>15 minutes</option>
+                  <option selected>30 minutes</option>
+                  <option>60 minutes</option>
+                  <option>Never</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="warning-box">
+              Operator settings affect the local prototype interface only.
+              Production deployments should integrate with the site's approved
+              authentication and authorization system.
+            </div>
+
+          </section>
+
+          <!-- ACTION BAR -->
+
+          <div class="action-bar">
+
+            <div class="save-message" id="saveMessage">
+              ✓ Settings saved successfully.
+            </div>
+
+            <div class="action-buttons">
+
+              <button class="btn btn-secondary"
+                      onclick="resetSettings()">
+                Reset
+              </button>
+
+              <button class="btn btn-primary"
+                      onclick="saveSettings()">
+                Save Settings
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script src="js/app.js"></script>
+
+<script>
+
+  function showTab(tabId, button) {
+
+    document.querySelectorAll(".settings-section")
+      .forEach(section => {
+        section.classList.remove("active");
+      });
+
+    document.querySelectorAll(".settings-tab")
+      .forEach(tab => {
+        tab.classList.remove("active");
+      });
+
+    document.getElementById(tabId)
+      .classList.add("active");
+
+    button.classList.add("active");
+  }
+
+
+  function saveSettings() {
+
+    const settings = {
+
+      fieldName:
+        document.getElementById("fieldName").value,
+
+      wellId:
+        document.getElementById("wellId").value,
+
+      reservoir:
+        document.getElementById("reservoir").value,
+
+      wellType:
+        document.getElementById("wellType").value,
+
+      steamMin:
+        document.getElementById("steamMin")?.value,
+
+      steamMax:
+        document.getElementById("steamMax")?.value,
+
+      spmMin:
+        document.getElementById("spmMin")?.value,
+
+      spmMax:
+        document.getElementById("spmMax")?.value,
+
+      operator:
+        document.getElementById("operatorName").value
+
+    };
+
+    localStorage.setItem(
+      "baghewalaSettings",
+      JSON.stringify(settings)
+    );
+
+    const message =
+      document.getElementById("saveMessage");
+
+    message.style.display = "block";
+
+    setTimeout(() => {
+      message.style.display = "none";
+    }, 3000);
+  }
+
+
+  function loadSettings() {
+
+    const saved =
+      localStorage.getItem("baghewalaSettings");
+
+    if (!saved) return;
+
+    const settings = JSON.parse(saved);
+
+    if (settings.fieldName)
+      document.getElementById("fieldName").value =
+        settings.fieldName;
+
+    if (settings.wellId)
+      document.getElementById("wellId").value =
+        settings.wellId;
+
+    if (settings.reservoir)
+      document.getElementById("reservoir").value =
+        settings.reservoir;
+
+    if (settings.wellType)
+      document.getElementById("wellType").value =
+        settings.wellType;
+
+    if (settings.steamMin)
+      document.getElementById("steamMin").value =
+        settings.steamMin;
+
+    if (settings.steamMax)
+      document.getElementById("steamMax").value =
+        settings.steamMax;
+
+    if (settings.spmMin)
+      document.getElementById("spmMin").value =
+        settings.spmMin;
+
+    if (settings.spmMax)
+      document.getElementById("spmMax").value =
+        settings.spmMax;
+
+    if (settings.operator)
+      document.getElementById("operatorName").value =
+        settings.operator;
+  }
+
+
+  function resetSettings() {
+
+    if (
+      confirm(
+        "Reset prototype settings to their default values?"
+      )
+    ) {
+
+      localStorage.removeItem(
+        "baghewalaSettings"
+      );
+
+      location.reload();
+
+    }
+
+  }
+
+
+  loadSettings();
+
+</script>
+
+</body>
+</html>

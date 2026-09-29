@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Baghewala Well-to-Surface Digital Twin"
+    >
+
+    <title>Baghewala Digital Twin | Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                ◇
+            </div>
+
+            <div class="brand-text">
+
+                <h2>BAGHEWALA</h2>
+
+                <span>DIGITAL TWIN</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+
+            <!-- OVERVIEW -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    OVERVIEW
+                </span>
+
+
+                <a href="index.html" class="nav-item">
+
+                    <span class="nav-icon">▦</span>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <a href="digital-twin.html" class="nav-item active">
+
+                    <span class="nav-icon">◎</span>
+
+                    <span>Digital Twin</span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- OPTIMIZATION -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    OPTIMIZATION
+                </span>
+
+
+                <a href="css-optimization.html" class="nav-item">
+
+                    <span class="nav-icon">♨</span>
+
+                    <span>CSS Optimization</span>
+
+                </a>
+
+
+                <a href="srp-optimization.html" class="nav-item">
+
+                    <span class="nav-icon">⚙</span>
+
+                    <span>SRP Optimization</span>
+
+                </a>
+
+
+                <a href="joint-optimization.html" class="nav-item">
+
+                    <span class="nav-icon">⇄</span>
+
+                    <span>Joint CSS–SRP</span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- MONITORING -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    MONITORING
+                </span>
+
+
+                <a href="simulator.html" class="nav-item">
+
+                    <span class="nav-icon">◇</span>
+
+                    <span>What-If Simulator</span>
+
+                </a>
+
+
+                <a href="operating-envelope.html" class="nav-item">
+
+                    <span class="nav-icon">△</span>
+
+                    <span>Operating Envelope</span>
+
+                </a>
+
+
+                <a href="predictions.html" class="nav-item">
+
+                    <span class="nav-icon">⌁</span>
+
+                    <span>Predictions</span>
+
+                </a>
+
+
+                <a href="risk-monitoring.html" class="nav-item">
+
+                    <span class="nav-icon">!</span>
+
+                    <span>Risk Monitoring</span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ANALYTICS -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    ANALYTICS
+                </span>
+
+
+                <a href="production.html" class="nav-item">
+
+                    <span class="nav-icon">▥</span>
+
+                    <span>Production</span>
+
+                </a>
+
+
+                <a href="energy.html" class="nav-item">
+
+                    <span class="nav-icon">⚡</span>
+
+                    <span>Energy</span>
+
+                </a>
+
+
+                <a href="history.html" class="nav-item">
+
+                    <span class="nav-icon">◷</span>
+
+                    <span>Well History</span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SYSTEM -->
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    SYSTEM
+                </span>
+
+
+                <a href="alerts.html" class="nav-item">
+
+                    <span class="nav-icon">♢</span>
+
+                    <span>Alerts</span>
+
+                    <b class="notification">3</b>
+
+                </a>
+
+
+                <a href="recommendations.html" class="nav-item">
+
+                    <span class="nav-icon">✦</span>
+
+                    <span>Recommendations</span>
+
+                </a>
+
+
+                <a href="calibration.html" class="nav-item">
+
+                    <span class="nav-icon">↻</span>
+
+                    <span>Calibration</span>
+
+                </a>
+
+
+                <a href="data-management.html" class="nav-item">
+
+                    <span class="nav-icon">▤</span>
+
+                    <span>Data Management</span>
+
+                </a>
+
+
+                <a href="settings.html" class="nav-item">
+
+                    <span class="nav-icon">⚙</span>
+
+                    <span>Settings</span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Operational
+                    </strong>
+
+                    <small>
+                        All services running
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <div class="breadcrumb">
+
+                    FIELD
+                    <span>/</span>
+                    BAGHEWALA
+                    <span>/</span>
+                    WELL BW-01
+
+                </div>
+
+
+                <h1>
+                    Well-to-Surface Digital Twin
+                </h1>
+
+            </div>
+
+
+            <div class="header-right">
+
+
+                <div class="well-selector">
+
+                    <span class="status-dot"></span>
+
+                    <strong>
+                        BW-01
+                    </strong>
+
+                    <span class="live-text">
+                        LIVE
+                    </span>
+
+                </div>
+
+
+                <div class="header-time">
+
+                    <strong>
+                        27 Sep 2026
+                    </strong>
+
+                    <span id="currentTime">
+                        --:--:--
+                    </span>
+
+                </div>
+
+
+                <div class="user">
+
+                    <div class="avatar">
+                        OP
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Operator
+                        </strong>
+
+                        <small>
+                            Control Room
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="content">
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="page-intro">
+
+                <div class="intro-left">
+
+                    <h2>
+                        Virtual Well Representation
+                    </h2>
+
+                    <p>
+                        Live virtual state of reservoir, wellbore,
+                        artificial lift and surface production.
+                    </p>
+
+                </div>
+
+
+                <div class="last-update">
+
+                    <span class="status-dot"></span>
+
+                    Digital Twin Synchronized
+
+                    <strong>
+                        12 sec ago
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DIGITAL TWIN TOOLBAR
+            ================================================== -->
+
+            <div class="dt-toolbar">
+
+                <div class="dt-toolbar-left">
+
+                    <button
+                        class="dt-view-btn active"
+                        onclick="setTwinView('overview')"
+                    >
+                        Overview
+                    </button>
+
+
+                    <button
+                        class="dt-view-btn"
+                        onclick="setTwinView('thermal')"
+                    >
+                        Thermal
+                    </button>
+
+
+                    <button
+                        class="dt-view-btn"
+                        onclick="setTwinView('fluid')"
+                    >
+                        Fluid
+                    </button>
+
+
+                    <button
+                        class="dt-view-btn"
+                        onclick="setTwinView('srp')"
+                    >
+                        SRP
+                    </button>
+
+                </div>
+
+
+                <div class="dt-toolbar-right">
+
+                    <span class="dt-sync">
+
+                        <span class="status-dot"></span>
+
+                        Model synchronized
+
+                    </span>
+
+
+                    <button
+                        class="btn secondary"
+                        onclick="refreshTwin()"
+                    >
+                        ↻ Refresh Twin
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MAIN DIGITAL TWIN VISUALIZATION
+            ================================================== -->
+
+            <div class="dt-visual-panel">
+
+
+                <!-- PANEL HEADER -->
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Well-to-Surface Model
+                        </h3>
+
+                        <p>
+                            Virtual representation of the current
+                            physical system state
+                        </p>
+
+                    </div>
+
+
+                    <div class="dt-model-status">
+
+                        <span class="status-dot"></span>
+
+                        DIGITAL TWIN ACTIVE
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     WELL VISUALIZATION
+                ================================================== -->
+
+                <div class="well-model">
+
+
+                    <!-- RESERVOIR -->
+
+                    <div class="reservoir-zone">
+
+                        <div class="zone-label">
+
+                            <span class="zone-number">
+                                01
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    RESERVOIR
+                                </strong>
+
+                                <small>
+                                    Jodhpur Sandstone
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="reservoir-rock">
+
+                            <div class="heat-zone">
+
+                                <span>
+                                    HEATED ZONE
+                                </span>
+
+                                <strong>
+                                    47.2°C
+                                </strong>
+
+                            </div>
+
+
+                            <div class="reservoir-points">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+
+                            <div class="steam-flow">
+
+                                <span>
+                                    STEAM
+                                </span>
+
+                                <div class="steam-arrow">
+                                    ↑
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="reservoir-data">
+
+                            <div>
+
+                                <span>
+                                    Pressure
+                                </span>
+
+                                <strong>
+                                    38 bar
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Temperature
+                                </span>
+
+                                <strong>
+                                    47.2°C
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Viscosity
+                                </span>
+
+                                <strong>
+                                    1,850 cP
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- WELLBORE -->
+
+                    <div class="wellbore-zone">
+
+
+                        <div class="zone-label">
+
+                            <span class="zone-number">
+                                02
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    WELLBORE
+                                </strong>
+
+                                <small>
+                                    Production interval
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="wellbore">
+
+                            <div class="casing">
+
+                                <div class="tubing">
+
+                                    <div class="fluid-column">
+
+                                        <div class="flow-particle p1"></div>
+                                        <div class="flow-particle p2"></div>
+                                        <div class="flow-particle p3"></div>
+                                        <div class="flow-particle p4"></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="well-depth">
+
+                                <span>
+                                    0 m
+                                </span>
+
+                                <span>
+                                    250 m
+                                </span>
+
+                                <span>
+                                    500 m
+                                </span>
+
+                                <span>
+                                    750 m
+                                </span>
+
+                                <span>
+                                    1000 m
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="wellbore-data">
+
+                            <div>
+
+                                <span>
+                                    Bottomhole Pressure
+                                </span>
+
+                                <strong>
+                                    31 bar
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Fluid Temperature
+                                </span>
+
+                                <strong>
+                                    45.8°C
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SRP -->
+
+                    <div class="srp-zone">
+
+
+                        <div class="zone-label">
+
+                            <span class="zone-number">
+                                03
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    SRP SYSTEM
+                                </strong>
+
+                                <small>
+                                    Artificial lift
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="pumpjack">
+
+                            <div class="pumpjack-head">
+
+                                <div class="pumpjack-beam"></div>
+
+                                <div class="pumpjack-head-unit">
+                                    ◇
+                                </div>
+
+                            </div>
+
+
+                            <div class="pumpjack-support">
+
+                                <div></div>
+                                <div></div>
+                                <div></div>
+
+                            </div>
+
+
+                            <div class="pumpjack-base"></div>
+
+
+                            <div class="rod-string"></div>
+
+
+                            <div class="pump-unit">
+
+                                <span>
+                                    PUMP
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="srp-data">
+
+
+                            <div>
+
+                                <span>
+                                    SPM
+                                </span>
+
+                                <strong>
+                                    5.2
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Stroke
+                                </span>
+
+                                <strong>
+                                    2.4 m
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    VFD
+                                </span>
+
+                                <strong>
+                                    55 Hz
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Efficiency
+                                </span>
+
+                                <strong class="positive">
+                                    71%
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SURFACE -->
+
+                    <div class="surface-zone">
+
+
+                        <div class="zone-label">
+
+                            <span class="zone-number">
+                                04
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    SURFACE
+                                </strong>
+
+                                <small>
+                                    Production system
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="surface-equipment">
+
+
+                            <div class="separator">
+
+                                <div class="separator-top">
+                                </div>
+
+                                <div class="separator-body">
+
+                                    <span>
+                                        3-PHASE
+                                    </span>
+
+                                    <strong>
+                                        SEPARATOR
+                                    </strong>
+
+                                </div>
+
+                                <div class="separator-bottom">
+                                </div>
+
+                            </div>
+
+
+                            <div class="flow-pipe">
+
+                                <span class="oil-flow"></span>
+
+                            </div>
+
+
+                            <div class="production-output">
+
+                                <span>
+                                    OIL
+                                </span>
+
+                                <strong>
+                                    31.4
+                                </strong>
+
+                                <small>
+                                    m³/day
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="surface-data">
+
+                            <div>
+
+                                <span>
+                                    Oil
+                                </span>
+
+                                <strong>
+                                    31.4 m³/day
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Water
+                                </span>
+
+                                <strong>
+                                    8.2 m³/day
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Energy
+                                </span>
+
+                                <strong>
+                                    438 kWh/day
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CURRENT VIRTUAL STATE
+            ================================================== -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h3>
+                        Current Virtual State
+                    </h3>
+
+                    <p>
+                        State variables maintained by the Digital Twin
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="virtual-state-grid">
+
+
+                <!-- RESERVOIR -->
+
+                <div class="state-card">
+
+                    <div class="state-card-header">
+
+                        <div class="state-icon">
+                            ◉
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Reservoir
+                            </strong>
+
+                            <span>
+                                Thermal & pressure state
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="state-values">
+
+
+                        <div>
+
+                            <span>
+                                Temperature
+                            </span>
+
+                            <strong>
+                                47.2 °C
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Pressure
+                            </span>
+
+                            <strong>
+                                38 bar
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Heating Index
+                            </span>
+
+                            <strong class="positive">
+                                64%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FLUID -->
+
+                <div class="state-card">
+
+                    <div class="state-card-header">
+
+                        <div class="state-icon">
+                            ≋
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Fluid
+                            </strong>
+
+                            <span>
+                                Heavy crude condition
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="state-values">
+
+
+                        <div>
+
+                            <span>
+                                Viscosity
+                            </span>
+
+                            <strong>
+                                1,850 cP
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                API Gravity
+                            </span>
+
+                            <strong>
+                                18.2° API
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Mobility Index
+                            </span>
+
+                            <strong class="warning">
+                                0.54
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WELLBORE -->
+
+                <div class="state-card">
+
+                    <div class="state-card-header">
+
+                        <div class="state-icon">
+                            ↕
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Wellbore
+                            </strong>
+
+                            <span>
+                                Flow condition
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="state-values">
+
+
+                        <div>
+
+                            <span>
+                                BHP
+                            </span>
+
+                            <strong>
+                                31 bar
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Fluid Temp.
+                            </span>
+
+                            <strong>
+                                45.8°C
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Flow Condition
+                            </span>
+
+                            <strong class="positive">
+                                STABLE
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SRP -->
+
+                <div class="state-card">
+
+                    <div class="state-card-header">
+
+                        <div class="state-icon">
+                            ⚙
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                SRP
+                            </strong>
+
+                            <span>
+                                Artificial lift
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="state-values">
+
+
+                        <div>
+
+                            <span>
+                                SPM
+                            </span>
+
+                            <strong>
+                                5.2
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Stroke
+                            </span>
+
+                            <strong>
+                                2.4 m
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Pump Efficiency
+                            </span>
+
+                            <strong class="positive">
+                                71%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ROD -->
+
+                <div class="state-card">
+
+                    <div class="state-card-header">
+
+                        <div class="state-icon">
+                            ↕
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Rod String
+                            </strong>
+
+                            <span>
+                                Mechanical condition
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="state-values">
+
+
+                        <div>
+
+                            <span>
+                                Loading
+                            </span>
+
+                            <strong>
+                                68%
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Floating Risk
+                            </span>
+
+                            <strong class="positive">
+                                LOW
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Impact Risk
+                            </span>
+
+                            <strong class="positive">
+                                LOW
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SURFACE -->
+
+                <div class="state-card">
+
+                    <div class="state-card-header">
+
+                        <div class="state-icon">
+                            ▥
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Surface
+                            </strong>
+
+                            <span>
+                                Production state
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="state-values">
+
+
+                        <div>
+
+                            <span>
+                                Oil
+                            </span>
+
+                            <strong>
+                                31.4 m³/day
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Water
+                            </span>
+
+                            <strong>
+                                8.2 m³/day
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Total Fluid
+                            </span>
+
+                            <strong>
+                                39.6 m³/day
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DIGITAL TWIN SIGNALS
+            ================================================== -->
+
+            <div class="dt-bottom-grid">
+
+
+                <!-- SIGNAL FLOW -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Digital Twin Signal Flow
+                            </h3>
+
+                            <p>
+                                Current dependency chain
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="signal-flow">
+
+
+                        <div class="signal-node">
+
+                            <span class="signal-icon">
+                                ♨
+                            </span>
+
+                            <strong>
+                                CSS
+                            </strong>
+
+                            <small>
+                                Steam 120 m³
+                            </small>
+
+                        </div>
+
+
+                        <div class="signal-arrow">
+                            →
+                        </div>
+
+
+                        <div class="signal-node">
+
+                            <span class="signal-icon">
+                                ◉
+                            </span>
+
+                            <strong>
+                                Temperature
+                            </strong>
+
+                            <small>
+                                47.2°C
+                            </small>
+
+                        </div>
+
+
+                        <div class="signal-arrow">
+                            →
+                        </div>
+
+
+                        <div class="signal-node">
+
+                            <span class="signal-icon">
+                                ≋
+                            </span>
+
+                            <strong>
+                                Viscosity
+                            </strong>
+
+                            <small>
+                                1,850 cP
+                            </small>
+
+                        </div>
+
+
+                        <div class="signal-arrow">
+                            →
+                        </div>
+
+
+                        <div class="signal-node">
+
+                            <span class="signal-icon">
+                                ⚙
+                            </span>
+
+                            <strong>
+                                SRP
+                            </strong>
+
+                            <small>
+                                5.2 SPM
+                            </small>
+
+                        </div>
+
+
+                        <div class="signal-arrow">
+                            →
+                        </div>
+
+
+                        <div class="signal-node">
+
+                            <span class="signal-icon">
+                                ▥
+                            </span>
+
+                            <strong>
+                                Production
+                            </strong>
+
+                            <small>
+                                31.4 m³/day
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MODEL CONFIDENCE -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Model Confidence
+                            </h3>
+
+                            <p>
+                                Current virtual state confidence
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="confidence-score">
+
+                        <div class="confidence-circle">
+
+                            <strong>
+                                87%
+                            </strong>
+
+                            <span>
+                                CONFIDENCE
+                            </span>
+
+                        </div>
+
+
+                        <div class="confidence-details">
+
+
+                            <div>
+
+                                <span>
+                                    Thermal Model
+                                </span>
+
+                                <strong>
+                                    91%
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Fluid Model
+                                </span>
+
+                                <strong>
+                                    84%
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    SRP Model
+                                </span>
+
+                                <strong>
+                                    88%
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Production Model
+                                </span>
+
+                                <strong>
+                                    86%
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ACTIONS
+            ================================================== -->
+
+            <div class="dt-actions">
+
+
+                <a
+                    href="simulator.html"
+                    class="btn primary"
+                >
+                    Open What-If Simulator
+                </a>
+
+
+                <a
+                    href="joint-optimization.html"
+                    class="btn secondary"
+                >
+                    Run Joint Optimization
+                </a>
+
+
+                <a
+                    href="predictions.html"
+                    class="btn secondary"
+                >
+                    View Predictions
+                </a>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     DIGITAL TWIN JAVASCRIPT
+====================================================== -->
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+    /* =========================================
+       CURRENT TIME
+    ========================================= */
+
+    function updateTime() {
+
+        const element =
+            document.getElementById("currentTime");
+
+        if (!element) return;
+
+        const now = new Date();
+
+        element.textContent =
+            now.toLocaleTimeString(
+                "en-IN",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+
+    }
+
+
+    updateTime();
+
+    setInterval(
+        updateTime,
+        1000
+    );
+
+
+
+    /* =========================================
+       DIGITAL TWIN VIEW
+    ========================================= */
+
+    function setTwinView(view) {
+
+        const buttons =
+            document.querySelectorAll(
+                ".dt-view-btn"
+            );
+
+        buttons.forEach(
+            button => {
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        event.currentTarget.classList.add(
+            "active"
+        );
+
+
+        console.log(
+            "Digital Twin view:",
+            view
+        );
+
+    }
+
+
+
+    /* =========================================
+       REFRESH DIGITAL TWIN
+    ========================================= */
+
+    function refreshTwin() {
+
+        const status =
+            document.querySelector(
+                ".dt-sync"
+            );
+
+        if (!status) return;
+
+
+        status.innerHTML =
+            '<span class="status-dot"></span>' +
+            ' Synchronizing...';
+
+
+        setTimeout(
+            () => {
+
+                status.innerHTML =
+                    '<span class="status-dot"></span>' +
+                    ' Model synchronized';
+
+            },
+            1200
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

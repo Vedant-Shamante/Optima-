@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Well History | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+<style id="page-layout-adjustments">
+/* ===== Baghewala Well History — Layout Only ===== */
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.app-layout {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Fixed sidebar */
+.sidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 250px !important;
+    height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 1000;
+}
+
+.main-content {
+    width: calc(100% - 250px) !important;
+    min-width: 0 !important;
+    margin-left: 250px !important;
+    padding: 0 !important;
+}
+
+/* Header */
+.top-header {
+    width: 100% !important;
+    min-height: 110px;
+    padding: 24px 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px;
+}
+
+.top-header > div:first-child {
+    min-width: 0;
+}
+
+.top-header h1 {
+    margin-top: 4px !important;
+    margin-bottom: 6px !important;
+}
+
+.page-subtitle {
+    max-width: 820px;
+    margin-bottom: 0 !important;
+}
+
+.header-right {
+    flex: 0 0 auto;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+/* Main content */
+.page-content.history-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 28px 32px 40px !important;
+}
+
+/* Page heading */
+.history-heading {
+    width: 100%;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.history-heading > div:first-child {
+    min-width: 0;
+}
+
+.history-heading p {
+    max-width: 820px;
+}
+
+.history-controls {
+    flex: 0 0 auto;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* KPI cards */
+.kpi-grid.history-kpis {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    margin-bottom: 22px;
+}
+
+.history-kpis .kpi-card {
+    min-width: 0;
+}
+
+/* Panels */
+.history-page .panel {
+    width: 100%;
+    min-width: 0;
+}
+
+.panel-header {
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.panel-header > div:first-child {
+    min-width: 0;
+}
+
+/* Timeline */
+.history-timeline-panel {
+    margin-bottom: 22px;
+}
+
+.history-timeline {
+    width: 100%;
+    min-width: 0;
+}
+
+.history-event {
+    width: 100%;
+    min-width: 0;
+    display: grid !important;
+    grid-template-columns: 82px 42px minmax(0, 1fr) !important;
+    column-gap: 18px !important;
+    align-items: start;
+}
+
+.history-date {
+    min-width: 0;
+    text-align: right;
+}
+
+.timeline-marker {
+    justify-self: center;
+}
+
+.history-event-content {
+    min-width: 0;
+    width: 100%;
+}
+
+.event-top {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 16px;
+}
+
+.event-top > div:first-child {
+    min-width: 0;
+}
+
+.event-top h4 {
+    overflow-wrap: anywhere;
+}
+
+.event-status {
+    flex: 0 0 auto;
+}
+
+.event-data {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    width: 100%;
+}
+
+/* Analysis section */
+.history-analysis-grid {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: 20px !important;
+    align-items: stretch;
+    margin-bottom: 20px;
+}
+
+.history-analysis-grid > .panel {
+    min-width: 0;
+    height: 100%;
+}
+
+.activity-bars,
+.trace-list {
+    width: 100%;
+    min-width: 0;
+}
+
+.activity-row {
+    min-width: 0;
+}
+
+.activity-row > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.trace-row {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.trace-row > div {
+    min-width: 0;
+}
+
+.trace-arrow {
+    text-align: center;
+}
+
+/* Notice */
+.operator-notice {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.operator-notice > div:last-child {
+    min-width: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1250px) {
+    .sidebar {
+        width: 235px !important;
+    }
+
+    .main-content {
+        width: calc(100% - 235px) !important;
+        margin-left: 235px !important;
+    }
+
+    .top-header {
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+
+    .page-content.history-page {
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+
+    .kpi-grid.history-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .history-analysis-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .top-header {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start !important;
+    }
+
+    .history-heading {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .history-controls {
+        width: 100%;
+    }
+
+    .history-controls select {
+        flex: 1 1 220px;
+    }
+
+    .history-event {
+        grid-template-columns: 72px 38px minmax(0, 1fr) !important;
+        column-gap: 12px !important;
+    }
+
+    .event-top {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .event-status {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .top-header {
+        padding: 20px 18px !important;
+    }
+
+    .page-content.history-page {
+        padding: 22px 18px 32px !important;
+    }
+
+    .kpi-grid.history-kpis {
+        grid-template-columns: 1fr !important;
+    }
+
+    .history-controls {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .history-controls select,
+    .history-controls button {
+        width: 100%;
+    }
+
+    .history-event {
+        grid-template-columns: 56px 34px minmax(0, 1fr) !important;
+        column-gap: 9px !important;
+    }
+
+    .history-date {
+        font-size: 0.85rem;
+    }
+
+    .event-data {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .history-analysis-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .operator-notice {
+        align-items: flex-start;
+    }
+}
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                BW
+            </div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+
+        </div>
+
+
+        <div class="well-selector">
+
+            <span class="small-label">
+                ACTIVE WELL
+            </span>
+
+            <strong>
+                BW-01
+            </strong>
+
+            <span class="well-status">
+
+                <span class="status-dot"></span>
+
+                Producing
+
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+
+            <div class="nav-section-title">
+                OVERVIEW
+            </div>
+
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+
+            <div class="nav-section-title">
+                OPTIMIZATION
+            </div>
+
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⚙</span>
+                SRP Optimization
+            </a>
+
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⇄</span>
+                Joint Optimization
+            </a>
+
+
+            <a href="simulator.html" class="nav-item">
+                <span>⌁</span>
+                What-if Simulator
+            </a>
+
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+
+            <div class="nav-section-title">
+                ANALYTICS
+            </div>
+
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>△</span>
+                Risk Monitoring
+            </a>
+
+
+            <a href="production.html" class="nav-item">
+                <span>▥</span>
+                Production
+            </a>
+
+
+            <a href="energy.html" class="nav-item">
+                <span>⚡</span>
+                Energy
+            </a>
+
+
+            <div class="nav-section-title">
+                OPERATIONS
+            </div>
+
+
+            <a href="history.html" class="nav-item active">
+                <span>◷</span>
+                History
+            </a>
+
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+
+            <a href="recommendations.html" class="nav-item">
+                <span>✓</span>
+                Recommendations
+            </a>
+
+
+            <a href="calibration.html" class="nav-item">
+                <span>↻</span>
+                Calibration
+            </a>
+
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <span>
+                SIH 2026 Prototype
+            </span>
+
+            <small>
+                Decision Support System
+            </small>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+
+            <div>
+
+                <div class="breadcrumb">
+                    OPERATIONS / HISTORY
+                </div>
+
+                <h1>
+                    Well History
+                </h1>
+
+                <p class="page-subtitle">
+                    Chronological record of CSS cycles, SRP changes,
+                    production response, alerts and operator decisions.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+
+                <div class="well-header">
+
+                    <span>
+                        BAGHEWALA
+                    </span>
+
+                    <strong>
+                        WELL BW-01
+                    </strong>
+
+                </div>
+
+
+                <div class="live-indicator">
+
+                    <span class="live-dot"></span>
+
+                    LIVE
+
+                </div>
+
+
+                <div class="header-date">
+                    27 Sep 2026
+                </div>
+
+
+                <div class="operator">
+
+                    OPERATOR
+
+                    <strong>
+                        Field Operations
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             PAGE CONTENT
+        ====================================================== -->
+
+        <section class="page-content history-page">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="history-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        WELL EVENT LOG
+                    </span>
+
+                    <h2>
+                        BW-01 Operational Timeline
+                    </h2>
+
+                    <p>
+                        Trace important well events and understand how
+                        operating decisions affected production and risk.
+                    </p>
+
+                </div>
+
+
+                <div class="history-controls">
+
+                    <select id="eventFilter">
+
+                        <option value="all">
+                            All Events
+                        </option>
+
+                        <option value="css">
+                            CSS
+                        </option>
+
+                        <option value="srp">
+                            SRP
+                        </option>
+
+                        <option value="production">
+                            Production
+                        </option>
+
+                        <option value="alert">
+                            Alerts
+                        </option>
+
+                        <option value="decision">
+                            Decisions
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="resetHistory()">
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUMMARY CARDS
+            ================================================== -->
+
+            <div class="kpi-grid history-kpis">
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            Total Events
+                        </span>
+
+                        <span class="kpi-icon">
+                            ◷
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span id="totalEvents">
+                            18
+                        </span>
+
+                        <small>
+                            events
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        Last 30 days
+                    </div>
+
+                </div>
+
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            CSS Cycles
+                        </span>
+
+                        <span class="kpi-icon">
+                            ♨
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span>
+                            3
+                        </span>
+
+                        <small>
+                            cycles
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change positive">
+                        2 completed
+                    </div>
+
+                </div>
+
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            SRP Changes
+                        </span>
+
+                        <span class="kpi-icon">
+                            ⚙
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span>
+                            6
+                        </span>
+
+                        <small>
+                            changes
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        Controlled operation
+                    </div>
+
+                </div>
+
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            Model Decisions
+                        </span>
+
+                        <span class="kpi-icon">
+                            ✓
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span>
+                            9
+                        </span>
+
+                        <small>
+                            recommendations
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change positive">
+                        91% confidence
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TIMELINE
+            ================================================== -->
+
+            <div class="panel history-timeline-panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            CHRONOLOGICAL EVENTS
+                        </span>
+
+                        <h3>
+                            Operational Timeline
+                        </h3>
+
+                    </div>
+
+
+                    <span class="history-live">
+                        ● Live history
+                    </span>
+
+                </div>
+
+
+
+                <div class="history-timeline" id="historyTimeline">
+
+
+                    <!-- EVENT 1 -->
+
+                    <div
+                        class="history-event"
+                        data-type="production">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                27 Sep
+                            </strong>
+
+                            <span>
+                                08:00
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker production-marker">
+                            ●
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category production">
+                                        PRODUCTION
+                                    </span>
+
+                                    <h4>
+                                        Oil production stabilized
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status success">
+                                    Normal
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Current oil production reached
+                                <strong>43.8 m³/d</strong>.
+                                Production remains above the pre-CSS
+                                baseline of 38.2 m³/d.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Oil: <strong>43.8 m³/d</strong>
+                                </span>
+
+                                <span>
+                                    Water cut: <strong>29.5%</strong>
+                                </span>
+
+                                <span>
+                                    Temp: <strong>54.8°C</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 2 -->
+
+                    <div
+                        class="history-event"
+                        data-type="decision">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                26 Sep
+                            </strong>
+
+                            <span>
+                                15:30
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker decision-marker">
+                            ✓
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category decision">
+                                        DECISION
+                                    </span>
+
+                                    <h4>
+                                        SRP speed maintained
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status info">
+                                    Operator
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Digital Twin recommended maintaining
+                                the current SRP speed instead of increasing
+                                SPM due to diminishing production benefit.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    SPM: <strong>7.2</strong>
+                                </span>
+
+                                <span>
+                                    Stroke: <strong>54 in</strong>
+                                </span>
+
+                                <span>
+                                    Confidence: <strong>91%</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 3 -->
+
+                    <div
+                        class="history-event"
+                        data-type="srp">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                24 Sep
+                            </strong>
+
+                            <span>
+                                10:15
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker srp-marker">
+                            ⚙
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category srp">
+                                        SRP
+                                    </span>
+
+                                    <h4>
+                                        Pumping speed adjusted
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status success">
+                                    Completed
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                SRP speed was adjusted gradually to match
+                                the changing fluid condition following the
+                                CSS thermal response.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Previous: <strong>6.8 SPM</strong>
+                                </span>
+
+                                <span>
+                                    New: <strong>7.2 SPM</strong>
+                                </span>
+
+                                <span>
+                                    Risk: <strong>Low</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 4 -->
+
+                    <div
+                        class="history-event"
+                        data-type="alert">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                23 Sep
+                            </strong>
+
+                            <span>
+                                04:40
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker alert-marker">
+                            !
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category alert">
+                                        ALERT
+                                    </span>
+
+                                    <h4>
+                                        Viscosity trend increasing
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status warning">
+                                    Watch
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Digital Twin detected a gradual increase
+                                in predicted oil viscosity as the reservoir
+                                entered the cooling phase.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Viscosity: <strong>1,860 cP</strong>
+                                </span>
+
+                                <span>
+                                    Temp: <strong>57.1°C</strong>
+                                </span>
+
+                                <span>
+                                    Trend: <strong>Increasing</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 5 -->
+
+                    <div
+                        class="history-event"
+                        data-type="css">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                18 Sep
+                            </strong>
+
+                            <span>
+                                06:00
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker css-marker-history">
+                            ♨
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category css">
+                                        CSS
+                                    </span>
+
+                                    <h4>
+                                        Steam injection cycle completed
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status success">
+                                    Completed
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Steam injection and soak sequence completed.
+                                The Digital Twin recorded a positive thermal
+                                response and predicted improved mobility.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Steam: <strong>65 t</strong>
+                                </span>
+
+                                <span>
+                                    Pressure: <strong>14.2 bar</strong>
+                                </span>
+
+                                <span>
+                                    Soak: <strong>36 hr</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 6 -->
+
+                    <div
+                        class="history-event"
+                        data-type="production">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                17 Sep
+                            </strong>
+
+                            <span>
+                                18:20
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker production-marker">
+                            ●
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category production">
+                                        PRODUCTION
+                                    </span>
+
+                                    <h4>
+                                        Production response detected
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status success">
+                                    Positive
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Oil production increased following the
+                                thermal response, reaching a temporary
+                                peak of 47.5 m³/d.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Peak: <strong>47.5 m³/d</strong>
+                                </span>
+
+                                <span>
+                                    Increase: <strong>24.3%</strong>
+                                </span>
+
+                                <span>
+                                    Response: <strong>Positive</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 7 -->
+
+                    <div
+                        class="history-event"
+                        data-type="css">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                15 Sep
+                            </strong>
+
+                            <span>
+                                07:00
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker css-marker-history">
+                            ♨
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category css">
+                                        CSS
+                                    </span>
+
+                                    <h4>
+                                        CSS cycle initiated
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status info">
+                                    Active
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Operator initiated the planned CSS cycle
+                                using the recommended operating window.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Steam: <strong>65 t</strong>
+                                </span>
+
+                                <span>
+                                    Pressure: <strong>14 bar</strong>
+                                </span>
+
+                                <span>
+                                    Soak: <strong>36 hr</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 8 -->
+
+                    <div
+                        class="history-event"
+                        data-type="decision">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                14 Sep
+                            </strong>
+
+                            <span>
+                                16:45
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker decision-marker">
+                            ✓
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category decision">
+                                        DECISION
+                                    </span>
+
+                                    <h4>
+                                        CSS operating point approved
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status info">
+                                    Operator
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Operator approved the Digital Twin recommendation
+                                after reviewing predicted production, SOR,
+                                thermal response and risk constraints.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Confidence: <strong>89%</strong>
+                                </span>
+
+                                <span>
+                                    SOR: <strong>4.8 t/m³</strong>
+                                </span>
+
+                                <span>
+                                    Risk: <strong>Low</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 9 -->
+
+                    <div
+                        class="history-event"
+                        data-type="alert">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                13 Sep
+                            </strong>
+
+                            <span>
+                                11:30
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker alert-marker">
+                            !
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category alert">
+                                        ALERT
+                                    </span>
+
+                                    <h4>
+                                        Energy consumption above target
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status resolved">
+                                    Resolved
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                Specific energy temporarily exceeded the
+                                preferred operating envelope during SRP
+                                adjustment.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    Peak: <strong>43.8 kWh/m³</strong>
+                                </span>
+
+                                <span>
+                                    Target: <strong>≤ 40 kWh/m³</strong>
+                                </span>
+
+                                <span>
+                                    Duration: <strong>3.2 hr</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EVENT 10 -->
+
+                    <div
+                        class="history-event"
+                        data-type="srp">
+
+
+                        <div class="history-date">
+
+                            <strong>
+                                10 Sep
+                            </strong>
+
+                            <span>
+                                09:00
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-marker srp-marker">
+                            ⚙
+                        </div>
+
+
+                        <div class="history-event-content">
+
+                            <div class="event-top">
+
+                                <div>
+
+                                    <span class="event-category srp">
+                                        SRP
+                                    </span>
+
+                                    <h4>
+                                        Pump operating point optimized
+                                    </h4>
+
+                                </div>
+
+                                <span class="event-status success">
+                                    Completed
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                SRP operating point was moved into the preferred
+                                dynamic envelope to balance production,
+                                energy and mechanical risk.
+                            </p>
+
+
+                            <div class="event-data">
+
+                                <span>
+                                    SPM: <strong>6.8</strong>
+                                </span>
+
+                                <span>
+                                    Stroke: <strong>54 in</strong>
+                                </span>
+
+                                <span>
+                                    Pump fillage: <strong>81%</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EVENT ANALYSIS
+            ================================================== -->
+
+            <div class="history-analysis-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                EVENT DISTRIBUTION
+                            </span>
+
+                            <h3>
+                                Operational Activity
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-bars">
+
+
+                        <div class="activity-row">
+
+                            <div>
+
+                                <span>
+                                    CSS
+                                </span>
+
+                                <strong>
+                                    3
+                                </strong>
+
+                            </div>
+
+                            <div class="activity-bar">
+
+                                <span
+                                    style="width: 60%;">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity-row">
+
+                            <div>
+
+                                <span>
+                                    SRP
+                                </span>
+
+                                <strong>
+                                    6
+                                </strong>
+
+                            </div>
+
+                            <div class="activity-bar">
+
+                                <span
+                                    style="width: 90%;">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity-row">
+
+                            <div>
+
+                                <span>
+                                    Decisions
+                                </span>
+
+                                <strong>
+                                    9
+                                </strong>
+
+                            </div>
+
+                            <div class="activity-bar">
+
+                                <span
+                                    style="width: 100%;">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity-row">
+
+                            <div>
+
+                                <span>
+                                    Alerts
+                                </span>
+
+                                <strong>
+                                    4
+                                </strong>
+
+                            </div>
+
+                            <div class="activity-bar">
+
+                                <span
+                                    style="width: 45%;">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                DIGITAL TWIN TRACE
+                            </span>
+
+                            <h3>
+                                Decision Traceability
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge success">
+                            9 Decisions
+                        </span>
+
+                    </div>
+
+
+                    <div class="trace-list">
+
+
+                        <div class="trace-row">
+
+                            <span class="trace-icon">
+                                1
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Field data
+                                </strong>
+
+                                <small>
+                                    Temperature, pressure,
+                                    production and SRP signals
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="trace-arrow">
+                            ↓
+                        </div>
+
+
+                        <div class="trace-row">
+
+                            <span class="trace-icon">
+                                2
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Digital Twin
+                                </strong>
+
+                                <small>
+                                    Thermal and artificial-lift state
+                                    estimation
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="trace-arrow">
+                            ↓
+                        </div>
+
+
+                        <div class="trace-row">
+
+                            <span class="trace-icon">
+                                3
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    AI prediction
+                                </strong>
+
+                                <small>
+                                    Production, energy and risk forecast
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="trace-arrow">
+                            ↓
+                        </div>
+
+
+                        <div class="trace-row">
+
+                            <span class="trace-icon">
+                                4
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Operator decision
+                                </strong>
+
+                                <small>
+                                    Recommendation accepted or modified
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 OPERATOR NOTICE
+            ================================================== -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <strong>
+                        Operator Decision Support
+                    </strong>
+
+                    <p>
+                        This timeline is a prototype representation of
+                        operational history. In the production system,
+                        events would be populated automatically from
+                        validated historian, SCADA, production and
+                        operator-action data.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+const eventFilter =
+    document.getElementById("eventFilter");
+
+const events =
+    document.querySelectorAll(".history-event");
+
+
+eventFilter.addEventListener(
+    "change",
+    function () {
+
+        const selected =
+            this.value;
+
+
+        let visibleCount = 0;
+
+
+        events.forEach(event => {
+
+            const type =
+                event.dataset.type;
+
+
+            if (
+                selected === "all" ||
+                selected === type
+            ) {
+
+                event.style.display = "grid";
+
+                visibleCount++;
+
+            } else {
+
+                event.style.display = "none";
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "totalEvents"
+        ).textContent = visibleCount;
+
+    }
+);
+
+
+function resetHistory() {
+
+    eventFilter.value = "all";
+
+    events.forEach(event => {
+
+        event.style.display = "grid";
+
+    });
+
+
+    document.getElementById(
+        "totalEvents"
+    ).textContent = "18";
+
+}
+
+
+</script>
+
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

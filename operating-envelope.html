@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating Envelope | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .page-header {
+            margin-bottom: 22px;
+        }
+
+        .page-header h1 {
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            max-width: 850px;
+        }
+
+        .envelope-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-card,
+        .envelope-card,
+        .constraint-card,
+        .recommendation-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .control-card {
+            padding: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 19px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .control-value {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .range {
+            width: 100%;
+            accent-color: #2563eb;
+            cursor: pointer;
+        }
+
+        .range-scale {
+            display: flex;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .envelope-card {
+            padding: 20px;
+        }
+
+        .envelope-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 15px;
+        }
+
+        .zone-badge {
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #dcfce7;
+            color: #166534;
+            white-space: nowrap;
+        }
+
+        .zone-badge.caution {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .zone-badge.danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+
+        .chart-title-x {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .chart-title-y {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: rotate(-90deg) translateX(-50%);
+            transform-origin: left top;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .plot-area {
+            position: absolute;
+            left: 65px;
+            right: 25px;
+            top: 25px;
+            bottom: 50px;
+            border-left: 2px solid #94a3b8;
+            border-bottom: 2px solid #94a3b8;
+            background:
+                linear-gradient(to right, rgba(148,163,184,.16) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148,163,184,.16) 1px, transparent 1px);
+            background-size: 10% 12.5%;
+        }
+
+        .zone {
+            position: absolute;
+            border-radius: 10px;
+        }
+
+        .safe-zone {
+            left: 25%;
+            bottom: 24%;
+            width: 50%;
+            height: 52%;
+            background: rgba(34, 197, 94, 0.20);
+            border: 2px solid rgba(22, 163, 74, 0.65);
+        }
+
+        .caution-zone {
+            left: 12%;
+            bottom: 10%;
+            width: 76%;
+            height: 78%;
+            background: rgba(234, 179, 8, 0.08);
+            border: 2px dashed rgba(202, 138, 4, 0.55);
+            z-index: 0;
+        }
+
+        .risk-zone-left,
+        .risk-zone-right,
+        .risk-zone-top,
+        .risk-zone-bottom {
+            background: rgba(239, 68, 68, 0.13);
+        }
+
+        .risk-zone-left {
+            left: 0;
+            bottom: 0;
+            width: 12%;
+            height: 100%;
+        }
+
+        .risk-zone-right {
+            right: 0;
+            bottom: 0;
+            width: 12%;
+            height: 100%;
+        }
+
+        .risk-zone-top {
+            left: 12%;
+            top: 0;
+            width: 76%;
+            height: 12%;
+        }
+
+        .risk-zone-bottom {
+            left: 12%;
+            bottom: 0;
+            width: 76%;
+            height: 10%;
+        }
+
+        .selected-point {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #2563eb;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+            transform: translate(-50%, 50%);
+            z-index: 10;
+            transition: left .25s ease, bottom .25s ease;
+        }
+
+        .point-label {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            background: #0f172a;
+            color: white;
+            padding: 6px 9px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .axis-label {
+            position: absolute;
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .axis-x-1 { left: 0; bottom: -20px; }
+        .axis-x-2 { left: 45%; bottom: -20px; }
+        .axis-x-3 { right: -2px; bottom: -20px; }
+
+        .axis-y-1 { left: -40px; bottom: -4px; }
+        .axis-y-2 { left: -40px; bottom: 47%; }
+        .axis-y-3 { left: -40px; top: -5px; }
+
+        .legend {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .green { background: #86efac; }
+        .yellow { background: #fde68a; }
+        .red { background: #fca5a5; }
+        .blue { background: #2563eb; border-radius: 50%; }
+
+        .constraint-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .constraint-card {
+            padding: 17px;
+        }
+
+        .constraint-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .constraint-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 8px;
+            border-radius: 12px;
+        }
+
+        .status.ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.warn {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .constraint-value {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .constraint-limit {
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .progress {
+            height: 7px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 50%;
+            background: #22c55e;
+            border-radius: 10px;
+            transition: width .25s ease;
+        }
+
+        .progress-bar.warn {
+            background: #eab308;
+        }
+
+        .progress-bar.bad {
+            background: #ef4444;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .recommendation-card {
+            padding: 20px;
+        }
+
+        .window-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .window-table th,
+        .window-table td {
+            padding: 11px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .window-table th {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .window-table td {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .why-box {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 14px;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: #334155;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .confidence {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .confidence-value {
+            font-weight: 800;
+            color: #166534;
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 15px 18px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1100px) {
+            .envelope-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .constraint-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .constraint-grid,
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrap {
+                height: 350px;
+            }
+        }
+    </style>
+
+<style>
+
+/* ============================================================
+   BAGHEWALA DT — OPERATING ENVELOPE LAYOUT ADJUSTMENT
+   Added directly to this page.
+   LAYOUT ONLY — content, colors and JavaScript unchanged.
+   ============================================================ */
+
+html,
+body {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+
+    width: 250px !important;
+    min-width: 250px !important;
+    height: 100vh !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    z-index: 1000 !important;
+}
+
+/* ================= MAIN CONTENT ================= */
+
+.main-content {
+    width: calc(100% - 250px) !important;
+    min-width: 0 !important;
+
+    margin-left: 250px !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+}
+
+/* ================= TOP BAR ================= */
+
+.topbar {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 76px !important;
+
+    padding: 0 28px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+}
+
+.topbar > div:first-child {
+    min-width: 0 !important;
+}
+
+.topbar-right {
+    flex-shrink: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+
+    white-space: nowrap !important;
+}
+
+/* ================= PAGE CONTENT ================= */
+
+.page-content {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 26px 28px 36px !important;
+
+    overflow: visible !important;
+}
+
+/* ================= PAGE HEADER ================= */
+
+.page-header {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 0 20px !important;
+}
+
+.page-header h1 {
+    margin: 0 0 6px !important;
+    line-height: 1.15 !important;
+}
+
+.page-header p {
+    max-width: 900px !important;
+    margin: 0 !important;
+    line-height: 1.5 !important;
+}
+
+/* ============================================================
+   MAIN ENVELOPE
+   LEFT = CONTROLS
+   RIGHT = CHART
+   ============================================================ */
+
+.envelope-layout {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns: minmax(280px, 320px) minmax(0, 1fr) !important;
+
+    gap: 18px !important;
+    align-items: stretch !important;
+
+    margin: 0 0 20px !important;
+}
+
+/* Cards must not force the page wider */
+
+.control-card,
+.envelope-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+}
+
+/* ================= CONTROL CARD ================= */
+
+.control-card {
+    padding: 20px !important;
+}
+
+.control-group {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.control-label {
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 10px !important;
+}
+
+.control-label > span:first-child {
+    min-width: 0 !important;
+}
+
+.control-value {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+.range {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* ================= ENVELOPE CARD ================= */
+
+.envelope-card {
+    padding: 20px !important;
+}
+
+.envelope-top {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+
+    gap: 18px !important;
+}
+
+.envelope-top > div:first-child {
+    min-width: 0 !important;
+}
+
+.zone-badge {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* ================= CHART ================= */
+
+.chart-wrap {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: 420px !important;
+
+    overflow: hidden !important;
+}
+
+.plot-area {
+    min-width: 0 !important;
+}
+
+/* ================= LEGEND ================= */
+
+.legend {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+
+    gap: 12px 18px !important;
+}
+
+/* ============================================================
+   CONSTRAINT CARDS
+   ============================================================ */
+
+.constraint-grid {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 15px !important;
+
+    margin: 0 0 20px !important;
+}
+
+.constraint-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 17px !important;
+}
+
+.constraint-head {
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 8px !important;
+}
+
+.constraint-name {
+    min-width: 0 !important;
+}
+
+.status {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+.constraint-value {
+    white-space: nowrap !important;
+}
+
+.progress {
+    width: 100% !important;
+}
+
+/* ============================================================
+   BOTTOM SECTION
+   ============================================================ */
+
+.bottom-grid {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+
+    gap: 18px !important;
+
+    margin: 0 !important;
+}
+
+.recommendation-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 20px !important;
+    overflow: hidden !important;
+}
+
+/* ================= TABLE ================= */
+
+.window-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+.window-table th,
+.window-table td {
+    min-width: 0 !important;
+    word-break: normal !important;
+}
+
+/* ================= WHY BOX ================= */
+
+.why-box {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    overflow-wrap: break-word !important;
+}
+
+/* ================= CONFIDENCE ================= */
+
+.confidence {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* ================= NOTICE ================= */
+
+.notice {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 20px 0 0 !important;
+    overflow-wrap: break-word !important;
+}
+
+/* ============================================================
+   LARGE DESKTOP
+   ============================================================ */
+
+@media (min-width: 1400px) {
+
+    .page-content {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
+
+    .envelope-layout {
+        grid-template-columns: 330px minmax(0, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    .constraint-grid {
+        gap: 16px !important;
+    }
+
+    .bottom-grid {
+        gap: 20px !important;
+    }
+}
+
+/* ============================================================
+   LAPTOP
+   ============================================================ */
+
+@media (max-width: 1200px) {
+
+    .sidebar {
+        width: 235px !important;
+        min-width: 235px !important;
+    }
+
+    .main-content {
+        width: calc(100% - 235px) !important;
+        margin-left: 235px !important;
+    }
+
+    .topbar {
+        padding: 0 22px !important;
+    }
+
+    .page-content {
+        padding: 22px !important;
+    }
+
+    .envelope-layout {
+        grid-template-columns: 285px minmax(0, 1fr) !important;
+        gap: 14px !important;
+    }
+
+    .constraint-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+    }
+
+    .bottom-grid {
+        gap: 14px !important;
+    }
+
+    .chart-wrap {
+        height: 390px !important;
+    }
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 950px) {
+
+    .envelope-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+    .control-card {
+        width: 100% !important;
+    }
+
+    .envelope-card {
+        width: 100% !important;
+    }
+
+    .constraint-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .bottom-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .chart-wrap {
+        height: 400px !important;
+    }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        position: relative !important;
+
+        width: 100% !important;
+        min-width: 100% !important;
+
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    .main-content {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        margin-left: 0 !important;
+    }
+
+    .topbar {
+        height: auto !important;
+        min-height: 64px !important;
+
+        padding: 12px 16px !important;
+
+        flex-wrap: wrap !important;
+    }
+
+    .topbar-right {
+        width: 100% !important;
+
+        justify-content: flex-start !important;
+        flex-wrap: wrap !important;
+
+        gap: 10px !important;
+    }
+
+    .page-content {
+        padding: 18px 14px 28px !important;
+    }
+
+    .envelope-layout {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+    .constraint-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .bottom-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+    .envelope-top {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .zone-badge {
+        align-self: flex-start !important;
+    }
+
+    .chart-wrap {
+        height: 350px !important;
+    }
+
+    .plot-area {
+        left: 55px !important;
+        right: 18px !important;
+    }
+
+    .chart-title-y {
+        left: 6px !important;
+    }
+
+    .legend {
+        gap: 10px 14px !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-mark">BW</div>
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+        </div>
+
+        <div class="well-selector">
+            <span>ACTIVE WELL</span>
+            <strong>BW-01</strong>
+            <small>Heavy Oil Producer</small>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">OVERVIEW</div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span> Digital Twin
+            </a>
+
+            <div class="nav-section-title">OPTIMIZATION</div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span> CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⇅</span> SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⚙</span> Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>◌</span> What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item active">
+                <span>◇</span> Operating Envelope
+            </a>
+
+            <div class="nav-section-title">MONITORING</div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span> Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>⚠</span> Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>◫</span> Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>ϟ</span> Energy
+            </a>
+
+            <div class="nav-section-title">HISTORY</div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span> History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span> Alerts
+            </a>
+
+            <div class="nav-section-title">SYSTEM</div>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>★</span> Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>⟳</span> Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span> Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span> Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <div class="breadcrumb">
+                    BAGHEWALA / WELL BW-01
+                </div>
+                <h3>Dynamic Operating Envelope</h3>
+            </div>
+
+            <div class="topbar-right">
+                <span class="live-indicator">
+                    <span></span> LIVE
+                </span>
+
+                <span>27 Sep 2026</span>
+
+                <div class="operator">
+                    <div class="operator-avatar">OP</div>
+                    <span>Operator</span>
+                </div>
+            </div>
+
+        </header>
+
+        <section class="page-content">
+
+            <div class="page-header">
+                <h1>Dynamic Operating Envelope</h1>
+                <p>
+                    Joint CSS + SRP operating boundary showing the preferred,
+                    caution and high-risk regions for the current prototype
+                    Digital Twin state.
+                </p>
+            </div>
+
+            <!-- MAIN ENVELOPE -->
+            <div class="envelope-layout">
+
+                <!-- CONTROLS -->
+                <div class="control-card">
+
+                    <div class="card-title">Operating Point</div>
+
+                    <div class="card-subtitle">
+                        Adjust CSS and SRP variables to see how the operating
+                        point moves inside the envelope.
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Steam Volume</span>
+                            <span class="control-value">
+                                <span id="steamValue">65</span> t
+                            </span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="steam"
+                            class="range"
+                            min="20"
+                            max="100"
+                            value="65"
+                        >
+
+                        <div class="range-scale">
+                            <span>20 t</span>
+                            <span>100 t</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Steam Pressure</span>
+                            <span class="control-value">
+                                <span id="pressureValue">14</span> bar
+                            </span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="pressure"
+                            class="range"
+                            min="8"
+                            max="20"
+                            value="14"
+                        >
+
+                        <div class="range-scale">
+                            <span>8 bar</span>
+                            <span>20 bar</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Soak Time</span>
+                            <span class="control-value">
+                                <span id="soakValue">36</span> hr
+                            </span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="soak"
+                            class="range"
+                            min="12"
+                            max="72"
+                            value="36"
+                        >
+
+                        <div class="range-scale">
+                            <span>12 hr</span>
+                            <span>72 hr</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>SRP Speed</span>
+                            <span class="control-value">
+                                <span id="spmValue">7</span> SPM
+                            </span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="spm"
+                            class="range"
+                            min="3"
+                            max="12"
+                            value="7"
+                        >
+
+                        <div class="range-scale">
+                            <span>3</span>
+                            <span>12</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Stroke Length</span>
+                            <span class="control-value">
+                                <span id="strokeValue">54</span> in
+                            </span>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="stroke"
+                            class="range"
+                            min="36"
+                            max="72"
+                            value="54"
+                        >
+
+                        <div class="range-scale">
+                            <span>36 in</span>
+                            <span>72 in</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ENVELOPE -->
+                <div class="envelope-card">
+
+                    <div class="envelope-top">
+
+                        <div>
+                            <div class="card-title">
+                                CSS Volume vs SRP Speed
+                            </div>
+
+                            <div class="card-subtitle">
+                                Selected point is evaluated against the
+                                prototype joint operating envelope.
+                            </div>
+                        </div>
+
+                        <div id="zoneBadge" class="zone-badge">
+                            PREFERRED REGION
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrap">
+
+                        <div class="plot-area">
+
+                            <div class="zone caution-zone"></div>
+
+                            <div class="zone risk-zone-left"></div>
+                            <div class="zone risk-zone-right"></div>
+                            <div class="zone risk-zone-top"></div>
+                            <div class="zone risk-zone-bottom"></div>
+
+                            <div class="zone safe-zone"></div>
+
+                            <div
+                                id="selectedPoint"
+                                class="selected-point"
+                                style="left: 44%; bottom: 56%;"
+                            >
+                                <div class="point-label">
+                                    Current Point
+                                </div>
+                            </div>
+
+                            <span class="axis-label axis-x-1">3</span>
+                            <span class="axis-label axis-x-2">7.5</span>
+                            <span class="axis-label axis-x-3">12 SPM</span>
+
+                            <span class="axis-label axis-y-1">20 t</span>
+                            <span class="axis-label axis-y-2">60 t</span>
+                            <span class="axis-label axis-y-3">100 t</span>
+
+                        </div>
+
+                        <div class="chart-title-x">
+                            SRP Speed — SPM
+                        </div>
+
+                        <div class="chart-title-y">
+                            Steam Volume — tonnes
+                        </div>
+
+                    </div>
+
+                    <div class="legend">
+
+                        <div class="legend-item">
+                            <span class="legend-dot green"></span>
+                            Preferred Region
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot yellow"></span>
+                            Caution Region
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot red"></span>
+                            High Risk / Constraint
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot blue"></span>
+                            Selected Point
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CONSTRAINTS -->
+            <div class="constraint-grid">
+
+                <div class="constraint-card">
+
+                    <div class="constraint-head">
+                        <span class="constraint-name">
+                            Thermal Condition
+                        </span>
+
+                        <span id="thermalStatus" class="status ok">
+                            OK
+                        </span>
+                    </div>
+
+                    <div class="constraint-value">
+                        <span id="thermalTemp">82</span> °C
+                    </div>
+
+                    <div class="constraint-limit">
+                        Target thermal window: 70–95 °C
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            id="thermalBar"
+                            class="progress-bar"
+                            style="width: 55%"
+                        ></div>
+                    </div>
+
+                </div>
+
+                <div class="constraint-card">
+
+                    <div class="constraint-head">
+                        <span class="constraint-name">
+                            Rod Load
+                        </span>
+
+                        <span id="rodStatus" class="status ok">
+                            OK
+                        </span>
+                    </div>
+
+                    <div class="constraint-value">
+                        <span id="rodLoad">72</span> %
+                    </div>
+
+                    <div class="constraint-limit">
+                        Preferred below 80%
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            id="rodBar"
+                            class="progress-bar"
+                            style="width: 72%"
+                        ></div>
+                    </div>
+
+                </div>
+
+                <div class="constraint-card">
+
+                    <div class="constraint-head">
+                        <span class="constraint-name">
+                            Pump Fillage
+                        </span>
+
+                        <span id="pumpStatus" class="status ok">
+                            OK
+                        </span>
+                    </div>
+
+                    <div class="constraint-value">
+                        <span id="pumpFillage">78</span> %
+                    </div>
+
+                    <div class="constraint-limit">
+                        Preferred above 70%
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            id="pumpBar"
+                            class="progress-bar"
+                            style="width: 78%"
+                        ></div>
+                    </div>
+
+                </div>
+
+                <div class="constraint-card">
+
+                    <div class="constraint-head">
+                        <span class="constraint-name">
+                            Energy Load
+                        </span>
+
+                        <span id="energyStatus" class="status ok">
+                            OK
+                        </span>
+                    </div>
+
+                    <div class="constraint-value">
+                        <span id="energyLoad">64</span> kWh
+                    </div>
+
+                    <div class="constraint-limit">
+                        Prototype threshold: 85 kWh
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            id="energyBar"
+                            class="progress-bar"
+                            style="width: 64%"
+                        ></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM -->
+            <div class="bottom-grid">
+
+                <div class="recommendation-card">
+
+                    <div class="card-title">
+                        Recommended Operating Window
+                    </div>
+
+                    <div class="card-subtitle">
+                        Prototype dynamic window generated from the current
+                        Digital Twin state.
+                    </div>
+
+                    <table class="window-table">
+
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Recommended Window</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Steam Volume</td>
+                                <td>55–75 t</td>
+                            </tr>
+
+                            <tr>
+                                <td>Steam Pressure</td>
+                                <td>12–16 bar</td>
+                            </tr>
+
+                            <tr>
+                                <td>Soak Time</td>
+                                <td>30–48 hr</td>
+                            </tr>
+
+                            <tr>
+                                <td>SRP Speed</td>
+                                <td>6–8 SPM</td>
+                            </tr>
+
+                            <tr>
+                                <td>Stroke Length</td>
+                                <td>48–60 in</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="recommendation-card">
+
+                    <div class="card-title">
+                        Why This Operating Point?
+                    </div>
+
+                    <div class="card-subtitle">
+                        Explainable recommendation from the prototype model.
+                    </div>
+
+                    <div id="whyText" class="why-box">
+                        The selected point is inside the preferred region.
+                        Steam input is sufficient to maintain thermal
+                        mobility while SRP speed remains moderate enough to
+                        limit rod and pump loading.
+                    </div>
+
+                    <div class="confidence">
+
+                        <span>
+                            Model Confidence
+                        </span>
+
+                        <span id="confidence" class="confidence-value">
+                            87%
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="notice">
+                <strong>Operator Decision Support:</strong>
+                This operating envelope is a frontend prototype using
+                illustrative rules and values. It is not a calibrated
+                Baghewala field operating limit and should not be used for
+                direct field control. In the final system, boundaries will be
+                generated from historical well data, Digital Twin state,
+                physical constraints, ML predictions and validated operating
+                limits.
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/app.js"></script>
+
+<script>
+
+    const steam = document.getElementById("steam");
+    const pressure = document.getElementById("pressure");
+    const soak = document.getElementById("soak");
+    const spm = document.getElementById("spm");
+    const stroke = document.getElementById("stroke");
+
+    const selectedPoint = document.getElementById("selectedPoint");
+    const zoneBadge = document.getElementById("zoneBadge");
+
+    function updateEnvelope() {
+
+        const steamVal = Number(steam.value);
+        const pressureVal = Number(pressure.value);
+        const soakVal = Number(soak.value);
+        const spmVal = Number(spm.value);
+        const strokeVal = Number(stroke.value);
+
+        document.getElementById("steamValue").textContent = steamVal;
+        document.getElementById("pressureValue").textContent = pressureVal;
+        document.getElementById("soakValue").textContent = soakVal;
+        document.getElementById("spmValue").textContent = spmVal;
+        document.getElementById("strokeValue").textContent = strokeVal;
+
+        /*
+            Plot selected point.
+
+            X-axis:
+            3–12 SPM
+
+            Y-axis:
+            20–100 tonnes
+        */
+
+        const x = ((spmVal - 3) / (12 - 3)) * 100;
+        const y = ((steamVal - 20) / (100 - 20)) * 100;
+
+        selectedPoint.style.left = `${x}%`;
+        selectedPoint.style.bottom = `${y}%`;
+
+        /*
+            Prototype envelope logic.
+        */
+
+        let zone = "preferred";
+
+        if (
+            steamVal < 35 ||
+            steamVal > 90 ||
+            spmVal < 4 ||
+            spmVal > 10
+        ) {
+            zone = "danger";
+        }
+        else if (
+            steamVal < 55 ||
+            steamVal > 75 ||
+            spmVal < 6 ||
+            spmVal > 8
+        ) {
+            zone = "caution";
+        }
+
+        if (zone === "preferred") {
+
+            zoneBadge.textContent = "PREFERRED REGION";
+            zoneBadge.className = "zone-badge";
+
+        }
+        else if (zone === "caution") {
+
+            zoneBadge.textContent = "CAUTION REGION";
+            zoneBadge.className = "zone-badge caution";
+
+        }
+        else {
+
+            zoneBadge.textContent = "HIGH RISK / OUTSIDE ENVELOPE";
+            zoneBadge.className = "zone-badge danger";
+
+        }
+
+        /*
+            Prototype constraint calculations.
+        */
+
+        const thermalTemp =
+            55 +
+            (steamVal * 0.42) +
+            (pressureVal * 0.8) +
+            (soakVal * 0.08);
+
+        const rodLoad =
+            45 +
+            (spmVal * 4.1) +
+            ((strokeVal - 36) * 0.35);
+
+        const pumpFillage =
+            92 -
+            (spmVal * 2.0) -
+            ((strokeVal - 36) * 0.12) +
+            (pressureVal - 12) * 0.7;
+
+        const energyLoad =
+            25 +
+            (steamVal * 0.32) +
+            (spmVal * 3.1) +
+            ((strokeVal - 36) * 0.18);
+
+        setConstraint(
+            "thermal",
+            thermalTemp,
+            70,
+            95,
+            "°C"
+        );
+
+        setConstraint(
+            "rod",
+            rodLoad,
+            0,
+            100,
+            "%"
+        );
+
+        setConstraint(
+            "pump",
+            pumpFillage,
+            0,
+            100,
+            "%"
+        );
+
+        setConstraint(
+            "energy",
+            energyLoad,
+            0,
+            85,
+            " kWh"
+        );
+
+        /*
+            Explainable recommendation.
+        */
+
+        let reasons = [];
+
+        if (steamVal < 55) {
+            reasons.push(
+                "steam volume is below the preferred thermal range"
+            );
+        }
+
+        if (steamVal > 75) {
+            reasons.push(
+                "higher steam input increases thermal response and steam consumption"
+            );
+        }
+
+        if (spmVal > 8) {
+            reasons.push(
+                "higher SRP speed increases mechanical loading"
+            );
+        }
+
+        if (spmVal < 6) {
+            reasons.push(
+                "lower SRP speed may reduce fluid lifting capacity"
+            );
+        }
+
+        if (strokeVal > 60) {
+            reasons.push(
+                "longer stroke increases mechanical and energy loading"
+            );
+        }
+
+        if (reasons.length === 0) {
+
+            document.getElementById("whyText").textContent =
+                "The selected point is inside the preferred region. " +
+                "Steam input is sufficient to maintain thermal mobility " +
+                "while SRP speed and stroke remain within the prototype " +
+                "joint operating window.";
+
+        } else {
+
+            document.getElementById("whyText").textContent =
+                "The selected point requires attention because " +
+                reasons.join(", ") +
+                ". Consider moving the operating point toward the " +
+                "recommended window before field implementation.";
+        }
+
+        /*
+            Prototype confidence.
+        */
+
+        let confidence = 87;
+
+        if (zone === "caution") {
+            confidence = 76;
+        }
+
+        if (zone === "danger") {
+            confidence = 61;
+        }
+
+        document.getElementById("confidence").textContent =
+            confidence + "%";
+    }
+
+
+    function setConstraint(type, value, min, max, unit) {
+
+        let statusElement;
+        let barElement;
+        let displayValue;
+
+        if (type === "thermal") {
+
+            statusElement = document.getElementById("thermalStatus");
+            barElement = document.getElementById("thermalBar");
+
+            displayValue = Math.round(value);
+
+            document.getElementById("thermalTemp").textContent =
+                displayValue;
+
+            let percentage =
+                ((value - 40) / (110 - 40)) * 100;
+
+            barElement.style.width =
+                Math.max(0, Math.min(100, percentage)) + "%";
+
+            if (value >= 70 && value <= 95) {
+                setStatus(statusElement, "OK", "ok");
+                setBar(barElement, "ok");
+            }
+            else if (value >= 60 && value <= 100) {
+                setStatus(statusElement, "WATCH", "warn");
+                setBar(barElement, "warn");
+            }
+            else {
+                setStatus(statusElement, "LIMIT", "bad");
+                setBar(barElement, "bad");
+            }
+        }
+
+        if (type === "rod") {
+
+            statusElement = document.getElementById("rodStatus");
+            barElement = document.getElementById("rodBar");
+
+            displayValue = Math.round(value);
+
+            document.getElementById("rodLoad").textContent =
+                displayValue;
+
+            barElement.style.width =
+                Math.max(0, Math.min(100, value)) + "%";
+
+            if (value < 80) {
+                setStatus(statusElement, "OK", "ok");
+                setBar(barElement, "ok");
+            }
+            else if (value < 90) {
+                setStatus(statusElement, "WATCH", "warn");
+                setBar(barElement, "warn");
+            }
+            else {
+                setStatus(statusElement, "HIGH", "bad");
+                setBar(barElement, "bad");
+            }
+        }
+
+        if (type === "pump") {
+
+            statusElement = document.getElementById("pumpStatus");
+            barElement = document.getElementById("pumpBar");
+
+            displayValue = Math.round(value);
+
+            document.getElementById("pumpFillage").textContent =
+                displayValue;
+
+            barElement.style.width =
+                Math.max(0, Math.min(100, value)) + "%";
+
+            if (value >= 70) {
+                setStatus(statusElement, "OK", "ok");
+                setBar(barElement, "ok");
+            }
+            else if (value >= 60) {
+                setStatus(statusElement, "WATCH", "warn");
+                setBar(barElement, "warn");
+            }
+            else {
+                setStatus(statusElement, "LOW", "bad");
+                setBar(barElement, "bad");
+            }
+        }
+
+        if (type === "energy") {
+
+            statusElement = document.getElementById("energyStatus");
+            barElement = document.getElementById("energyBar");
+
+            displayValue = Math.round(value);
+
+            document.getElementById("energyLoad").textContent =
+                displayValue;
+
+            barElement.style.width =
+                Math.max(0, Math.min(100, (value / 100) * 100)) + "%";
+
+            if (value < 70) {
+                setStatus(statusElement, "OK", "ok");
+                setBar(barElement, "ok");
+            }
+            else if (value < 85) {
+                setStatus(statusElement, "WATCH", "warn");
+                setBar(barElement, "warn");
+            }
+            else {
+                setStatus(statusElement, "HIGH", "bad");
+                setBar(barElement, "bad");
+            }
+        }
+    }
+
+
+    function setStatus(element, text, type) {
+
+        element.textContent = text;
+        element.className = "status " + type;
+    }
+
+
+    function setBar(element, type) {
+
+        element.classList.remove("warn");
+        element.classList.remove("bad");
+
+        if (type === "warn") {
+            element.classList.add("warn");
+        }
+
+        if (type === "bad") {
+            element.classList.add("bad");
+        }
+    }
+
+
+    [
+        steam,
+        pressure,
+        soak,
+        spm,
+        stroke
+    ].forEach(input => {
+
+        input.addEventListener(
+            "input",
+            updateEnvelope
+        );
+
+    });
+
+
+    updateEnvelope();
+
+</script>
+
+</body>
+</html>

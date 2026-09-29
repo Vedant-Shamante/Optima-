@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recommendations | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                BW
+            </div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+
+        </div>
+
+
+        <div class="well-selector">
+
+            <span class="small-label">
+                ACTIVE WELL
+            </span>
+
+            <strong>BW-01</strong>
+
+            <span class="well-status">
+                <span class="status-dot"></span>
+                Producing
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">
+                OVERVIEW
+            </div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+
+            <div class="nav-section-title">
+                OPTIMIZATION
+            </div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⚙</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⇄</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>⌁</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+
+            <div class="nav-section-title">
+                ANALYTICS
+            </div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>△</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>▥</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>⚡</span>
+                Energy
+            </a>
+
+
+            <div class="nav-section-title">
+                OPERATIONS
+            </div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <a href="recommendations.html" class="nav-item active">
+                <span>✓</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>↻</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+            <span>SIH 2026 Prototype</span>
+            <small>Decision Support System</small>
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    OPERATIONS / RECOMMENDATIONS
+                </div>
+
+                <h1>
+                    AI Recommendations
+                </h1>
+
+                <p class="page-subtitle">
+                    Explainable operating recommendations generated from
+                    the Well-to-Surface Digital Twin.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="well-header">
+                    <span>BAGHEWALA</span>
+                    <strong>WELL BW-01</strong>
+                </div>
+
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    LIVE
+                </div>
+
+                <div class="header-date">
+                    27 Sep 2026
+                </div>
+
+                <div class="operator">
+                    OPERATOR
+                    <strong>Field Operations</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             PAGE
+        ====================================================== -->
+
+        <section class="page-content recommendations-page">
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="recommendations-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        DECISION SUPPORT
+                    </span>
+
+                    <h2>
+                        Recommended Operating Point
+                    </h2>
+
+                    <p>
+                        The current recommendation jointly considers CSS,
+                        SRP, production, energy and mechanical risk.
+                    </p>
+
+                </div>
+
+
+                <div class="recommendation-status">
+
+                    <span class="status-badge success">
+                        READY FOR REVIEW
+                    </span>
+
+                    <small>
+                        Generated 2 min ago
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PRIMARY RECOMMENDATION
+            ================================================== -->
+
+            <div class="recommendation-hero panel">
+
+                <div class="recommendation-hero-left">
+
+                    <div class="recommendation-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span class="section-kicker">
+                            DIGITAL TWIN RECOMMENDATION
+                        </span>
+
+                        <h3>
+                            Maintain thermal support and moderate SRP speed
+                        </h3>
+
+                        <p>
+                            The model recommends maintaining the current
+                            CSS thermal state while operating the SRP near
+                            the middle of the preferred mechanical envelope.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="confidence-box">
+
+                    <span>
+                        MODEL CONFIDENCE
+                    </span>
+
+                    <strong>
+                        87%
+                    </strong>
+
+                    <div class="confidence-bar">
+                        <div style="width:87%;"></div>
+                    </div>
+
+                    <small>
+                        High confidence
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RECOMMENDED PARAMETERS
+            ================================================== -->
+
+            <div class="recommendation-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                CSS
+                            </span>
+
+                            <h3>
+                                Steam Recommendation
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge info">
+                            Thermal
+                        </span>
+
+                    </div>
+
+
+                    <div class="parameter-highlight">
+
+                        <div class="parameter-value">
+                            65
+                            <small>t</small>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Steam Volume
+                            </strong>
+
+                            <span>
+                                Preferred: 55–75 t
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="parameter-list">
+
+                        <div>
+                            <span>Injection Pressure</span>
+                            <strong>14 bar</strong>
+                        </div>
+
+                        <div>
+                            <span>Soak Time</span>
+                            <strong>36 hr</strong>
+                        </div>
+
+                        <div>
+                            <span>Expected Reservoir Temp.</span>
+                            <strong>58.6°C</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                SRP
+                            </span>
+
+                            <h3>
+                                Pump Recommendation
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge info">
+                            Mechanical
+                        </span>
+
+                    </div>
+
+
+                    <div class="parameter-highlight">
+
+                        <div class="parameter-value">
+                            7.0
+                            <small>SPM</small>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Pump Speed
+                            </strong>
+
+                            <span>
+                                Preferred: 6–8 SPM
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="parameter-list">
+
+                        <div>
+                            <span>Stroke Length</span>
+                            <strong>54 in</strong>
+                        </div>
+
+                        <div>
+                            <span>Expected Pump Fillage</span>
+                            <strong>83%</strong>
+                        </div>
+
+                        <div>
+                            <span>Expected Rod Load</span>
+                            <strong>69%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="panel expected-impact-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                EXPECTED IMPACT
+                            </span>
+
+                            <h3>
+                                Predicted Response
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="impact-list">
+
+                        <div class="impact-row">
+
+                            <div class="impact-icon positive">
+                                ↑
+                            </div>
+
+                            <div>
+                                <span>Oil Production</span>
+                                <strong>+8.4%</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="impact-row">
+
+                            <div class="impact-icon positive">
+                                ↓
+                            </div>
+
+                            <div>
+                                <span>Steam-Oil Ratio</span>
+                                <strong>-6.2%</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="impact-row">
+
+                            <div class="impact-icon positive">
+                                ↓
+                            </div>
+
+                            <div>
+                                <span>Mechanical Risk</span>
+                                <strong>-11%</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="impact-row">
+
+                            <div class="impact-icon neutral">
+                                =
+                            </div>
+
+                            <div>
+                                <span>Energy Intensity</span>
+                                <strong>-2.8%</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 WHY RECOMMENDATION
+            ================================================== -->
+
+            <div class="panel why-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            EXPLAINABLE AI
+                        </span>
+
+                        <h3>
+                            Why is this recommendation being made?
+                        </h3>
+
+                    </div>
+
+                    <span class="status-badge info">
+                        WHY ENGINE
+                    </span>
+
+                </div>
+
+
+                <div class="reason-grid">
+
+
+                    <div class="reason-card">
+
+                        <div class="reason-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Thermal condition
+                            </strong>
+
+                            <p>
+                                Reservoir temperature is still elevated
+                                after the latest CSS cycle. Additional
+                                aggressive steam injection is therefore
+                                not currently required.
+                            </p>
+
+                            <div class="reason-value">
+                                58.6°C
+                                <span>predicted</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="reason-card">
+
+                        <div class="reason-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Viscosity response
+                            </strong>
+
+                            <p>
+                                Current thermal conditions maintain lower
+                                crude viscosity and support improved fluid
+                                mobility toward the pump.
+                            </p>
+
+                            <div class="reason-value">
+                                1,720 cP
+                                <span>predicted</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="reason-card">
+
+                        <div class="reason-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Mechanical margin
+                            </strong>
+
+                            <p>
+                                Moderate SRP speed maintains pump fillage
+                                while keeping predicted rod loading away
+                                from the upper risk boundary.
+                            </p>
+
+                            <div class="reason-value">
+                                69%
+                                <span>rod load</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="reason-card">
+
+                        <div class="reason-number">
+                            04
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Energy efficiency
+                            </strong>
+
+                            <p>
+                                The selected operating point avoids
+                                unnecessary pumping intensity while
+                                maintaining the predicted production rate.
+                            </p>
+
+                            <div class="reason-value">
+                                38.1
+                                <span>kWh/m³</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CURRENT VS RECOMMENDED
+            ================================================== -->
+
+            <div class="panel comparison-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            OPERATING POINT COMPARISON
+                        </span>
+
+                        <h3>
+                            Current vs Recommended
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-table-wrapper">
+
+                    <table class="recommendation-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    PARAMETER
+                                </th>
+
+                                <th>
+                                    CURRENT
+                                </th>
+
+                                <th>
+                                    RECOMMENDED
+                                </th>
+
+                                <th>
+                                    CHANGE
+                                </th>
+
+                                <th>
+                                    MODEL EFFECT
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    Steam Volume
+                                </td>
+
+                                <td>
+                                    65 t
+                                </td>
+
+                                <td>
+                                    65 t
+                                </td>
+
+                                <td>
+                                    0 t
+                                </td>
+
+                                <td>
+                                    Maintain thermal support
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Injection Pressure
+                                </td>
+
+                                <td>
+                                    14.2 bar
+                                </td>
+
+                                <td>
+                                    14 bar
+                                </td>
+
+                                <td>
+                                    -0.2 bar
+                                </td>
+
+                                <td>
+                                    Similar thermal response
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Soak Time
+                                </td>
+
+                                <td>
+                                    36 hr
+                                </td>
+
+                                <td>
+                                    36 hr
+                                </td>
+
+                                <td>
+                                    0 hr
+                                </td>
+
+                                <td>
+                                    Maintain response timing
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    SRP Speed
+                                </td>
+
+                                <td>
+                                    7.8 SPM
+                                </td>
+
+                                <td>
+                                    7.0 SPM
+                                </td>
+
+                                <td class="change-negative">
+                                    -0.8 SPM
+                                </td>
+
+                                <td>
+                                    Lower mechanical loading
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Stroke Length
+                                </td>
+
+                                <td>
+                                    54 in
+                                </td>
+
+                                <td>
+                                    54 in
+                                </td>
+
+                                <td>
+                                    0 in
+                                </td>
+
+                                <td>
+                                    Maintain pump displacement
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DECISION
+            ================================================== -->
+
+            <div class="decision-panel panel">
+
+                <div class="decision-content">
+
+                    <div class="decision-icon">
+                        ?
+                    </div>
+
+                    <div>
+
+                        <span class="section-kicker">
+                            OPERATOR DECISION
+                        </span>
+
+                        <h3>
+                            Review recommended operating point
+                        </h3>
+
+                        <p>
+                            The system does not automatically change field
+                            controls. Select an action after reviewing the
+                            predicted impact and operating constraints.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="decision-actions">
+
+                    <button
+                        class="decision-btn accept"
+                        onclick="acceptRecommendation()">
+
+                        ✓ Accept Recommendation
+
+                    </button>
+
+
+                    <button
+                        class="decision-btn modify"
+                        onclick="modifyRecommendation()">
+
+                        ⚙ Modify
+
+                    </button>
+
+
+                    <button
+                        class="decision-btn reject"
+                        onclick="rejectRecommendation()">
+
+                        × Reject
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DECISION RESULT
+            ================================================== -->
+
+            <div
+                id="decisionResult"
+                class="decision-result">
+
+                <strong>
+                    Operator action will appear here.
+                </strong>
+
+            </div>
+
+
+            <!-- =================================================
+                 MODEL TRACE
+            ================================================== -->
+
+            <div class="panel model-trace-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            MODEL TRACE
+                        </span>
+
+                        <h3>
+                            Recommendation Evidence
+                        </h3>
+
+                    </div>
+
+                    <span class="status-badge success">
+                        87% CONFIDENCE
+                    </span>
+
+                </div>
+
+
+                <div class="trace-grid">
+
+
+                    <div class="trace-item">
+
+                        <span>
+                            Production Model
+                        </span>
+
+                        <strong>
+                            Active
+                        </strong>
+
+                        <small>
+                            24 h prediction
+                        </small>
+
+                    </div>
+
+
+                    <div class="trace-item">
+
+                        <span>
+                            Thermal Model
+                        </span>
+
+                        <strong>
+                            Active
+                        </strong>
+
+                        <small>
+                            Reservoir response
+                        </small>
+
+                    </div>
+
+
+                    <div class="trace-item">
+
+                        <span>
+                            SRP Model
+                        </span>
+
+                        <strong>
+                            Active
+                        </strong>
+
+                        <small>
+                            Rod/pump response
+                        </small>
+
+                    </div>
+
+
+                    <div class="trace-item">
+
+                        <span>
+                            Risk Model
+                        </span>
+
+                        <strong>
+                            Active
+                        </strong>
+
+                        <small>
+                            Mechanical risk
+                        </small>
+
+                    </div>
+
+
+                    <div class="trace-item">
+
+                        <span>
+                            Operating Envelope
+                        </span>
+
+                        <strong>
+                            Valid
+                        </strong>
+
+                        <small>
+                            Current point inside limits
+                        </small>
+
+                    </div>
+
+
+                    <div class="trace-item">
+
+                        <span>
+                            Calibration
+                        </span>
+
+                        <strong>
+                            94%
+                        </strong>
+
+                        <small>
+                            Data quality score
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 NOTICE
+            ================================================== -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <strong>
+                        Operator Decision Support
+                    </strong>
+
+                    <p>
+                        Recommendations shown here are prototype,
+                        illustrative outputs. In the final system,
+                        recommendations should be generated from validated
+                        field data, calibrated models and field-approved
+                        operating constraints. The operator retains final
+                        control over all actions.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+function showDecision(message, type) {
+
+    const result =
+        document.getElementById("decisionResult");
+
+    result.className =
+        "decision-result " + type;
+
+    result.innerHTML =
+        "<strong>" + message + "</strong>";
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+}
+
+
+function acceptRecommendation() {
+
+    showDecision(
+        "Recommendation accepted for operator review and field execution workflow.",
+        "accepted"
+    );
+
+}
+
+
+function modifyRecommendation() {
+
+    showDecision(
+        "Modify mode selected. Operator can adjust the proposed CSS or SRP parameters before finalizing.",
+        "modified"
+    );
+
+}
+
+
+function rejectRecommendation() {
+
+    showDecision(
+        "Recommendation rejected. Current operating conditions will remain unchanged.",
+        "rejected"
+    );
+
+}
+
+</script>
+
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alerts | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+<style id="page-layout-adjustments">
+/* ===== Baghewala Alerts — Layout Only ===== */
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.app-layout {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Fixed sidebar */
+.sidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 250px !important;
+    height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 1000;
+}
+
+.main-content {
+    width: calc(100% - 250px) !important;
+    min-width: 0 !important;
+    margin-left: 250px !important;
+    padding: 0 !important;
+}
+
+/* Header */
+.top-header {
+    width: 100% !important;
+    min-height: 110px;
+    padding: 24px 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px;
+}
+
+.top-header > div:first-child {
+    min-width: 0;
+}
+
+.top-header h1 {
+    margin-top: 4px !important;
+    margin-bottom: 6px !important;
+}
+
+.page-subtitle {
+    max-width: 820px;
+    margin-bottom: 0 !important;
+}
+
+.header-right {
+    flex: 0 0 auto;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+/* Main content */
+.page-content.alerts-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 28px 32px 40px !important;
+}
+
+/* Page heading */
+.alerts-heading {
+    width: 100%;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.alerts-heading > div:first-child {
+    min-width: 0;
+}
+
+.alerts-heading p {
+    max-width: 820px;
+}
+
+.alert-actions {
+    flex: 0 0 auto;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* KPI cards */
+.kpi-grid.alert-kpis {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    margin-bottom: 22px;
+}
+
+.alert-kpis .kpi-card {
+    min-width: 0;
+}
+
+/* Main alert + envelope layout */
+.alerts-main-grid {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.75fr) !important;
+    gap: 20px !important;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+.alerts-main-grid > .panel {
+    min-width: 0;
+    height: 100%;
+}
+
+/* Panels */
+.alerts-page .panel {
+    width: 100%;
+    min-width: 0;
+}
+
+.panel-header {
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.panel-header > div:first-child {
+    min-width: 0;
+}
+
+/* Active alert cards */
+.alert-list {
+    width: 100%;
+    min-width: 0;
+}
+
+.alert-card {
+    width: 100%;
+    min-width: 0;
+    display: grid !important;
+    grid-template-columns: 88px minmax(0, 1fr) !important;
+    gap: 18px;
+}
+
+.alert-severity {
+    min-width: 0;
+}
+
+.alert-body {
+    min-width: 0;
+}
+
+.alert-title-row {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 16px;
+}
+
+.alert-title-row > div:first-child {
+    min-width: 0;
+}
+
+.alert-title-row h4 {
+    overflow-wrap: anywhere;
+}
+
+.alert-time {
+    flex: 0 0 auto;
+}
+
+.alert-metrics {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+}
+
+.alert-metrics span {
+    min-width: 0;
+}
+
+.alert-recommendation {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.alert-recommendation span {
+    min-width: 0;
+}
+
+.alert-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* Operating envelope */
+.alert-envelope-panel {
+    min-width: 0;
+}
+
+.envelope-status-list {
+    width: 100%;
+}
+
+.envelope-status-row {
+    min-width: 0;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 14px;
+}
+
+.envelope-status-name {
+    min-width: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+}
+
+.envelope-status-name > div {
+    min-width: 0;
+}
+
+.envelope-status-row > strong {
+    flex: 0 0 auto;
+}
+
+/* History table */
+.alert-history-panel {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.alert-history-panel .panel-header {
+    align-items: center;
+}
+
+.alert-history-panel select {
+    flex: 0 0 auto;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.alert-history-table {
+    width: 100%;
+    min-width: 850px;
+}
+
+/* Alert logic */
+.alert-logic-panel {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.alert-logic-grid {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr) 32px minmax(0, 1fr) 32px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    align-items: stretch;
+}
+
+.logic-step {
+    min-width: 0;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px;
+}
+
+.logic-step > div:last-child {
+    min-width: 0;
+}
+
+.logic-step p {
+    overflow-wrap: anywhere;
+}
+
+.logic-arrow {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Notice */
+.operator-notice {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.operator-notice > div:last-child {
+    min-width: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1250px) {
+    .sidebar {
+        width: 235px !important;
+    }
+
+    .main-content {
+        width: calc(100% - 235px) !important;
+        margin-left: 235px !important;
+    }
+
+    .top-header {
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+
+    .page-content.alerts-page {
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+
+    .kpi-grid.alert-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .alerts-main-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .alert-logic-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .logic-arrow {
+        display: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .top-header {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start !important;
+    }
+
+    .alerts-heading {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .alert-actions {
+        width: 100%;
+    }
+
+    .alert-actions button {
+        flex: 1 1 180px;
+    }
+
+    .alert-card {
+        grid-template-columns: 72px minmax(0, 1fr) !important;
+        gap: 14px;
+    }
+
+    .alert-metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+    .alert-logic-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .top-header {
+        padding: 20px 18px !important;
+    }
+
+    .page-content.alerts-page {
+        padding: 22px 18px 32px !important;
+    }
+
+    .kpi-grid.alert-kpis {
+        grid-template-columns: 1fr !important;
+    }
+
+    .alert-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .alert-actions button {
+        width: 100%;
+    }
+
+    .alert-card {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+    .alert-severity {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .alert-title-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .alert-time {
+        align-self: flex-start;
+    }
+
+    .alert-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .alert-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .envelope-status-row {
+        align-items: flex-start !important;
+    }
+
+    .alert-history-panel .panel-header {
+        align-items: stretch;
+    }
+
+    .alert-history-panel select {
+        width: 100%;
+    }
+
+    .operator-notice {
+        align-items: flex-start;
+    }
+}
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                BW
+            </div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+
+        </div>
+
+
+        <div class="well-selector">
+
+            <span class="small-label">
+                ACTIVE WELL
+            </span>
+
+            <strong>
+                BW-01
+            </strong>
+
+            <span class="well-status">
+
+                <span class="status-dot"></span>
+
+                Producing
+
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">
+                OVERVIEW
+            </div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+
+            <div class="nav-section-title">
+                OPTIMIZATION
+            </div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⚙</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⇄</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>⌁</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+
+            <div class="nav-section-title">
+                ANALYTICS
+            </div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>△</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>▥</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>⚡</span>
+                Energy
+            </a>
+
+
+            <div class="nav-section-title">
+                OPERATIONS
+            </div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item active">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>✓</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>↻</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <span>
+                SIH 2026 Prototype
+            </span>
+
+            <small>
+                Decision Support System
+            </small>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    OPERATIONS / ALERTS
+                </div>
+
+                <h1>
+                    Alerts & Events
+                </h1>
+
+                <p class="page-subtitle">
+                    Monitor thermal, production, SRP and mechanical
+                    conditions requiring operator attention.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="well-header">
+
+                    <span>
+                        BAGHEWALA
+                    </span>
+
+                    <strong>
+                        WELL BW-01
+                    </strong>
+
+                </div>
+
+
+                <div class="live-indicator">
+
+                    <span class="live-dot"></span>
+
+                    LIVE
+
+                </div>
+
+
+                <div class="header-date">
+                    27 Sep 2026
+                </div>
+
+
+                <div class="operator">
+
+                    OPERATOR
+
+                    <strong>
+                        Field Operations
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             PAGE CONTENT
+        ====================================================== -->
+
+        <section class="page-content alerts-page">
+
+
+            <!-- PAGE TITLE -->
+
+            <div class="alerts-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        REAL-TIME MONITORING
+                    </span>
+
+                    <h2>
+                        Well Alert Center
+                    </h2>
+
+                    <p>
+                        Alerts are generated from Digital Twin predictions,
+                        operating-envelope constraints and incoming well data.
+                    </p>
+
+                </div>
+
+
+                <div class="alert-actions">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="acknowledgeAll()">
+
+                        Acknowledge All
+
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="clearResolved()">
+
+                        Clear Resolved
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ALERT SUMMARY
+            ================================================== -->
+
+            <div class="kpi-grid alert-kpis">
+
+
+                <div class="kpi-card alert-summary-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            Active Alerts
+                        </span>
+
+                        <span class="alert-kpi-icon danger">
+                            !
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span id="activeCount">
+                            3
+                        </span>
+
+                        <small>
+                            alerts
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change negative">
+                        1 high priority
+                    </div>
+
+                </div>
+
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            High Priority
+                        </span>
+
+                        <span class="alert-kpi-icon danger">
+                            ▲
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span>
+                            1
+                        </span>
+
+                        <small>
+                            alert
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        Immediate review
+                    </div>
+
+                </div>
+
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            Warnings
+                        </span>
+
+                        <span class="alert-kpi-icon warning">
+                            !
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span>
+                            2
+                        </span>
+
+                        <small>
+                            alerts
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change">
+                        Operator monitoring
+                    </div>
+
+                </div>
+
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span>
+                            Resolved Today
+                        </span>
+
+                        <span class="alert-kpi-icon success">
+                            ✓
+                        </span>
+
+                    </div>
+
+                    <div class="kpi-value">
+
+                        <span>
+                            5
+                        </span>
+
+                        <small>
+                            events
+                        </small>
+
+                    </div>
+
+                    <div class="kpi-change positive">
+                        Within response target
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CURRENT ALERTS + ENVELOPE
+            ================================================== -->
+
+            <div class="alerts-main-grid">
+
+
+                <!-- ACTIVE ALERTS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                ACTIVE CONDITIONS
+                            </span>
+
+                            <h3>
+                                Current Alerts
+                            </h3>
+
+                        </div>
+
+                        <span class="alert-refresh">
+                            Updated 2 min ago
+                        </span>
+
+                    </div>
+
+
+                    <div class="alert-list" id="alertList">
+
+
+                        <!-- HIGH -->
+
+                        <div
+                            class="alert-card high"
+                            data-alert="high">
+
+                            <div class="alert-severity">
+
+                                <div class="severity-icon">
+                                    !
+                                </div>
+
+                                <span>
+                                    HIGH
+                                </span>
+
+                            </div>
+
+
+                            <div class="alert-body">
+
+                                <div class="alert-title-row">
+
+                                    <div>
+
+                                        <span class="alert-source">
+                                            SRP / MECHANICAL
+                                        </span>
+
+                                        <h4>
+                                            Impact loading risk increasing
+                                        </h4>
+
+                                    </div>
+
+                                    <span class="alert-time">
+                                        12 min ago
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    Predicted rod load is approaching the
+                                    upper operating-envelope boundary.
+                                    Increasing SPM may increase mechanical risk.
+                                </p>
+
+
+                                <div class="alert-metrics">
+
+                                    <span>
+                                        Rod load
+                                        <strong>82%</strong>
+                                    </span>
+
+                                    <span>
+                                        Risk
+                                        <strong>72%</strong>
+                                    </span>
+
+                                    <span>
+                                        SPM
+                                        <strong>7.8</strong>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="alert-recommendation">
+
+                                    <strong>
+                                        Recommended action
+                                    </strong>
+
+                                    <span>
+                                        Hold SPM at current level and review
+                                        the dynamic operating envelope.
+                                    </span>
+
+                                </div>
+
+
+                                <div class="alert-footer">
+
+                                    <span class="alert-status">
+                                        ● Unacknowledged
+                                    </span>
+
+                                    <button
+                                        onclick="acknowledgeAlert(this)">
+                                        Acknowledge
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- WARNING 1 -->
+
+                        <div
+                            class="alert-card warning"
+                            data-alert="warning">
+
+                            <div class="alert-severity">
+
+                                <div class="severity-icon">
+                                    !
+                                </div>
+
+                                <span>
+                                    WARNING
+                                </span>
+
+                            </div>
+
+
+                            <div class="alert-body">
+
+                                <div class="alert-title-row">
+
+                                    <div>
+
+                                        <span class="alert-source">
+                                            THERMAL / RESERVOIR
+                                        </span>
+
+                                        <h4>
+                                            Reservoir cooling trend detected
+                                        </h4>
+
+                                    </div>
+
+                                    <span class="alert-time">
+                                        38 min ago
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    Reservoir temperature is decreasing after
+                                    the latest CSS response. Higher viscosity
+                                    is expected over the next 24–48 hours.
+                                </p>
+
+
+                                <div class="alert-metrics">
+
+                                    <span>
+                                        Temperature
+                                        <strong>54.8°C</strong>
+                                    </span>
+
+                                    <span>
+                                        Viscosity
+                                        <strong>1,940 cP</strong>
+                                    </span>
+
+                                    <span>
+                                        Trend
+                                        <strong>Cooling</strong>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="alert-recommendation">
+
+                                    <strong>
+                                        Recommended action
+                                    </strong>
+
+                                    <span>
+                                        Review the next CSS timing and avoid
+                                        aggressive SRP speed increases.
+                                    </span>
+
+                                </div>
+
+
+                                <div class="alert-footer">
+
+                                    <span class="alert-status">
+                                        ● Unacknowledged
+                                    </span>
+
+                                    <button
+                                        onclick="acknowledgeAlert(this)">
+                                        Acknowledge
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- WARNING 2 -->
+
+                        <div
+                            class="alert-card warning"
+                            data-alert="warning">
+
+                            <div class="alert-severity">
+
+                                <div class="severity-icon">
+                                    !
+                                </div>
+
+                                <span>
+                                    WARNING
+                                </span>
+
+                            </div>
+
+
+                            <div class="alert-body">
+
+                                <div class="alert-title-row">
+
+                                    <div>
+
+                                        <span class="alert-source">
+                                            ENERGY
+                                        </span>
+
+                                        <h4>
+                                            Specific energy trending upward
+                                        </h4>
+
+                                    </div>
+
+                                    <span class="alert-time">
+                                        1 hr ago
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    Energy intensity has increased as pump
+                                    load rises. Current value remains inside
+                                    the caution region.
+                                </p>
+
+
+                                <div class="alert-metrics">
+
+                                    <span>
+                                        Energy
+                                        <strong>39.2 kWh/m³</strong>
+                                    </span>
+
+                                    <span>
+                                        Target
+                                        <strong>≤ 40</strong>
+                                    </span>
+
+                                    <span>
+                                        Trend
+                                        <strong>Increasing</strong>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="alert-recommendation">
+
+                                    <strong>
+                                        Recommended action
+                                    </strong>
+
+                                    <span>
+                                        Maintain current pumping speed and
+                                        monitor energy response.
+                                    </span>
+
+                                </div>
+
+
+                                <div class="alert-footer">
+
+                                    <span class="alert-status">
+                                        ● Unacknowledged
+                                    </span>
+
+                                    <button
+                                        onclick="acknowledgeAlert(this)">
+                                        Acknowledge
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- OPERATING ENVELOPE -->
+
+                <div class="panel alert-envelope-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                CONSTRAINT STATUS
+                            </span>
+
+                            <h3>
+                                Operating Envelope
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge warning">
+                            1 Caution
+                        </span>
+
+                    </div>
+
+
+                    <div class="envelope-status-list">
+
+
+                        <div class="envelope-status-row">
+
+                            <div class="envelope-status-name">
+
+                                <span class="status-indicator safe"></span>
+
+                                <div>
+
+                                    <strong>
+                                        Steam Volume
+                                    </strong>
+
+                                    <small>
+                                        Preferred: 55–75 t
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                65 t
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="envelope-status-row">
+
+                            <div class="envelope-status-name">
+
+                                <span class="status-indicator safe"></span>
+
+                                <div>
+
+                                    <strong>
+                                        Injection Pressure
+                                    </strong>
+
+                                    <small>
+                                        Preferred: 12–16 bar
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                14.2 bar
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="envelope-status-row">
+
+                            <div class="envelope-status-name">
+
+                                <span class="status-indicator caution"></span>
+
+                                <div>
+
+                                    <strong>
+                                        SRP Speed
+                                    </strong>
+
+                                    <small>
+                                        Preferred: 6–8 SPM
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                7.8 SPM
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="envelope-status-row">
+
+                            <div class="envelope-status-name">
+
+                                <span class="status-indicator safe"></span>
+
+                                <div>
+
+                                    <strong>
+                                        Pump Fillage
+                                    </strong>
+
+                                    <small>
+                                        Preferred: 75–90%
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                81%
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="envelope-status-row">
+
+                            <div class="envelope-status-name">
+
+                                <span class="status-indicator safe"></span>
+
+                                <div>
+
+                                    <strong>
+                                        Energy Intensity
+                                    </strong>
+
+                                    <small>
+                                        Target: ≤ 40 kWh/m³
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                39.2
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="envelope-note">
+
+                        <span>
+                            i
+                        </span>
+
+                        <p>
+                            The alert engine combines predicted conditions
+                            with operating limits instead of relying only
+                            on fixed threshold alarms.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ALERT HISTORY
+            ================================================== -->
+
+            <div class="panel alert-history-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ALERT HISTORY
+                        </span>
+
+                        <h3>
+                            Recent Resolved Alerts
+                        </h3>
+
+                    </div>
+
+                    <select
+                        id="severityFilter"
+                        onchange="filterHistory()">
+
+                        <option value="all">
+                            All
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option value="warning">
+                            Warning
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table class="alert-history-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    TIME
+                                </th>
+
+                                <th>
+                                    ALERT
+                                </th>
+
+                                <th>
+                                    SOURCE
+                                </th>
+
+                                <th>
+                                    PEAK VALUE
+                                </th>
+
+                                <th>
+                                    RESPONSE
+                                </th>
+
+                                <th>
+                                    STATUS
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr data-severity="warning">
+
+                                <td>
+                                    23 Sep 04:40
+                                </td>
+
+                                <td>
+                                    Reservoir viscosity increasing
+                                </td>
+
+                                <td>
+                                    Thermal Model
+                                </td>
+
+                                <td>
+                                    1,860 cP
+                                </td>
+
+                                <td>
+                                    Monitoring
+                                </td>
+
+                                <td>
+                                    <span class="table-status resolved">
+                                        Resolved
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-severity="warning">
+
+                                <td>
+                                    20 Sep 13:15
+                                </td>
+
+                                <td>
+                                    Energy above target
+                                </td>
+
+                                <td>
+                                    SRP Model
+                                </td>
+
+                                <td>
+                                    43.8 kWh/m³
+                                </td>
+
+                                <td>
+                                    SPM adjusted
+                                </td>
+
+                                <td>
+                                    <span class="table-status resolved">
+                                        Resolved
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-severity="high">
+
+                                <td>
+                                    19 Sep 08:20
+                                </td>
+
+                                <td>
+                                    Rod load approaching limit
+                                </td>
+
+                                <td>
+                                    Mechanical Model
+                                </td>
+
+                                <td>
+                                    86%
+                                </td>
+
+                                <td>
+                                    SPM reduced
+                                </td>
+
+                                <td>
+                                    <span class="table-status resolved">
+                                        Resolved
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-severity="warning">
+
+                                <td>
+                                    16 Sep 21:10
+                                </td>
+
+                                <td>
+                                    Pump fillage declining
+                                </td>
+
+                                <td>
+                                    SRP Model
+                                </td>
+
+                                <td>
+                                    68%
+                                </td>
+
+                                <td>
+                                    Pump speed held
+                                </td>
+
+                                <td>
+                                    <span class="table-status resolved">
+                                        Resolved
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ALERT LOGIC
+            ================================================== -->
+
+            <div class="panel alert-logic-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            EXPLAINABLE ALERT ENGINE
+                        </span>
+
+                        <h3>
+                            Why Was This Alert Generated?
+                        </h3>
+
+                    </div>
+
+                    <span class="status-badge info">
+                        Explainable AI
+                    </span>
+
+                </div>
+
+
+                <div class="alert-logic-grid">
+
+
+                    <div class="logic-step">
+
+                        <div class="logic-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Detect
+                            </strong>
+
+                            <p>
+                                Streaming well data and Digital Twin
+                                state variables are monitored continuously.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="logic-arrow">
+                        →
+                    </div>
+
+
+                    <div class="logic-step">
+
+                        <div class="logic-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Predict
+                            </strong>
+
+                            <p>
+                                AI models estimate future production,
+                                thermal and mechanical conditions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="logic-arrow">
+                        →
+                    </div>
+
+
+                    <div class="logic-step">
+
+                        <div class="logic-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Compare
+                            </strong>
+
+                            <p>
+                                Predictions are compared with the
+                                dynamic operating envelope.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="logic-arrow">
+                        →
+                    </div>
+
+
+                    <div class="logic-step">
+
+                        <div class="logic-number">
+                            04
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Recommend
+                            </strong>
+
+                            <p>
+                                The system provides a mitigation action
+                                and confidence level for the operator.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OPERATOR NOTICE -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <strong>
+                        Operator Decision Support
+                    </strong>
+
+                    <p>
+                        Alerts in this prototype are illustrative.
+                        The final system should use validated SCADA,
+                        historian, production and SRP data with
+                        field-approved operating limits. An alert
+                        provides decision support; the operator remains
+                        responsible for the final action.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+function acknowledgeAlert(button) {
+
+    const card =
+        button.closest(".alert-card");
+
+    const status =
+        card.querySelector(".alert-status");
+
+    status.textContent =
+        "✓ Acknowledged";
+
+    status.classList.add("acknowledged");
+
+    button.textContent =
+        "Acknowledged";
+
+    button.disabled = true;
+
+    card.classList.add("acknowledged-card");
+
+
+    updateActiveCount();
+
+}
+
+
+function acknowledgeAll() {
+
+    document
+        .querySelectorAll(".alert-card")
+        .forEach(card => {
+
+            const status =
+                card.querySelector(".alert-status");
+
+            const button =
+                card.querySelector("button");
+
+            status.textContent =
+                "✓ Acknowledged";
+
+            status.classList.add("acknowledged");
+
+            button.textContent =
+                "Acknowledged";
+
+            button.disabled = true;
+
+            card.classList.add("acknowledged-card");
+
+        });
+
+
+    updateActiveCount();
+
+}
+
+
+function updateActiveCount() {
+
+    const active =
+        document.querySelectorAll(
+            ".alert-card:not(.acknowledged-card)"
+        ).length;
+
+    document.getElementById(
+        "activeCount"
+    ).textContent = active;
+
+}
+
+
+function clearResolved() {
+
+    document
+        .querySelectorAll(".alert-history-table tbody tr")
+        .forEach(row => {
+
+            row.style.display = "none";
+
+        });
+
+}
+
+
+function filterHistory() {
+
+    const selected =
+        document.getElementById(
+            "severityFilter"
+        ).value;
+
+
+    document
+        .querySelectorAll(
+            ".alert-history-table tbody tr"
+        )
+        .forEach(row => {
+
+            const severity =
+                row.dataset.severity;
+
+            if (
+                selected === "all" ||
+                selected === severity
+            ) {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+}
+
+</script>
+
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

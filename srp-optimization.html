@@ -1,0 +1,3310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SRP Optimization | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+/* =========================================================
+   SRP OPTIMIZATION PAGE — FINAL LAYOUT
+   ========================================================= */
+
+/* ---------- GLOBAL ---------- */
+
+html,
+body {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+body > .sidebar {
+    position: fixed !important;
+
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+
+    width: 250px !important;
+    min-width: 250px !important;
+    height: 100vh !important;
+
+    z-index: 1000 !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+body > .main-content {
+    width: calc(100% - 250px) !important;
+
+    min-width: 0 !important;
+    min-height: 100vh !important;
+
+    margin-left: 250px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+}
+
+
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
+
+body > .main-content > .top-header {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: 68px !important;
+    min-height: 68px !important;
+
+    margin: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   SRP CONTENT AREA
+   ========================================================= */
+
+body > .main-content > .dashboard-content {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 26px 28px 42px !important;
+
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.dashboard-content > .page-intro {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 0 20px 0 !important;
+    padding: 0 0 14px 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    box-sizing: border-box !important;
+
+    border-bottom: 1px solid #dbe4f0 !important;
+}
+
+
+.dashboard-content > .page-intro h1 {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 27px !important;
+    line-height: 1.15 !important;
+    font-weight: 700 !important;
+}
+
+
+.dashboard-content > .page-intro p {
+    margin: 0 !important;
+
+    max-width: 520px !important;
+
+    color: #64748b !important;
+
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+
+    text-align: right !important;
+}
+
+
+/* =========================================================
+   STATUS CARDS
+   ========================================================= */
+
+.dashboard-content > .srp-status-grid {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 16px !important;
+
+    margin: 0 0 20px 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content > .srp-status-grid > .srp-status-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    min-height: 108px !important;
+
+    padding: 16px 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe4f0 !important;
+
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   MAIN SRP AREA
+   ========================================================= */
+
+.dashboard-content > .srp-main-layout {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 0.95fr)
+        minmax(0, 1.05fr) !important;
+
+    gap: 18px !important;
+
+    margin: 0 0 20px 0 !important;
+
+    box-sizing: border-box !important;
+
+    align-items: start !important;
+}
+
+
+/* =========================================================
+   SRP PANELS
+   ========================================================= */
+
+.dashboard-content > .srp-main-layout > .srp-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe4f0 !important;
+
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   PANEL HEADER
+   ========================================================= */
+
+.dashboard-content .panel-heading {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin: 0 0 17px 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .panel-heading h2 {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 16px !important;
+
+    line-height: 1.2 !important;
+}
+
+
+.dashboard-content .panel-heading span {
+    color: #64748b !important;
+
+    font-size: 11px !important;
+}
+
+
+/* =========================================================
+   SRP CONTROLS
+   ========================================================= */
+
+.dashboard-content .srp-control {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin-bottom: 18px !important;
+}
+
+
+.dashboard-content .srp-control:last-child {
+    margin-bottom: 0 !important;
+}
+
+
+.dashboard-content .srp-control-header {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    gap: 10px !important;
+
+    margin-bottom: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .srp-control-header label {
+    font-size: 13px !important;
+
+    font-weight: 600 !important;
+
+    color: #334155 !important;
+}
+
+
+.dashboard-content .control-value {
+    font-size: 14px !important;
+
+    font-weight: 700 !important;
+
+    color: #2563eb !important;
+}
+
+
+/* =========================================================
+   SLIDERS
+   ========================================================= */
+
+.dashboard-content .srp-range {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    display: block !important;
+
+    box-sizing: border-box !important;
+
+    accent-color: #2563eb;
+}
+
+
+.dashboard-content .range-info {
+    width: 100% !important;
+
+    display: flex !important;
+
+    justify-content: space-between !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+
+    margin-top: 4px !important;
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.dashboard-content .srp-select {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    padding: 10px 12px !important;
+
+    border: 1px solid #cbd5e1 !important;
+
+    border-radius: 8px !important;
+
+    background: #f8fafc !important;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.dashboard-content .srp-button-row {
+    width: 100% !important;
+
+    display: flex !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 10px !important;
+
+    margin-top: 22px !important;
+}
+
+
+.dashboard-content .srp-primary-btn,
+.dashboard-content .srp-secondary-btn {
+    border: none !important;
+
+    border-radius: 8px !important;
+
+    padding: 11px 18px !important;
+
+    font-size: 13px !important;
+
+    font-weight: 600 !important;
+
+    cursor: pointer !important;
+}
+
+
+/* =========================================================
+   PREDICTION GRID
+   ========================================================= */
+
+.dashboard-content .srp-prediction-grid {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .srp-prediction-card {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    min-height: 92px !important;
+
+    padding: 14px !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #e2e8f0 !important;
+
+    border-radius: 10px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .prediction-title {
+    font-size: 11px !important;
+
+    color: #64748b !important;
+
+    margin-bottom: 6px !important;
+}
+
+
+.dashboard-content .prediction-value {
+    font-size: 22px !important;
+
+    font-weight: 700 !important;
+
+    color: #0f172a !important;
+}
+
+
+.dashboard-content .prediction-unit {
+    font-size: 11px !important;
+
+    color: #64748b !important;
+}
+
+
+.dashboard-content .prediction-note {
+    margin-top: 5px !important;
+
+    font-size: 10px !important;
+
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   LOWER SECTIONS
+   ========================================================= */
+
+.dashboard-content > .rod-load-panel,
+.dashboard-content > .envelope-panel,
+.dashboard-content > .srp-recommendation,
+.dashboard-content > .operator-notice {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   ROD LOAD
+   ========================================================= */
+
+.dashboard-content .rod-load-chart {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   OPERATING ENVELOPE
+   ========================================================= */
+
+.dashboard-content .envelope-panel {
+    width: 100% !important;
+
+    overflow-x: auto !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .envelope-table {
+    width: 100% !important;
+
+    min-width: 650px;
+
+    border-collapse: collapse;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   RECOMMENDATION
+   ========================================================= */
+
+.dashboard-content .srp-recommendation {
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .why-grid {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 12px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .why-card {
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    body > .sidebar {
+        width: 225px !important;
+
+        min-width: 225px !important;
+    }
+
+
+    body > .main-content {
+        width: calc(100% - 225px) !important;
+
+        margin-left: 225px !important;
+    }
+
+
+    body > .main-content > .dashboard-content {
+        padding: 22px 20px 36px !important;
+    }
+
+
+    .dashboard-content > .srp-status-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .dashboard-content > .srp-main-layout {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body > .sidebar {
+        position: relative !important;
+
+        width: 100% !important;
+
+        min-width: 100% !important;
+
+        height: auto !important;
+
+        max-height: none !important;
+    }
+
+
+    body > .main-content {
+        width: 100% !important;
+
+        margin-left: 0 !important;
+    }
+
+
+    body > .main-content > .top-header {
+        height: auto !important;
+
+        min-height: 64px !important;
+
+        padding: 10px 14px !important;
+    }
+
+
+    body > .main-content > .dashboard-content {
+        width: 100% !important;
+
+        padding: 16px !important;
+    }
+
+
+    .dashboard-content > .page-intro {
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+
+        gap: 8px !important;
+    }
+
+
+    .dashboard-content > .page-intro p {
+        text-align: left !important;
+    }
+
+
+    .dashboard-content > .srp-status-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .dashboard-content > .srp-main-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .dashboard-content .srp-prediction-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .dashboard-content .why-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+/* =========================================================
+   SRP OPTIMIZATION — LOWER SECTION LAYOUT FIX
+   ========================================================= */
+
+
+/* =========================================================
+   1. ROD LOAD PROFILE
+   ========================================================= */
+
+.dashboard-content .rod-load-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 0 18px 0 !important;
+    padding: 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe4f0 !important;
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Header */
+
+.dashboard-content .rod-load-panel .panel-heading {
+    width: 100% !important;
+
+    min-height: 30px !important;
+
+    margin: 0 0 12px 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* Chart wrapper */
+
+.dashboard-content .rod-load-chart {
+    position: relative !important;
+
+    width: 100% !important;
+    height: 260px !important;
+
+    min-height: 260px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+
+    background: #f8fafc !important;
+
+    border: 1px solid #e2e8f0 !important;
+
+    border-radius: 8px !important;
+}
+
+
+/* If the chart contains SVG */
+
+.dashboard-content .rod-load-chart svg {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    overflow: visible !important;
+}
+
+
+/* If the chart contains canvas */
+
+.dashboard-content .rod-load-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+}
+
+
+/* Chart labels */
+
+.dashboard-content .rod-load-chart text {
+    font-family: Arial, sans-serif !important;
+
+    font-size: 10px !important;
+
+    fill: #64748b !important;
+}
+
+
+/* =========================================================
+   2. OPERATING ENVELOPE
+   ========================================================= */
+
+.dashboard-content .envelope-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 0 18px 0 !important;
+    padding: 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe4f0 !important;
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Envelope header */
+
+.dashboard-content .envelope-panel .panel-heading {
+    width: 100% !important;
+
+    margin: 0 0 12px 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+}
+
+
+/* Table wrapper */
+
+.dashboard-content .envelope-panel .table-wrapper {
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    overflow-x: auto !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* Table */
+
+.dashboard-content .envelope-table {
+    width: 100% !important;
+
+    min-width: 650px !important;
+
+    border-collapse: collapse !important;
+
+    table-layout: fixed !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* Table heading */
+
+.dashboard-content .envelope-table th {
+    height: 36px !important;
+
+    padding: 8px 10px !important;
+
+    background: #dbe7fb !important;
+
+    color: #475569 !important;
+
+    font-size: 12px !important;
+
+    font-weight: 700 !important;
+
+    text-align: center !important;
+
+    border-bottom: 1px solid #c5d4eb !important;
+}
+
+
+/* Table cells */
+
+.dashboard-content .envelope-table td {
+    height: 34px !important;
+
+    padding: 7px 10px !important;
+
+    color: #334155 !important;
+
+    font-size: 12px !important;
+
+    text-align: center !important;
+
+    border-bottom: 1px solid #dbe4f0 !important;
+}
+
+
+/* First column */
+
+.dashboard-content .envelope-table td:first-child {
+    font-weight: 700 !important;
+
+    color: #172033 !important;
+
+    text-align: left !important;
+}
+
+
+/* =========================================================
+   3. DIGITAL TWIN RECOMMENDATION
+   ========================================================= */
+
+.dashboard-content .srp-recommendation {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 0 16px 0 !important;
+
+    padding: 18px !important;
+
+    background: #f5f9ff !important;
+
+    border: 1px solid #c7dcf5 !important;
+
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Recommendation heading */
+
+.dashboard-content .srp-recommendation .recommendation-heading {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    margin: 0 0 12px 0 !important;
+}
+
+
+.dashboard-content .srp-recommendation h2 {
+    margin: 0 !important;
+
+    color: #172033 !important;
+
+    font-size: 23px !important;
+
+    line-height: 1.2 !important;
+}
+
+
+/* Confidence */
+
+.dashboard-content .confidence {
+    font-size: 10px !important;
+
+    color: #5274b7 !important;
+}
+
+
+/* Recommendation text */
+
+.dashboard-content .recommendation-summary {
+    width: 100% !important;
+
+    margin: 0 0 12px 0 !important;
+
+    color: #334155 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* WHY grid */
+
+.dashboard-content .why-grid {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* WHY cards */
+
+.dashboard-content .why-card {
+    min-width: 0 !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    border: none !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.dashboard-content .why-card h3 {
+    margin: 0 0 3px 0 !important;
+
+    color: #172033 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.3 !important;
+}
+
+
+.dashboard-content .why-card p {
+    margin: 0 !important;
+
+    color: #475569 !important;
+
+    font-size: 12px !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   4. OPERATOR DECISION SUPPORT
+   ========================================================= */
+
+.dashboard-content .operator-notice {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-height: 56px !important;
+
+    margin: 0 !important;
+
+    padding: 13px 16px !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    gap: 12px !important;
+
+    background: #071426 !important;
+
+    border: 1px solid #172b47 !important;
+
+    border-radius: 8px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Notice icon */
+
+.dashboard-content .operator-notice .notice-icon {
+    width: 20px !important;
+    min-width: 20px !important;
+
+    height: 20px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #4d8df7 !important;
+}
+
+
+/* Notice text */
+
+.dashboard-content .operator-notice .notice-content {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+}
+
+
+.dashboard-content .operator-notice h4 {
+    margin: 0 0 4px 0 !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+
+    font-weight: 600 !important;
+}
+
+
+.dashboard-content .operator-notice p {
+    margin: 0 !important;
+
+    color: #7186a5 !important;
+
+    font-size: 8px !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   SPACING BETWEEN ALL LOWER SECTIONS
+   ========================================================= */
+
+.dashboard-content > .rod-load-panel,
+.dashboard-content > .envelope-panel,
+.dashboard-content > .srp-recommendation,
+.dashboard-content > .operator-notice {
+    clear: both !important;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-content .why-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .dashboard-content .rod-load-chart {
+        height: 230px !important;
+        min-height: 230px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .dashboard-content .rod-load-chart {
+        height: 210px !important;
+        min-height: 210px !important;
+    }
+
+    .dashboard-content .why-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .dashboard-content .srp-recommendation h2 {
+        font-size: 19px !important;
+    }
+
+    .dashboard-content .srp-recommendation {
+        padding: 15px !important;
+    }
+
+    .dashboard-content .operator-notice {
+        padding: 12px !important;
+    }
+}
+/* =========================================================
+   SRP LOWER SECTION — FINAL FIX
+   ========================================================= */
+
+
+/* =========================================================
+   ROD LOAD PROFILE
+   ========================================================= */
+
+.rod-load-panel {
+    width: 100% !important;
+    margin: 0 0 22px 0 !important;
+    padding: 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe4f0 !important;
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* Header */
+
+.rod-load-panel .panel-heading {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    margin: 0 0 14px 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+.rod-load-panel .panel-heading h2 {
+    margin: 0 !important;
+
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+
+    color: #0f172a !important;
+}
+
+.rod-load-panel .panel-heading span {
+    font-size: 10px !important;
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   ACTUAL ROD LOAD GRAPH
+   ========================================================= */
+
+.rod-load-chart {
+    width: 100% !important;
+    height: 230px !important;
+
+    min-height: 230px !important;
+
+    display: flex !important;
+
+    flex-direction: row !important;
+    align-items: flex-end !important;
+
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    padding: 25px 18px 10px 18px !important;
+
+    position: relative !important;
+
+    background:
+        linear-gradient(
+            to top,
+            transparent 24%,
+            #e2e8f0 25%,
+            transparent 26%,
+            transparent 49%,
+            #e2e8f0 50%,
+            transparent 51%,
+            transparent 74%,
+            #e2e8f0 75%,
+            transparent 76%
+        ) !important;
+
+    border-left: 1px solid #cbd5e1 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+
+    border-radius: 4px 0 0 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: visible !important;
+}
+
+
+/* ---------- EACH BAR ---------- */
+
+.rod-load-chart .load-bar {
+    flex: 1 1 0 !important;
+
+    width: auto !important;
+
+    min-width: 18px !important;
+    max-width: 65px !important;
+
+    position: relative !important;
+
+    display: block !important;
+
+    align-self: flex-end !important;
+
+    background: #3b82f6 !important;
+
+    border-radius: 5px 5px 0 0 !important;
+
+    box-sizing: border-box !important;
+
+    transition: height 0.3s ease !important;
+}
+
+
+/* Alternate bars */
+
+.rod-load-chart .load-bar:nth-child(even) {
+    background: #60a5fa !important;
+}
+
+
+/* ---------- VALUE ABOVE BAR ---------- */
+
+.rod-load-chart .load-value {
+    position: absolute !important;
+
+    top: -20px !important;
+    left: 50% !important;
+
+    transform: translateX(-50%) !important;
+
+    display: block !important;
+
+    width: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #475569 !important;
+
+    font-size: 10px !important;
+
+    line-height: 1 !important;
+
+    font-weight: 600 !important;
+
+    white-space: nowrap !important;
+
+    z-index: 5 !important;
+}
+
+
+/* ---------- AXIS ---------- */
+
+.rod-load-panel .load-axis {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    margin-top: 8px !important;
+
+    padding: 0 5px !important;
+
+    box-sizing: border-box !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 10px !important;
+}
+
+.rod-load-panel .load-axis span {
+    display: block !important;
+
+    color: #64748b !important;
+
+    font-size: 10px !important;
+}
+
+
+/* =========================================================
+   OPERATING ENVELOPE
+   ========================================================= */
+
+.envelope-panel {
+    width: 100% !important;
+
+    margin: 0 0 22px 0 !important;
+    padding: 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbe4f0 !important;
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Header */
+
+.envelope-panel .panel-heading {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    margin: 0 0 12px 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+.envelope-panel .panel-heading h2 {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 16px !important;
+}
+
+.envelope-panel .panel-heading span {
+    color: #64748b !important;
+
+    font-size: 10px !important;
+}
+
+
+/* Table */
+
+.envelope-table {
+    width: 100% !important;
+
+    border-collapse: collapse !important;
+
+    table-layout: fixed !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.envelope-table th {
+    height: 36px !important;
+
+    padding: 8px 10px !important;
+
+    background: #dbe7fb !important;
+
+    color: #475569 !important;
+
+    font-size: 11px !important;
+
+    font-weight: 700 !important;
+
+    text-align: center !important;
+
+    border-bottom: 1px solid #cbd5e1 !important;
+}
+
+
+.envelope-table td {
+    height: 35px !important;
+
+    padding: 7px 10px !important;
+
+    color: #334155 !important;
+
+    font-size: 11px !important;
+
+    text-align: center !important;
+
+    border-bottom: 1px solid #dbe4f0 !important;
+}
+
+
+.envelope-table td:first-child {
+    text-align: left !important;
+
+    color: #172033 !important;
+
+    font-weight: 700 !important;
+}
+
+
+.envelope-table .recommended-row {
+    background: #eff6ff !important;
+}
+
+
+.envelope-table .recommended-label {
+    color: #2563eb !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   DIGITAL TWIN RECOMMENDATION
+   ========================================================= */
+
+.srp-recommendation {
+    width: 100% !important;
+
+    margin: 0 0 18px 0 !important;
+
+    padding: 18px !important;
+
+    background: #f1f7ff !important;
+
+    border: 1px solid #bfdbfe !important;
+
+    border-radius: 11px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Header */
+
+.srp-recommendation .recommendation-header {
+    width: 100% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: flex-start !important;
+
+    gap: 12px !important;
+
+    margin: 0 0 12px 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.srp-recommendation .recommendation-header h2 {
+    margin: 0 !important;
+
+    color: #0f172a !important;
+
+    font-size: 22px !important;
+
+    line-height: 1.2 !important;
+}
+
+
+.srp-recommendation .confidence {
+    display: inline-block !important;
+
+    padding: 4px 8px !important;
+
+    background: #dbeafe !important;
+
+    color: #2563eb !important;
+
+    border-radius: 12px !important;
+
+    font-size: 9px !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* Main recommendation */
+
+.srp-recommendation .recommendation-main {
+    width: 100% !important;
+
+    margin: 0 0 14px 0 !important;
+
+    color: #334155 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.45 !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* =========================================================
+   WHY GRID
+   ========================================================= */
+
+.srp-recommendation .why-grid {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ---------- WHY CARD ---------- */
+
+.srp-recommendation .why-card {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: flex-start !important;
+
+    justify-content: flex-start !important;
+
+    gap: 5px !important;
+
+    padding: 12px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dbeafe !important;
+
+    border-radius: 8px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* WHY title */
+
+.srp-recommendation .why-card strong {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    color: #1e40af !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.3 !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* WHY description */
+
+.srp-recommendation .why-card span {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    color: #475569 !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.45 !important;
+
+    white-space: normal !important;
+
+    word-break: normal !important;
+}
+
+
+/* =========================================================
+   OPERATOR NOTICE
+   ========================================================= */
+
+.operator-notice {
+    width: 100% !important;
+
+    min-height: 58px !important;
+
+    margin: 0 !important;
+
+    padding: 13px 16px !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    gap: 12px !important;
+
+    background: #071426 !important;
+
+    border: 1px solid #172b47 !important;
+
+    border-radius: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.operator-notice .operator-icon {
+    width: 24px !important;
+
+    min-width: 24px !important;
+
+    height: 24px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+}
+
+
+.operator-notice > div:last-child {
+    min-width: 0 !important;
+
+    flex: 1 !important;
+}
+
+
+.operator-notice strong {
+    display: block !important;
+
+    margin: 0 0 4px 0 !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+}
+
+
+.operator-notice p {
+    margin: 0 !important;
+
+    color: #7186a5 !important;
+
+    font-size: 8px !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .srp-recommendation .why-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .rod-load-chart {
+        height: 200px !important;
+        min-height: 200px !important;
+
+        gap: 6px !important;
+
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+
+    .rod-load-chart .load-bar {
+        min-width: 12px !important;
+    }
+
+
+    .srp-recommendation .why-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .envelope-panel {
+        overflow-x: auto !important;
+    }
+
+
+    .envelope-table {
+        min-width: 650px !important;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<div class="sidebar">
+
+    <div class="logo-area">
+        <div class="logo-icon">DT</div>
+        <div>
+            <h2>WellTwin AI</h2>
+            <span>Baghewala Field</span>
+        </div>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">MAIN</div>
+
+        <a href="index.html" class="nav-item">
+            <span>▦</span>
+            Dashboard
+        </a>
+
+        <a href="digital-twin.html" class="nav-item">
+            <span>◈</span>
+            Digital Twin
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">OPTIMIZATION</div>
+
+        <a href="css-optimization.html" class="nav-item">
+            <span>♨</span>
+            CSS Optimization
+        </a>
+
+        <a href="srp-optimization.html" class="nav-item active">
+            <span>⚙</span>
+            SRP Optimization
+        </a>
+
+        <a href="joint-optimization.html" class="nav-item">
+            <span>⇄</span>
+            Joint Optimization
+        </a>
+
+        <a href="simulator.html" class="nav-item">
+            <span>⌁</span>
+            What-if Simulator
+        </a>
+
+        <a href="operating-envelope.html" class="nav-item">
+            <span>▤</span>
+            Operating Envelope
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">MONITORING</div>
+
+        <a href="predictions.html" class="nav-item">
+            <span>◌</span>
+            Predictions
+        </a>
+
+        <a href="risk-monitoring.html" class="nav-item">
+            <span>!</span>
+            Risk Monitoring
+        </a>
+
+        <a href="production.html" class="nav-item">
+            <span>↗</span>
+            Production
+        </a>
+
+        <a href="energy.html" class="nav-item">
+            <span>ϟ</span>
+            Energy
+        </a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">SYSTEM</div>
+
+        <a href="history.html" class="nav-item">
+            <span>◷</span>
+            History
+        </a>
+
+        <a href="alerts.html" class="nav-item">
+            <span>⚠</span>
+            Alerts
+        </a>
+
+        <a href="recommendations.html" class="nav-item">
+            <span>✓</span>
+            Recommendations
+        </a>
+
+        <a href="calibration.html" class="nav-item">
+            <span>◎</span>
+            Model Calibration
+        </a>
+
+        <a href="data-management.html" class="nav-item">
+            <span>▥</span>
+            Data Management
+        </a>
+
+        <a href="settings.html" class="nav-item">
+            <span>⚙</span>
+            Settings
+        </a>
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<div class="main-content">
+
+    <!-- Header -->
+
+    <header class="top-header">
+
+        <div class="header-left">
+            <div class="field-name">
+                BAGHEWALA
+                <span>/</span>
+                WELL BW-01
+            </div>
+        </div>
+
+        <div class="header-right">
+
+            <div class="live-status">
+                <span class="live-dot"></span>
+                LIVE
+            </div>
+
+            <div class="header-date">
+                27 Sep 2026
+            </div>
+
+            <div class="operator-name">
+                Operator
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- Page -->
+
+    <main class="dashboard-content">
+
+        <div class="page-intro">
+
+            <h1>SRP Optimization</h1>
+
+            <p>
+                AI-assisted sucker rod pump optimization using the
+                Well-to-Surface Digital Twin.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             CURRENT SRP STATUS
+        ================================================== -->
+
+        <section class="srp-status-grid">
+
+            <div class="srp-status-card">
+
+                <div class="status-label">
+                    Current SPM
+                </div>
+
+                <div class="status-value">
+                    <span id="currentSPM">7.0</span>
+                    <span class="status-unit">spm</span>
+                </div>
+
+                <div class="status-change">
+                    ● Within current operating range
+                </div>
+
+            </div>
+
+
+            <div class="srp-status-card">
+
+                <div class="status-label">
+                    Stroke Length
+                </div>
+
+                <div class="status-value">
+                    <span id="currentStroke">54</span>
+                    <span class="status-unit">in</span>
+                </div>
+
+                <div class="status-change">
+                    Stable
+                </div>
+
+            </div>
+
+
+            <div class="srp-status-card">
+
+                <div class="status-label">
+                    VFD Frequency
+                </div>
+
+                <div class="status-value">
+                    <span id="currentVFD">45</span>
+                    <span class="status-unit">Hz</span>
+                </div>
+
+                <div class="status-change">
+                    Normal
+                </div>
+
+            </div>
+
+
+            <div class="srp-status-card">
+
+                <div class="status-label">
+                    Pump Efficiency
+                </div>
+
+                <div class="status-value">
+                    <span id="currentEfficiency">68</span>
+                    <span class="status-unit">%</span>
+                </div>
+
+                <div class="status-change">
+                    Based on prototype twin model
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTROLS + PREDICTIONS
+        ================================================== -->
+
+        <section class="srp-main-layout">
+
+
+            <!-- SRP Controls -->
+
+            <div class="srp-panel">
+
+                <div class="panel-heading">
+
+                    <h2>SRP Operating Controls</h2>
+
+                    <span>What-if inputs</span>
+
+                </div>
+
+
+                <!-- SPM -->
+
+                <div class="srp-control">
+
+                    <div class="srp-control-header">
+
+                        <label for="spmSlider">
+                            Pumping Speed
+                        </label>
+
+                        <span class="control-value">
+                            <span id="spmValue">7.0</span> spm
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="spmSlider"
+                        class="srp-range"
+                        min="3"
+                        max="12"
+                        step="0.5"
+                        value="7"
+                    >
+
+                    <div class="range-info">
+                        <span>3 spm</span>
+                        <span>12 spm</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Stroke -->
+
+                <div class="srp-control">
+
+                    <div class="srp-control-header">
+
+                        <label for="strokeSlider">
+                            Stroke Length
+                        </label>
+
+                        <span class="control-value">
+                            <span id="strokeValue">54</span> in
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="strokeSlider"
+                        class="srp-range"
+                        min="36"
+                        max="72"
+                        step="3"
+                        value="54"
+                    >
+
+                    <div class="range-info">
+                        <span>36 in</span>
+                        <span>72 in</span>
+                    </div>
+
+                </div>
+
+
+                <!-- VFD -->
+
+                <div class="srp-control">
+
+                    <div class="srp-control-header">
+
+                        <label for="vfdSlider">
+                            VFD Frequency
+                        </label>
+
+                        <span class="control-value">
+                            <span id="vfdValue">45</span> Hz
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="vfdSlider"
+                        class="srp-range"
+                        min="30"
+                        max="60"
+                        step="1"
+                        value="45"
+                    >
+
+                    <div class="range-info">
+                        <span>30 Hz</span>
+                        <span>60 Hz</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Fluid Condition -->
+
+                <div class="srp-control">
+
+                    <div class="srp-control-header">
+
+                        <label for="fluidCondition">
+                            Current Fluid Condition
+                        </label>
+
+                    </div>
+
+                    <select
+                        id="fluidCondition"
+                        class="srp-select"
+                    >
+
+                        <option value="hot">
+                            Hot / Recently Stimulated
+                        </option>
+
+                        <option value="normal" selected>
+                            Normal Cooling Condition
+                        </option>
+
+                        <option value="cold">
+                            Cold / High Viscosity
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Fillage -->
+
+                <div class="srp-control">
+
+                    <div class="srp-control-header">
+
+                        <label for="fillageSlider">
+                            Estimated Pump Fillage
+                        </label>
+
+                        <span class="control-value">
+                            <span id="fillageValue">82</span> %
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="fillageSlider"
+                        class="srp-range"
+                        min="50"
+                        max="100"
+                        step="1"
+                        value="82"
+                    >
+
+                    <div class="range-info">
+                        <span>50%</span>
+                        <span>100%</span>
+                    </div>
+
+                </div>
+
+
+                <div class="srp-button-row">
+
+                    <button
+                        class="srp-primary-btn"
+                        onclick="runSRPSimulation()"
+                    >
+                        Run Twin Simulation
+                    </button>
+
+                    <button
+                        class="srp-secondary-btn"
+                        onclick="resetSRP()"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+                <div
+                    id="simulationStatus"
+                    class="simulation-status"
+                ></div>
+
+            </div>
+
+
+            <!-- Predictions -->
+
+            <div class="srp-panel">
+
+                <div class="panel-heading">
+
+                    <h2>Predicted SRP Response</h2>
+
+                    <span>Prototype Twin Model</span>
+
+                </div>
+
+
+                <div class="srp-prediction-grid">
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Predicted Oil Production
+                        </div>
+
+                        <div class="prediction-value">
+                            <span id="predProduction">37.8</span>
+                            <span class="prediction-unit">m³/day</span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Estimated surface production
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Pump Efficiency
+                        </div>
+
+                        <div class="prediction-value">
+                            <span id="predEfficiency">68</span>
+                            <span class="prediction-unit">%</span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Estimated volumetric efficiency
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Peak Rod Load
+                        </div>
+
+                        <div class="prediction-value">
+                            <span id="rodLoad">9.2</span>
+                            <span class="prediction-unit">klbf</span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Estimated maximum rod load
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Impact Load
+                        </div>
+
+                        <div class="prediction-value">
+                            <span id="impactLoad">2.1</span>
+                            <span class="prediction-unit">klbf</span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Downhole impact indicator
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Energy Consumption
+                        </div>
+
+                        <div class="prediction-value">
+                            <span id="energyConsumption">31.6</span>
+                            <span class="prediction-unit">kWh/day</span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Estimated SRP energy requirement
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Rod Floating Risk
+                        </div>
+
+                        <div class="prediction-value">
+                            <span
+                                id="rodRisk"
+                                class="risk-badge risk-low"
+                            >
+                                LOW
+                            </span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Based on current simulated condition
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Pump Unsetting Risk
+                        </div>
+
+                        <div class="prediction-value">
+                            <span
+                                id="pumpRisk"
+                                class="risk-badge risk-low"
+                            >
+                                LOW
+                            </span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Estimated operating risk
+                        </div>
+
+                    </div>
+
+
+                    <div class="srp-prediction-card">
+
+                        <div class="prediction-title">
+                            Overall Mechanical Risk
+                        </div>
+
+                        <div class="prediction-value">
+                            <span id="mechanicalRisk">18</span>
+                            <span class="prediction-unit">%</span>
+                        </div>
+
+                        <div class="prediction-note">
+                            Composite prototype indicator
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ROD LOAD PROFILE
+        ================================================== -->
+
+        <section class="srp-panel rod-load-panel">
+
+            <div class="panel-heading">
+
+                <h2>Estimated Rod Load Profile</h2>
+
+                <span>One simulated pumping cycle</span>
+
+            </div>
+
+
+            <div class="rod-load-chart">
+
+                <div
+                    class="load-bar"
+                    style="height: 58%;"
+                >
+                    <span class="load-value">7.4</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 66%;"
+                >
+                    <span class="load-value">8.1</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 75%;"
+                >
+                    <span class="load-value">8.9</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 81%;"
+                >
+                    <span class="load-value">9.2</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 76%;"
+                >
+                    <span class="load-value">8.8</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 68%;"
+                >
+                    <span class="load-value">8.3</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 61%;"
+                >
+                    <span class="load-value">7.7</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 55%;"
+                >
+                    <span class="load-value">7.1</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 49%;"
+                >
+                    <span class="load-value">6.5</span>
+                </div>
+
+                <div
+                    class="load-bar"
+                    style="height: 44%;"
+                >
+                    <span class="load-value">5.9</span>
+                </div>
+
+            </div>
+
+            <div class="load-axis">
+                <span>Downstroke</span>
+                <span>Stroke Position</span>
+                <span>Upstroke</span>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DYNAMIC OPERATING ENVELOPE
+        ================================================== -->
+
+        <section class="srp-panel envelope-panel">
+
+            <div class="panel-heading">
+
+                <h2>Dynamic SRP Operating Envelope</h2>
+
+                <span>Prototype recommended range</span>
+
+            </div>
+
+
+            <table class="envelope-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Current</th>
+                        <th>Recommended Range</th>
+                        <th>Target</th>
+                        <th>Risk Boundary</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr class="recommended-row">
+
+                        <td>
+                            <strong>SPM</strong>
+                        </td>
+
+                        <td id="tableSPM">
+                            7.0 spm
+                        </td>
+
+                        <td>
+                            <span class="recommended-label">
+                                6.0 – 8.0 spm
+                            </span>
+                        </td>
+
+                        <td>
+                            7.0 spm
+                        </td>
+
+                        <td>
+                            &gt; 10 spm
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>Stroke Length</strong>
+                        </td>
+
+                        <td id="tableStroke">
+                            54 in
+                        </td>
+
+                        <td>
+                            <span class="recommended-label">
+                                48 – 60 in
+                            </span>
+                        </td>
+
+                        <td>
+                            54 in
+                        </td>
+
+                        <td>
+                            &lt; 42 / &gt; 66 in
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>VFD Frequency</strong>
+                        </td>
+
+                        <td id="tableVFD">
+                            45 Hz
+                        </td>
+
+                        <td>
+                            <span class="recommended-label">
+                                40 – 50 Hz
+                            </span>
+                        </td>
+
+                        <td>
+                            45 Hz
+                        </td>
+
+                        <td>
+                            &gt; 55 Hz
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>Pump Fillage</strong>
+                        </td>
+
+                        <td id="tableFillage">
+                            82%
+                        </td>
+
+                        <td>
+                            <span class="recommended-label">
+                                75 – 90%
+                            </span>
+                        </td>
+
+                        <td>
+                            82%
+                        </td>
+
+                        <td>
+                            &lt; 60%
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- =================================================
+             AI RECOMMENDATION
+        ================================================== -->
+
+        <section class="srp-recommendation">
+
+            <div class="recommendation-header">
+
+                <h2>
+                    Digital Twin Recommendation
+                </h2>
+
+                <span class="confidence">
+                    Confidence: 87%
+                </span>
+
+            </div>
+
+
+            <div
+                class="recommendation-main"
+                id="recommendationText"
+            >
+                Maintain approximately 7.0 SPM, 54 in stroke and
+                45 Hz VFD frequency under the current simulated
+                fluid condition.
+            </div>
+
+
+            <div class="why-grid">
+
+
+                <div class="why-card">
+
+                    <strong>WHY — Production</strong>
+
+                    <span id="whyProduction">
+                        Current speed and stroke provide a balanced
+                        lifting condition without excessive cycling.
+                    </span>
+
+                </div>
+
+
+                <div class="why-card">
+
+                    <strong>WHY — Mechanical</strong>
+
+                    <span id="whyMechanical">
+                        Moderate SPM limits peak rod loading and
+                        reduces impact-loading exposure.
+                    </span>
+
+                </div>
+
+
+                <div class="why-card">
+
+                    <strong>WHY — Energy</strong>
+
+                    <span id="whyEnergy">
+                        The selected operating point avoids unnecessary
+                        high-frequency pumping energy demand.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             OPERATOR NOTICE
+        ================================================== -->
+
+        <section class="operator-notice">
+
+            <div class="operator-icon">
+                ℹ
+            </div>
+
+            <div>
+
+                <strong>
+                    Operator Decision Support
+                </strong>
+
+                <p>
+                    The Digital Twin provides predictions and
+                    recommended operating ranges for decision support.
+                    It does not directly control the SRP. Final operating
+                    decisions remain with the field operator and must
+                    follow applicable field procedures and safety limits.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="js/app.js"></script>
+
+<script>
+
+    /*
+     * =========================================================
+     * SRP FRONTEND PROTOTYPE MODEL
+     * =========================================================
+     *
+     * This is NOT the final engineering/ML model.
+     *
+     * Later this section can be replaced with:
+     *
+     * - Python/ML backend
+     * - Real-time well data
+     * - Rod-pump physics
+     * - Digital Twin state
+     * - Historical production data
+     * - Failure prediction model
+     *
+     */
+
+
+    const spmSlider = document.getElementById("spmSlider");
+    const strokeSlider = document.getElementById("strokeSlider");
+    const vfdSlider = document.getElementById("vfdSlider");
+    const fillageSlider = document.getElementById("fillageSlider");
+    const fluidCondition = document.getElementById("fluidCondition");
+
+
+    /*
+     * Update slider labels
+     */
+
+    spmSlider.addEventListener("input", updateSRPModel);
+    strokeSlider.addEventListener("input", updateSRPModel);
+    vfdSlider.addEventListener("input", updateSRPModel);
+    fillageSlider.addEventListener("input", updateSRPModel);
+    fluidCondition.addEventListener("change", updateSRPModel);
+
+
+    /*
+     * Main SRP model
+     */
+
+    function calculateSRP() {
+
+        const spm = parseFloat(spmSlider.value);
+        const stroke = parseFloat(strokeSlider.value);
+        const vfd = parseFloat(vfdSlider.value);
+        const fillage = parseFloat(fillageSlider.value);
+        const fluid = fluidCondition.value;
+
+
+        /*
+         * Fluid factor
+         */
+
+        let fluidFactor = 1;
+
+        if (fluid === "hot") {
+            fluidFactor = 1.12;
+        }
+
+        if (fluid === "normal") {
+            fluidFactor = 1.00;
+        }
+
+        if (fluid === "cold") {
+            fluidFactor = 0.88;
+        }
+
+
+        /*
+         * Pump efficiency
+         */
+
+        let efficiency =
+            68
+            + ((fillage - 82) * 0.18)
+            - ((spm - 7) * 2.0)
+            + ((54 - Math.abs(stroke - 54)) * 0.02)
+            + ((vfd - 45) * -0.12);
+
+
+        efficiency *= fluidFactor;
+
+        efficiency = Math.max(
+            40,
+            Math.min(90, efficiency)
+        );
+
+
+        /*
+         * Production
+         */
+
+        let production =
+            37.8
+            + ((spm - 7) * 1.25)
+            + ((stroke - 54) * 0.07)
+            + ((fillage - 82) * 0.12);
+
+        production *= fluidFactor;
+
+        /*
+         * Penalize very high speed
+         */
+
+        if (spm > 9) {
+            production -= (spm - 9) * 1.4;
+        }
+
+
+        /*
+         * Rod load
+         */
+
+        let rodLoad =
+            9.2
+            + ((spm - 7) * 0.32)
+            + ((stroke - 54) * 0.025)
+            + ((vfd - 45) * 0.025);
+
+
+        /*
+         * Impact load
+         */
+
+        let impactLoad =
+            2.1
+            + Math.max(0, spm - 7) * 0.22
+            + Math.max(0, 75 - fillage) * 0.025;
+
+
+        /*
+         * Energy
+         */
+
+        let energy =
+            31.6
+            + ((spm - 7) * 2.1)
+            + ((stroke - 54) * 0.16)
+            + ((vfd - 45) * 0.30);
+
+
+        /*
+         * Mechanical risk
+         */
+
+        let mechanicalRisk =
+            18
+            + Math.max(0, spm - 7) * 6
+            + Math.max(0, vfd - 45) * 1.5
+            + Math.max(0, 75 - fillage) * 0.45;
+
+
+        if (fluid === "cold") {
+            mechanicalRisk += 9;
+        }
+
+        mechanicalRisk = Math.max(
+            5,
+            Math.min(95, mechanicalRisk)
+        );
+
+
+        /*
+         * Rod floating risk
+         */
+
+        let rodRisk = "LOW";
+
+        if (
+            spm > 9 ||
+            fillage < 65 ||
+            fluid === "cold"
+        ) {
+            rodRisk = "HIGH";
+        }
+        else if (
+            spm > 8 ||
+            fillage < 75
+        ) {
+            rodRisk = "MEDIUM";
+        }
+
+
+        /*
+         * Pump unsetting risk
+         */
+
+        let pumpRisk = "LOW";
+
+        if (
+            fillage < 60 ||
+            spm > 10 ||
+            vfd > 56
+        ) {
+            pumpRisk = "HIGH";
+        }
+        else if (
+            fillage < 72 ||
+            spm > 8.5
+        ) {
+            pumpRisk = "MEDIUM";
+        }
+
+
+        return {
+            spm,
+            stroke,
+            vfd,
+            fillage,
+            efficiency,
+            production,
+            rodLoad,
+            impactLoad,
+            energy,
+            mechanicalRisk,
+            rodRisk,
+            pumpRisk
+        };
+    }
+
+
+    /*
+     * Update page
+     */
+
+    function updateSRPModel() {
+
+        const data = calculateSRP();
+
+
+        /*
+         * Slider values
+         */
+
+        document.getElementById("spmValue").textContent =
+            data.spm.toFixed(1);
+
+        document.getElementById("strokeValue").textContent =
+            data.stroke;
+
+        document.getElementById("vfdValue").textContent =
+            data.vfd;
+
+        document.getElementById("fillageValue").textContent =
+            data.fillage;
+
+
+        /*
+         * Current status
+         */
+
+        document.getElementById("currentSPM").textContent =
+            data.spm.toFixed(1);
+
+        document.getElementById("currentStroke").textContent =
+            data.stroke;
+
+        document.getElementById("currentVFD").textContent =
+            data.vfd;
+
+        document.getElementById("currentEfficiency").textContent =
+            Math.round(data.efficiency);
+
+
+        /*
+         * Predictions
+         */
+
+        document.getElementById("predProduction").textContent =
+            data.production.toFixed(1);
+
+        document.getElementById("predEfficiency").textContent =
+            Math.round(data.efficiency);
+
+        document.getElementById("rodLoad").textContent =
+            data.rodLoad.toFixed(1);
+
+        document.getElementById("impactLoad").textContent =
+            data.impactLoad.toFixed(1);
+
+        document.getElementById("energyConsumption").textContent =
+            data.energy.toFixed(1);
+
+        document.getElementById("mechanicalRisk").textContent =
+            Math.round(data.mechanicalRisk);
+
+
+        /*
+         * Risk badges
+         */
+
+        updateRiskBadge(
+            document.getElementById("rodRisk"),
+            data.rodRisk
+        );
+
+        updateRiskBadge(
+            document.getElementById("pumpRisk"),
+            data.pumpRisk
+        );
+
+
+        /*
+         * Operating envelope table
+         */
+
+        document.getElementById("tableSPM").textContent =
+            data.spm.toFixed(1) + " spm";
+
+        document.getElementById("tableStroke").textContent =
+            data.stroke + " in";
+
+        document.getElementById("tableVFD").textContent =
+            data.vfd + " Hz";
+
+        document.getElementById("tableFillage").textContent =
+            data.fillage + "%";
+
+
+        /*
+         * Recommendation
+         */
+
+        updateRecommendation(data);
+    }
+
+
+    /*
+     * Risk badge updater
+     */
+
+    function updateRiskBadge(element, risk) {
+
+        element.textContent = risk;
+
+        element.classList.remove(
+            "risk-low",
+            "risk-medium",
+            "risk-high"
+        );
+
+        if (risk === "LOW") {
+            element.classList.add("risk-low");
+        }
+
+        else if (risk === "MEDIUM") {
+            element.classList.add("risk-medium");
+        }
+
+        else {
+            element.classList.add("risk-high");
+        }
+    }
+
+
+    /*
+     * Recommendation engine
+     */
+
+    function updateRecommendation(data) {
+
+        const recommendation =
+            document.getElementById("recommendationText");
+
+        const whyProduction =
+            document.getElementById("whyProduction");
+
+        const whyMechanical =
+            document.getElementById("whyMechanical");
+
+        const whyEnergy =
+            document.getElementById("whyEnergy");
+
+
+        if (data.spm > 9) {
+
+            recommendation.textContent =
+                "Consider reducing pumping speed toward approximately 7–8 SPM while maintaining the selected stroke, subject to field operating limits.";
+
+            whyProduction.textContent =
+                "Higher speed can increase theoretical lifting capacity, but the prototype model indicates diminishing production response beyond the moderate-speed range.";
+
+            whyMechanical.textContent =
+                "Higher SPM increases estimated rod loading and impact exposure.";
+
+            whyEnergy.textContent =
+                "Reducing excessive cycling can lower estimated SRP energy consumption.";
+
+        }
+
+        else if (data.spm < 5) {
+
+            recommendation.textContent =
+                "Consider increasing pumping speed gradually toward approximately 6–8 SPM while monitoring pump fillage and rod loads.";
+
+            whyProduction.textContent =
+                "The simulated production response improves as the pump approaches the moderate operating range.";
+
+            whyMechanical.textContent =
+                "The current low speed gives a relatively low mechanical loading condition.";
+
+            whyEnergy.textContent =
+                "A moderate speed may provide additional lifting without the energy penalty associated with very high SPM.";
+
+        }
+
+        else if (data.fillage < 70) {
+
+            recommendation.textContent =
+                "Prioritize restoring pump fillage toward the 75–90% operating range before increasing pumping speed.";
+
+            whyProduction.textContent =
+                "Low fillage can limit effective pump displacement and therefore surface production.";
+
+            whyMechanical.textContent =
+                "Low fillage combined with higher cycling can increase dynamic loading exposure.";
+
+            whyEnergy.textContent =
+                "Avoiding unnecessary high-speed pumping can reduce energy spent on inefficient cycles.";
+
+        }
+
+        else {
+
+            recommendation.textContent =
+                "Maintain approximately " +
+                data.spm.toFixed(1) +
+                " SPM, " +
+                data.stroke +
+                " in stroke and " +
+                data.vfd +
+                " Hz VFD frequency under the current simulated condition.";
+
+            whyProduction.textContent =
+                "The selected operating point provides a balanced simulated lifting condition with adequate pump fillage.";
+
+            whyMechanical.textContent =
+                "Moderate pumping speed limits excessive peak rod and impact loading.";
+
+            whyEnergy.textContent =
+                "The selected frequency avoids unnecessary high-speed pumping energy demand.";
+        }
+    }
+
+
+    /*
+     * Run simulation
+     */
+
+    function runSRPSimulation() {
+
+        const status =
+            document.getElementById("simulationStatus");
+
+        status.textContent =
+            "Running Well-to-Surface Digital Twin simulation...";
+
+
+        setTimeout(function () {
+
+            updateSRPModel();
+
+            status.textContent =
+                "Simulation complete ✓ — predicted SRP response updated.";
+
+        }, 700);
+    }
+
+
+    /*
+     * Reset controls
+     */
+
+    function resetSRP() {
+
+        spmSlider.value = 7;
+        strokeSlider.value = 54;
+        vfdSlider.value = 45;
+        fillageSlider.value = 82;
+        fluidCondition.value = "normal";
+
+        document.getElementById("simulationStatus").textContent =
+            "Controls reset to baseline operating condition.";
+
+        updateSRPModel();
+    }
+
+
+    /*
+     * Initial calculation
+     */
+
+    updateSRPModel();
+
+</script>
+
+</body>
+</html>

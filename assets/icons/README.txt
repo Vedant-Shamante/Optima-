@@ -1,0 +1,1 @@
+Reserved for interface icon assets. The current interface uses lightweight inline symbols.

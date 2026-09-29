@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Predictions | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+        .page-header {
+            margin-bottom: 22px;
+        }
+
+        .page-header h1 {
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            max-width: 850px;
+        }
+
+        .prediction-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px 18px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-label {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .period-btn {
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #475569;
+            padding: 8px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .period-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .model-status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #166534;
+        }
+
+        .model-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        .prediction-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .prediction-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .prediction-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+
+        .prediction-label {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .prediction-icon {
+            width: 31px;
+            height: 31px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 15px;
+        }
+
+        .prediction-value {
+            color: #0f172a;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .prediction-unit {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .prediction-change {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .positive {
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        .warning {
+            color: #b45309;
+            font-weight: 700;
+        }
+
+        .danger {
+            color: #b91c1c;
+            font-weight: 700;
+        }
+
+        .main-prediction-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .card-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .card-subtitle {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .confidence-badge {
+            padding: 7px 11px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 330px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .chart-grid {
+            position: absolute;
+            left: 55px;
+            right: 25px;
+            top: 25px;
+            bottom: 45px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    rgba(148, 163, 184, 0.15) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    to bottom,
+                    rgba(148, 163, 184, 0.15) 1px,
+                    transparent 1px
+                );
+
+            background-size: 10% 20%;
+            border-left: 2px solid #94a3b8;
+            border-bottom: 2px solid #94a3b8;
+        }
+
+        .production-line {
+            position: absolute;
+            left: 0;
+            bottom: 25%;
+            width: 100%;
+            height: 2px;
+            background: #2563eb;
+            transform: rotate(-8deg);
+            transform-origin: left center;
+        }
+
+        .production-area {
+            position: absolute;
+            left: 0;
+            bottom: 25%;
+            width: 100%;
+            height: 90px;
+            background: rgba(37, 99, 235, 0.08);
+            transform: skewY(-8deg);
+            transform-origin: left bottom;
+        }
+
+        .prediction-point {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2563eb;
+            border: 2px solid white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .point-1 { left: 8%; bottom: 31%; }
+        .point-2 { left: 23%; bottom: 34%; }
+        .point-3 { left: 38%; bottom: 37%; }
+        .point-4 { left: 53%; bottom: 41%; }
+        .point-5 { left: 68%; bottom: 44%; }
+        .point-6 { left: 83%; bottom: 48%; }
+
+        .chart-label {
+            position: absolute;
+            font-size: 10px;
+            color: #64748b;
+        }
+
+        .chart-y1 {
+            left: 10px;
+            top: 20px;
+        }
+
+        .chart-y2 {
+            left: 10px;
+            top: 48%;
+        }
+
+        .chart-y3 {
+            left: 10px;
+            bottom: 42px;
+        }
+
+        .chart-x1 {
+            left: 7%;
+            bottom: 18px;
+        }
+
+        .chart-x2 {
+            left: 48%;
+            bottom: 18px;
+        }
+
+        .chart-x3 {
+            right: 4%;
+            bottom: 18px;
+        }
+
+        .axis-title {
+            position: absolute;
+            font-size: 11px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .axis-title-y {
+            left: 8px;
+            top: 50%;
+            transform: rotate(-90deg);
+        }
+
+        .axis-title-x {
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .prediction-table-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .prediction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .prediction-table th,
+        .prediction-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .prediction-table th {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .prediction-table td {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            color: #15803d;
+        }
+
+        .trend-down {
+            color: #b45309;
+        }
+
+        .risk-low {
+            display: inline-block;
+            padding: 5px 9px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .risk-medium {
+            display: inline-block;
+            padding: 5px 9px;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .lower-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .insight-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .insight-list {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .insight-item {
+            display: flex;
+            gap: 11px;
+            padding: 12px;
+            border-radius: 9px;
+            background: #f8fafc;
+        }
+
+        .insight-icon {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .insight-content strong {
+            display: block;
+            color: #334155;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .insight-content span {
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 15px 18px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1100px) {
+
+            .prediction-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lower-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .prediction-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prediction-toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .chart-container {
+                height: 280px;
+            }
+        }
+
+    </style>
+
+<style>
+
+/* ============================================================
+   BAGHEWALA DIGITAL TWIN — SIDEBAR + PAGE LAYOUT FIX
+   Added directly to this HTML.
+   Layout only: content, colors and JavaScript unchanged.
+   ============================================================ */
+
+html,
+body {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+
+    width: 250px !important;
+    min-width: 250px !important;
+    height: 100vh !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    z-index: 1000 !important;
+}
+
+/* ================= MAIN ================= */
+
+.main-content {
+    width: calc(100% - 250px) !important;
+    min-width: 0 !important;
+
+    margin-left: 250px !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 76px !important;
+
+    padding: 0 28px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+}
+
+.topbar > div:first-child {
+    min-width: 0 !important;
+}
+
+.topbar-right {
+    flex-shrink: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 18px !important;
+}
+
+/* ================= PAGE CONTENT ================= */
+
+.page-content {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 26px 28px 36px !important;
+
+    overflow: visible !important;
+}
+
+/* ================= PAGE HEADER ================= */
+
+.page-header {
+    width: 100% !important;
+
+    margin: 0 0 20px !important;
+}
+
+.page-header h1 {
+    margin: 0 0 6px !important;
+    line-height: 1.15 !important;
+}
+
+.page-header p {
+    margin: 0 !important;
+    max-width: 900px !important;
+    line-height: 1.5 !important;
+}
+
+/* ================= TOOLBAR ================= */
+
+.prediction-toolbar {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 0 18px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 18px !important;
+}
+
+.toolbar-left {
+    min-width: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+.model-status {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* ================= KPI GRID ================= */
+
+.prediction-grid {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 14px !important;
+
+    margin: 0 0 18px !important;
+}
+
+.prediction-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+/* ================= MAIN PREDICTION ================= */
+
+.main-prediction-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 0 18px !important;
+}
+
+.card-heading {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    gap: 15px !important;
+}
+
+.card-heading > div:first-child {
+    min-width: 0 !important;
+}
+
+.confidence-badge {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* ================= CHART ================= */
+
+.chart-container {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: 330px !important;
+
+    overflow: hidden !important;
+}
+
+.chart-grid {
+    min-width: 0 !important;
+}
+
+/* ================= TABLE ================= */
+
+.prediction-table-card {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 0 18px !important;
+
+    overflow-x: auto !important;
+}
+
+.prediction-table {
+    width: 100% !important;
+    min-width: 700px !important;
+}
+
+/* ================= LOWER CARDS ================= */
+
+.lower-grid {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
+
+    margin: 0 0 18px !important;
+}
+
+.insight-card {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.insight-list {
+    width: 100% !important;
+}
+
+.insight-item {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.insight-content {
+    min-width: 0 !important;
+}
+
+/* ================= NOTICE ================= */
+
+.notice {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+}
+
+/* ================= LARGE DESKTOP ================= */
+
+@media (min-width: 1400px) {
+
+    .page-content {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
+
+    .prediction-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+    }
+
+    .lower-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* ================= LAPTOP ================= */
+
+@media (max-width: 1200px) {
+
+    .sidebar {
+        width: 235px !important;
+        min-width: 235px !important;
+    }
+
+    .main-content {
+        width: calc(100% - 235px) !important;
+        margin-left: 235px !important;
+    }
+
+    .page-content {
+        padding: 22px !important;
+    }
+
+    .prediction-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+    }
+
+    .lower-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 900px) {
+
+    .prediction-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .lower-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .prediction-toolbar {
+        align-items: flex-start !important;
+    }
+
+    .topbar {
+        padding: 0 20px !important;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        position: relative !important;
+
+        width: 100% !important;
+        min-width: 100% !important;
+
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    .main-content {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        margin-left: 0 !important;
+    }
+
+    .topbar {
+        height: auto !important;
+        min-height: 64px !important;
+
+        padding: 12px 16px !important;
+
+        flex-wrap: wrap !important;
+    }
+
+    .topbar-right {
+        width: 100% !important;
+
+        justify-content: space-between !important;
+
+        gap: 8px !important;
+    }
+
+    .page-content {
+        padding: 18px 14px 28px !important;
+    }
+
+    .prediction-toolbar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .toolbar-left {
+        width: 100% !important;
+    }
+
+    .model-status {
+        width: 100% !important;
+    }
+
+    .prediction-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .lower-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .card-heading {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .chart-container {
+        height: 280px !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                BW
+            </div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+
+        </div>
+
+        <div class="well-selector">
+
+            <span>ACTIVE WELL</span>
+
+            <strong>BW-01</strong>
+
+            <small>
+                Heavy Oil Producer
+            </small>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">
+                OVERVIEW
+            </div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+            <div class="nav-section-title">
+                OPTIMIZATION
+            </div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⇅</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⚙</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>◌</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+            <div class="nav-section-title">
+                MONITORING
+            </div>
+
+            <a href="predictions.html" class="nav-item active">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>⚠</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>◫</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>ϟ</span>
+                Energy
+            </a>
+
+            <div class="nav-section-title">
+                HISTORY
+            </div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <div class="nav-section-title">
+                SYSTEM
+            </div>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>★</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>⟳</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    BAGHEWALA / WELL BW-01
+                </div>
+
+                <h3>
+                    Production & Risk Predictions
+                </h3>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <span class="live-indicator">
+                    <span></span>
+                    LIVE
+                </span>
+
+                <span>
+                    27 Sep 2026
+                </span>
+
+                <div class="operator">
+
+                    <div class="operator-avatar">
+                        OP
+                    </div>
+
+                    <span>
+                        Operator
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="page-content">
+
+            <div class="page-header">
+
+                <h1>
+                    Digital Twin Predictions
+                </h1>
+
+                <p>
+                    Forecasted well behavior generated from the prototype
+                    Digital Twin using current CSS conditions, SRP settings,
+                    reservoir response and operating constraints.
+                </p>
+
+            </div>
+
+
+            <!-- TOOLBAR -->
+
+            <div class="prediction-toolbar">
+
+                <div class="toolbar-left">
+
+                    <span class="toolbar-label">
+                        Prediction Horizon:
+                    </span>
+
+                    <button
+                        class="period-btn active"
+                        data-period="24"
+                    >
+                        24 Hours
+                    </button>
+
+                    <button
+                        class="period-btn"
+                        data-period="72"
+                    >
+                        72 Hours
+                    </button>
+
+                    <button
+                        class="period-btn"
+                        data-period="168"
+                    >
+                        7 Days
+                    </button>
+
+                </div>
+
+                <div class="model-status">
+
+                    <span class="model-status-dot"></span>
+
+                    Prediction Engine Active
+
+                </div>
+
+            </div>
+
+
+            <!-- KPI CARDS -->
+
+            <div class="prediction-grid">
+
+                <div class="prediction-card">
+
+                    <div class="prediction-card-header">
+
+                        <span class="prediction-label">
+                            Predicted Oil Production
+                        </span>
+
+                        <div class="prediction-icon">
+                            ◫
+                        </div>
+
+                    </div>
+
+                    <div class="prediction-value">
+
+                        <span id="productionValue">
+                            43.8
+                        </span>
+
+                        <span class="prediction-unit">
+                            m³/d
+                        </span>
+
+                    </div>
+
+                    <div class="prediction-change">
+
+                        <span class="positive">
+                            ↑ 8.4%
+                        </span>
+
+                        vs current baseline
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-card">
+
+                    <div class="prediction-card-header">
+
+                        <span class="prediction-label">
+                            Reservoir Temperature
+                        </span>
+
+                        <div class="prediction-icon">
+                            ♨
+                        </div>
+
+                    </div>
+
+                    <div class="prediction-value">
+
+                        <span id="temperatureValue">
+                            82
+                        </span>
+
+                        <span class="prediction-unit">
+                            °C
+                        </span>
+
+                    </div>
+
+                    <div class="prediction-change">
+
+                        Expected thermal response:
+                        <span class="positive">
+                            stable
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-card">
+
+                    <div class="prediction-card-header">
+
+                        <span class="prediction-label">
+                            Predicted Oil Viscosity
+                        </span>
+
+                        <div class="prediction-icon">
+                            ≋
+                        </div>
+
+                    </div>
+
+                    <div class="prediction-value">
+
+                        <span id="viscosityValue">
+                            420
+                        </span>
+
+                        <span class="prediction-unit">
+                            cP
+                        </span>
+
+                    </div>
+
+                    <div class="prediction-change">
+
+                        <span class="positive">
+                            ↓ 31%
+                        </span>
+
+                        from cold-state estimate
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-card">
+
+                    <div class="prediction-card-header">
+
+                        <span class="prediction-label">
+                            Predicted SOR
+                        </span>
+
+                        <div class="prediction-icon">
+                            ♨
+                        </div>
+
+                    </div>
+
+                    <div class="prediction-value">
+
+                        <span id="sorValue">
+                            2.4
+                        </span>
+
+                        <span class="prediction-unit">
+                            t/t
+                        </span>
+
+                    </div>
+
+                    <div class="prediction-change">
+
+                        <span class="positive">
+                            ↓ 12%
+                        </span>
+
+                        steam efficiency improved
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTION FORECAST -->
+
+            <div class="main-prediction-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <div class="card-title">
+                            Predicted Production Response
+                        </div>
+
+                        <div class="card-subtitle">
+                            Forecasted oil production response over the
+                            selected prediction horizon.
+                        </div>
+
+                    </div>
+
+                    <div class="confidence-badge">
+                        Model Confidence: 87%
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <div class="chart-grid">
+
+                        <div class="production-area"></div>
+
+                        <div class="production-line"></div>
+
+                        <div class="prediction-point point-1"></div>
+                        <div class="prediction-point point-2"></div>
+                        <div class="prediction-point point-3"></div>
+                        <div class="prediction-point point-4"></div>
+                        <div class="prediction-point point-5"></div>
+                        <div class="prediction-point point-6"></div>
+
+                    </div>
+
+
+                    <span class="chart-label chart-y1">
+                        50
+                    </span>
+
+                    <span class="chart-label chart-y2">
+                        35
+                    </span>
+
+                    <span class="chart-label chart-y3">
+                        20
+                    </span>
+
+
+                    <span class="chart-label chart-x1">
+                        Now
+                    </span>
+
+                    <span class="chart-label chart-x2">
+                        +50 hr
+                    </span>
+
+                    <span class="chart-label chart-x3">
+                        +100 hr
+                    </span>
+
+
+                    <span class="axis-title axis-title-y">
+                        Oil Production (m³/d)
+                    </span>
+
+                    <span class="axis-title axis-title-x">
+                        Forecast Horizon
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORECAST TABLE -->
+
+            <div class="prediction-table-card">
+
+                <div class="card-title">
+                    Forecast Timeline
+                </div>
+
+                <div class="card-subtitle">
+                    Predicted operating state at selected future intervals.
+                </div>
+
+
+                <table class="prediction-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Oil Production
+                            </th>
+
+                            <th>
+                                Reservoir Temp.
+                            </th>
+
+                            <th>
+                                Viscosity
+                            </th>
+
+                            <th>
+                                SOR
+                            </th>
+
+                            <th>
+                                Energy
+                            </th>
+
+                            <th>
+                                Risk
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="forecastTable">
+
+                        <tr>
+
+                            <td>
+                                Now
+                            </td>
+
+                            <td>
+                                40.4 m³/d
+                            </td>
+
+                            <td>
+                                76 °C
+                            </td>
+
+                            <td>
+                                510 cP
+                            </td>
+
+                            <td>
+                                2.7
+                            </td>
+
+                            <td>
+                                59 kWh
+                            </td>
+
+                            <td>
+                                <span class="risk-low">
+                                    LOW
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                +12 hr
+                            </td>
+
+                            <td class="trend-up">
+                                42.1 m³/d
+                            </td>
+
+                            <td>
+                                79 °C
+                            </td>
+
+                            <td>
+                                465 cP
+                            </td>
+
+                            <td>
+                                2.5
+                            </td>
+
+                            <td>
+                                61 kWh
+                            </td>
+
+                            <td>
+                                <span class="risk-low">
+                                    LOW
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                +24 hr
+                            </td>
+
+                            <td class="trend-up">
+                                43.8 m³/d
+                            </td>
+
+                            <td>
+                                82 °C
+                            </td>
+
+                            <td>
+                                420 cP
+                            </td>
+
+                            <td>
+                                2.4
+                            </td>
+
+                            <td>
+                                64 kWh
+                            </td>
+
+                            <td>
+                                <span class="risk-low">
+                                    LOW
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                +48 hr
+                            </td>
+
+                            <td class="trend-up">
+                                45.2 m³/d
+                            </td>
+
+                            <td>
+                                85 °C
+                            </td>
+
+                            <td>
+                                385 cP
+                            </td>
+
+                            <td>
+                                2.3
+                            </td>
+
+                            <td>
+                                67 kWh
+                            </td>
+
+                            <td>
+                                <span class="risk-medium">
+                                    WATCH
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                +72 hr
+                            </td>
+
+                            <td class="trend-up">
+                                44.6 m³/d
+                            </td>
+
+                            <td>
+                                83 °C
+                            </td>
+
+                            <td>
+                                400 cP
+                            </td>
+
+                            <td>
+                                2.4
+                            </td>
+
+                            <td>
+                                69 kWh
+                            </td>
+
+                            <td>
+                                <span class="risk-medium">
+                                    WATCH
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- LOWER CARDS -->
+
+            <div class="lower-grid">
+
+                <div class="insight-card">
+
+                    <div class="card-title">
+                        Prediction Insights
+                    </div>
+
+                    <div class="card-subtitle">
+                        Main drivers identified by the prototype prediction
+                        engine.
+                    </div>
+
+
+                    <div class="insight-list">
+
+                        <div class="insight-item">
+
+                            <div class="insight-icon">
+                                ♨
+                            </div>
+
+                            <div class="insight-content">
+
+                                <strong>
+                                    Thermal response
+                                </strong>
+
+                                <span>
+                                    Increasing reservoir temperature is
+                                    expected to reduce crude viscosity and
+                                    improve mobility.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="insight-item">
+
+                            <div class="insight-icon">
+                                ⇅
+                            </div>
+
+                            <div class="insight-content">
+
+                                <strong>
+                                    SRP interaction
+                                </strong>
+
+                                <span>
+                                    Moderate pump speed is predicted to
+                                    maintain fluid lifting while limiting
+                                    mechanical loading.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="insight-item">
+
+                            <div class="insight-icon">
+                                ϟ
+                            </div>
+
+                            <div class="insight-content">
+
+                                <strong>
+                                    Energy response
+                                </strong>
+
+                                <span>
+                                    Energy demand increases gradually as
+                                    steam input and pumping activity increase.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="insight-card">
+
+                    <div class="card-title">
+                        Prediction Uncertainty
+                    </div>
+
+                    <div class="card-subtitle">
+                        Confidence changes as the forecast moves farther
+                        from the latest measured state.
+                    </div>
+
+
+                    <div class="insight-list">
+
+                        <div class="insight-item">
+
+                            <div class="insight-icon">
+                                87%
+                            </div>
+
+                            <div class="insight-content">
+
+                                <strong>
+                                    Current state
+                                </strong>
+
+                                <span>
+                                    High confidence because recent measured
+                                    operating data is available.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="insight-item">
+
+                            <div class="insight-icon">
+                                81%
+                            </div>
+
+                            <div class="insight-content">
+
+                                <strong>
+                                    24–48 hours
+                                </strong>
+
+                                <span>
+                                    Moderate uncertainty due to reservoir
+                                    response variability.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="insight-item">
+
+                            <div class="insight-icon">
+                                73%
+                            </div>
+
+                            <div class="insight-content">
+
+                                <strong>
+                                    72+ hours
+                                </strong>
+
+                                <span>
+                                    Forecast uncertainty increases as the
+                                    prediction horizon becomes longer.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="notice">
+
+                <strong>
+                    Operator Decision Support:
+                </strong>
+
+                These predictions are illustrative frontend values for the
+                prototype. The final system should calculate forecasts using
+                calibrated reservoir, thermal, pump and production models
+                trained on Baghewala well data. Predictions should support
+                operator decisions rather than directly control field
+                equipment.
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+    const periodButtons =
+        document.querySelectorAll(".period-btn");
+
+    const productionValue =
+        document.getElementById("productionValue");
+
+    const temperatureValue =
+        document.getElementById("temperatureValue");
+
+    const viscosityValue =
+        document.getElementById("viscosityValue");
+
+    const sorValue =
+        document.getElementById("sorValue");
+
+
+    /*
+        Prototype prediction scenarios.
+
+        In the final application these values will come from
+        the Digital Twin + ML prediction backend.
+    */
+
+    const predictionData = {
+
+        "24": {
+            production: "43.8",
+            temperature: "82",
+            viscosity: "420",
+            sor: "2.4"
+        },
+
+        "72": {
+            production: "44.6",
+            temperature: "84",
+            viscosity: "395",
+            sor: "2.3"
+        },
+
+        "168": {
+            production: "42.9",
+            temperature: "78",
+            viscosity: "450",
+            sor: "2.5"
+        }
+
+    };
+
+
+    periodButtons.forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            periodButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            const period =
+                this.dataset.period;
+
+            const data =
+                predictionData[period];
+
+            productionValue.textContent =
+                data.production;
+
+            temperatureValue.textContent =
+                data.temperature;
+
+            viscosityValue.textContent =
+                data.viscosity;
+
+            sorValue.textContent =
+                data.sor;
+
+        });
+
+    });
+
+
+    /*
+        Simple animated update to make the
+        prototype feel like a live prediction system.
+    */
+
+    let pulse = 0;
+
+    setInterval(() => {
+
+        pulse += 1;
+
+        if (pulse % 2 === 0) {
+
+            document
+                .querySelector(".model-status-dot")
+                .style.opacity = "0.45";
+
+        } else {
+
+            document
+                .querySelector(".model-status-dot")
+                .style.opacity = "1";
+
+        }
+
+    }, 900);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Production Performance | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+<style id="layout-adjustments">
+    html, body {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .app-layout {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    /* Fixed sidebar */
+    .sidebar {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 250px !important;
+        min-width: 250px !important;
+        height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        z-index: 1000 !important;
+    }
+
+    /* Main content aligned beside sidebar */
+    .main-content {
+        width: calc(100% - 250px) !important;
+        max-width: none !important;
+        margin-left: 250px !important;
+        padding: 0 !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Header */
+    .top-header {
+        width: 100% !important;
+        min-height: 82px !important;
+        padding: 18px 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 24px !important;
+    }
+
+    .top-header > div:first-child {
+        min-width: 0;
+    }
+
+    .header-right {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 18px !important;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Page content */
+    .page-content {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 26px 28px 36px !important;
+    }
+
+    /* Toolbar */
+    .production-toolbar {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .production-toolbar > div:first-child {
+        min-width: 0;
+    }
+
+    .period-buttons {
+        flex-shrink: 0;
+    }
+
+    /* KPI cards */
+    .production-kpis {
+        width: 100% !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+    }
+
+    .kpi-card {
+        min-width: 0;
+    }
+
+    /* Panels */
+    .panel {
+        min-width: 0;
+        width: 100%;
+    }
+
+    /* Main production chart */
+    .production-chart-panel {
+        width: 100%;
+    }
+
+    .chart-wrapper {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .chart-area {
+        min-width: 0;
+    }
+
+    .chart-summary {
+        width: 100%;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+
+    /* Two-column sections */
+    .two-column-grid {
+        width: 100%;
+        grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    .response-flow {
+        min-width: 0;
+    }
+
+    .response-stage {
+        min-width: 0;
+    }
+
+    /* Tables */
+    .prediction-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .data-table {
+        width: 100%;
+        min-width: 720px;
+    }
+
+    /* Insight / calibration area */
+    .insight-panel,
+    .calibration-panel {
+        min-width: 0;
+    }
+
+    .operator-notice {
+        width: 100%;
+    }
+
+    /* Large screens */
+    @media (min-width: 1400px) {
+        .page-content {
+            padding-left: 32px !important;
+            padding-right: 32px !important;
+        }
+
+        .production-kpis {
+            gap: 18px !important;
+        }
+
+        .two-column-grid {
+            gap: 22px !important;
+        }
+    }
+
+    /* Laptop / medium desktop */
+    @media (max-width: 1200px) {
+        .sidebar {
+            width: 235px !important;
+            min-width: 235px !important;
+        }
+
+        .main-content {
+            width: calc(100% - 235px) !important;
+            margin-left: 235px !important;
+        }
+
+        .production-kpis {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        .two-column-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+        .page-content {
+            padding: 22px 20px 30px !important;
+        }
+
+        .top-header {
+            padding: 16px 20px !important;
+        }
+
+        .header-right {
+            gap: 12px !important;
+        }
+
+        .chart-summary {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        .response-flow {
+            flex-wrap: wrap;
+        }
+
+        .response-stage {
+            min-width: 0;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 700px) {
+        .sidebar {
+            position: relative !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        .main-content {
+            width: 100% !important;
+            margin-left: 0 !important;
+        }
+
+        .top-header {
+            min-height: auto !important;
+            padding: 16px !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 14px !important;
+        }
+
+        .header-right {
+            width: 100% !important;
+            justify-content: flex-start !important;
+            flex-wrap: wrap !important;
+            white-space: normal !important;
+            gap: 10px 14px !important;
+        }
+
+        .page-content {
+            padding: 18px 16px 26px !important;
+        }
+
+        .production-toolbar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .period-buttons {
+            width: 100% !important;
+        }
+
+        .period-btn {
+            flex: 1;
+        }
+
+        .production-kpis {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+        }
+
+        .chart-summary {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+        }
+
+        .chart-summary div {
+            padding: 0 !important;
+            border-right: 0 !important;
+        }
+
+        .two-column-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+        }
+
+        .response-flow {
+            flex-direction: column !important;
+            align-items: stretch !important;
+        }
+
+        .response-arrow {
+            text-align: center !important;
+            transform: rotate(90deg);
+        }
+
+        .response-metrics {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+        }
+
+        .driver-row {
+            grid-template-columns: 1fr !important;
+            gap: 7px !important;
+        }
+
+        .driver-value {
+            text-align: left !important;
+        }
+
+        .calibration-metrics {
+            grid-template-columns: 1fr !important;
+        }
+
+        .panel {
+            padding: 16px !important;
+        }
+
+        .chart-wrapper {
+            height: 280px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-mark">BW</div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+        </div>
+
+        <div class="well-selector">
+            <span class="small-label">ACTIVE WELL</span>
+            <strong>BW-01</strong>
+            <span class="well-status">
+                <span class="status-dot"></span>
+                Producing
+            </span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">OVERVIEW</div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+            <div class="nav-section-title">OPTIMIZATION</div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⚙</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⇄</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>⌁</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+            <div class="nav-section-title">ANALYTICS</div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>△</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item active">
+                <span>▥</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>⚡</span>
+                Energy
+            </a>
+
+            <div class="nav-section-title">OPERATIONS</div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>✓</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>↻</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span>SIH 2026 Prototype</span>
+            <small>Decision Support System</small>
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="top-header">
+
+            <div>
+                <div class="breadcrumb">
+                    ANALYTICS / PRODUCTION
+                </div>
+
+                <h1>Production Performance</h1>
+
+                <p class="page-subtitle">
+                    Monitor production response, CSS impact and predicted-vs-actual performance.
+                </p>
+            </div>
+
+            <div class="header-right">
+
+                <div class="well-header">
+                    <span>BAGHEWALA</span>
+                    <strong>WELL BW-01</strong>
+                </div>
+
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    LIVE
+                </div>
+
+                <div class="header-date">
+                    27 Sep 2026
+                </div>
+
+                <div class="operator">
+                    OPERATOR
+                    <strong>Field Operations</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+        <section class="page-content">
+
+
+            <!-- PERIOD SELECTOR -->
+            <div class="production-toolbar">
+
+                <div>
+                    <span class="section-kicker">PRODUCTION HISTORY</span>
+                    <h2>Well BW-01 Performance</h2>
+                </div>
+
+                <div class="period-buttons">
+
+                    <button class="period-btn" data-period="7">
+                        7 Days
+                    </button>
+
+                    <button class="period-btn active" data-period="30">
+                        30 Days
+                    </button>
+
+                    <button class="period-btn" data-period="90">
+                        90 Days
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= KPI CARDS ================= -->
+
+            <div class="kpi-grid production-kpis">
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+                        <span>Current Oil Rate</span>
+                        <span class="kpi-icon">🛢</span>
+                    </div>
+
+                    <div class="kpi-value">
+                        <span id="oilRate">43.8</span>
+                        <small>m³/d</small>
+                    </div>
+
+                    <div class="kpi-change positive">
+                        ▲ 14.6%
+                        <span>vs pre-CSS baseline</span>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+                        <span>Liquid Rate</span>
+                        <span class="kpi-icon">◌</span>
+                    </div>
+
+                    <div class="kpi-value">
+                        <span id="liquidRate">62.1</span>
+                        <small>m³/d</small>
+                    </div>
+
+                    <div class="kpi-change">
+                        Stable
+                        <span>last 24 hours</span>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+                        <span>Water Cut</span>
+                        <span class="kpi-icon">💧</span>
+                    </div>
+
+                    <div class="kpi-value">
+                        <span id="waterCut">29.5</span>
+                        <small>%</small>
+                    </div>
+
+                    <div class="kpi-change positive">
+                        ▼ 2.1%
+                        <span>vs previous cycle</span>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+                        <span>Cumulative Oil</span>
+                        <span class="kpi-icon">Σ</span>
+                    </div>
+
+                    <div class="kpi-value">
+                        <span id="cumulativeOil">18,642</span>
+                        <small>m³</small>
+                    </div>
+
+                    <div class="kpi-change">
+                        +43.8 m³
+                        <span>today</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PRODUCTION CHART ================= -->
+
+            <div class="panel production-chart-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="section-kicker">
+                            PRODUCTION TREND
+                        </span>
+
+                        <h3>
+                            Actual vs Predicted Oil Production
+                        </h3>
+                    </div>
+
+                    <div class="chart-legend">
+
+                        <span>
+                            <i class="legend-line actual"></i>
+                            Actual
+                        </span>
+
+                        <span>
+                            <i class="legend-line predicted"></i>
+                            Predicted
+                        </span>
+
+                        <span>
+                            <i class="legend-css"></i>
+                            CSS Cycle
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-wrapper">
+
+                    <div class="y-axis">
+
+                        <span>60</span>
+                        <span>50</span>
+                        <span>40</span>
+                        <span>30</span>
+                        <span>20</span>
+
+                    </div>
+
+                    <div class="chart-area">
+
+                        <div class="grid-line line-1"></div>
+                        <div class="grid-line line-2"></div>
+                        <div class="grid-line line-3"></div>
+                        <div class="grid-line line-4"></div>
+                        <div class="grid-line line-5"></div>
+
+                        <!-- CSS event markers -->
+                        <div class="css-marker marker-one">
+                            <span>CSS</span>
+                        </div>
+
+                        <div class="css-marker marker-two">
+                            <span>CSS</span>
+                        </div>
+
+                        <div class="css-marker marker-three">
+                            <span>CSS</span>
+                        </div>
+
+                        <!-- Actual production line -->
+                        <svg
+                            class="production-svg"
+                            viewBox="0 0 1000 300"
+                            preserveAspectRatio="none">
+
+                            <polyline
+                                id="actualLine"
+                                points="
+                                0,210
+                                35,205
+                                70,198
+                                105,185
+                                140,170
+                                175,150
+                                210,130
+                                245,110
+                                280,105
+                                315,115
+                                350,125
+                                385,135
+                                420,145
+                                455,152
+                                490,145
+                                525,130
+                                560,110
+                                595,90
+                                630,78
+                                665,85
+                                700,95
+                                735,110
+                                770,122
+                                805,132
+                                840,140
+                                875,145
+                                910,150
+                                945,155
+                                980,160
+                                1000,162
+                                "
+                            />
+
+                            <polyline
+                                id="predictedLine"
+                                points="
+                                0,215
+                                35,210
+                                70,202
+                                105,190
+                                140,174
+                                175,154
+                                210,134
+                                245,115
+                                280,108
+                                315,112
+                                350,121
+                                385,131
+                                420,141
+                                455,148
+                                490,142
+                                525,127
+                                560,107
+                                595,88
+                                630,75
+                                665,82
+                                700,92
+                                735,107
+                                770,119
+                                805,129
+                                840,137
+                                875,143
+                                910,147
+                                945,152
+                                980,157
+                                1000,159
+                                "
+                            />
+
+                        </svg>
+
+
+                        <div class="x-axis">
+
+                            <span>01 Sep</span>
+                            <span>06 Sep</span>
+                            <span>11 Sep</span>
+                            <span>16 Sep</span>
+                            <span>21 Sep</span>
+                            <span>27 Sep</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-summary">
+
+                    <div>
+                        <span>Average Actual</span>
+                        <strong>42.6 m³/d</strong>
+                    </div>
+
+                    <div>
+                        <span>Average Predicted</span>
+                        <strong>43.1 m³/d</strong>
+                    </div>
+
+                    <div>
+                        <span>Mean Deviation</span>
+                        <strong class="positive-text">1.2%</strong>
+                    </div>
+
+                    <div>
+                        <span>CSS Response</span>
+                        <strong>+14.6%</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CSS RESPONSE ================= -->
+
+            <div class="two-column-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="section-kicker">
+                                THERMAL RESPONSE
+                            </span>
+
+                            <h3>
+                                Production Response After CSS
+                            </h3>
+                        </div>
+
+                        <span class="status-badge success">
+                            Positive Response
+                        </span>
+
+                    </div>
+
+
+                    <div class="response-flow">
+
+                        <div class="response-stage">
+
+                            <span class="stage-number">
+                                01
+                            </span>
+
+                            <div>
+                                <strong>Pre-CSS Baseline</strong>
+
+                                <span>
+                                    38.2 m³/d
+                                </span>
+
+                                <small>
+                                    Average oil rate
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="response-arrow">
+                            →
+                        </div>
+
+
+                        <div class="response-stage">
+
+                            <span class="stage-number">
+                                02
+                            </span>
+
+                            <div>
+                                <strong>Thermal Response</strong>
+
+                                <span>
+                                    +9.8°C
+                                </span>
+
+                                <small>
+                                    Reservoir temperature rise
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="response-arrow">
+                            →
+                        </div>
+
+
+                        <div class="response-stage highlight">
+
+                            <span class="stage-number">
+                                03
+                            </span>
+
+                            <div>
+                                <strong>Post-CSS Peak</strong>
+
+                                <span>
+                                    47.5 m³/d
+                                </span>
+
+                                <small>
+                                    Peak oil rate
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="response-metrics">
+
+                        <div>
+                            <span>Incremental Production</span>
+                            <strong>+5.6 m³/d</strong>
+                        </div>
+
+                        <div>
+                            <span>Response Duration</span>
+                            <strong>~9 days</strong>
+                        </div>
+
+                        <div>
+                            <span>Peak Response</span>
+                            <strong>+24.3%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- THERMAL CONDITION -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="section-kicker">
+                                CURRENT CONDITION
+                            </span>
+
+                            <h3>
+                                Production Drivers
+                            </h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="driver-list">
+
+                        <div class="driver-row">
+
+                            <div class="driver-label">
+
+                                <span class="driver-icon thermal">
+                                    ♨
+                                </span>
+
+                                <div>
+                                    <strong>Reservoir Temperature</strong>
+                                    <small>54.8°C</small>
+                                </div>
+
+                            </div>
+
+                            <div class="driver-bar">
+                                <span style="width: 72%;"></span>
+                            </div>
+
+                            <strong class="driver-value">
+                                High
+                            </strong>
+
+                        </div>
+
+
+                        <div class="driver-row">
+
+                            <div class="driver-label">
+
+                                <span class="driver-icon viscosity">
+                                    μ
+                                </span>
+
+                                <div>
+                                    <strong>Oil Viscosity</strong>
+                                    <small>1,860 cP</small>
+                                </div>
+
+                            </div>
+
+                            <div class="driver-bar">
+                                <span style="width: 42%;"></span>
+                            </div>
+
+                            <strong class="driver-value">
+                                Moderate
+                            </strong>
+
+                        </div>
+
+
+                        <div class="driver-row">
+
+                            <div class="driver-label">
+
+                                <span class="driver-icon pump">
+                                    ⚙
+                                </span>
+
+                                <div>
+                                    <strong>Pump Efficiency</strong>
+                                    <small>81%</small>
+                                </div>
+
+                            </div>
+
+                            <div class="driver-bar">
+                                <span style="width: 81%;"></span>
+                            </div>
+
+                            <strong class="driver-value">
+                                Good
+                            </strong>
+
+                        </div>
+
+
+                        <div class="driver-row">
+
+                            <div class="driver-label">
+
+                                <span class="driver-icon energy">
+                                    ⚡
+                                </span>
+
+                                <div>
+                                    <strong>Specific Energy</strong>
+                                    <small>38.4 kWh/m³</small>
+                                </div>
+
+                            </div>
+
+                            <div class="driver-bar">
+                                <span style="width: 58%;"></span>
+                            </div>
+
+                            <strong class="driver-value">
+                                Normal
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PREDICTED VS ACTUAL ================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="section-kicker">
+                            MODEL PERFORMANCE
+                        </span>
+
+                        <h3>
+                            Predicted vs Actual Production
+                        </h3>
+
+                        <p>
+                            Comparison of Digital Twin prediction against measured field production.
+                        </p>
+                    </div>
+
+                    <div class="accuracy-badge">
+
+                        <span>Prediction Accuracy</span>
+
+                        <strong>
+                            98.8%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-table-wrapper">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Actual Oil</th>
+                                <th>Predicted Oil</th>
+                                <th>Deviation</th>
+                                <th>Reservoir Temp.</th>
+                                <th>SPM</th>
+                                <th>Model Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>27 Sep</td>
+                                <td>43.8 m³/d</td>
+                                <td>44.1 m³/d</td>
+                                <td class="positive-text">-0.7%</td>
+                                <td>54.8°C</td>
+                                <td>7.2</td>
+                                <td>
+                                    <span class="status-badge success">
+                                        Accurate
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>26 Sep</td>
+                                <td>44.2 m³/d</td>
+                                <td>43.7 m³/d</td>
+                                <td class="positive-text">+1.1%</td>
+                                <td>55.2°C</td>
+                                <td>7.1</td>
+                                <td>
+                                    <span class="status-badge success">
+                                        Accurate
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>25 Sep</td>
+                                <td>45.1 m³/d</td>
+                                <td>44.6 m³/d</td>
+                                <td class="positive-text">+1.1%</td>
+                                <td>55.8°C</td>
+                                <td>7.0</td>
+                                <td>
+                                    <span class="status-badge success">
+                                        Accurate
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>24 Sep</td>
+                                <td>45.8 m³/d</td>
+                                <td>46.4 m³/d</td>
+                                <td>-1.3%</td>
+                                <td>56.4°C</td>
+                                <td>6.9</td>
+                                <td>
+                                    <span class="status-badge warning">
+                                        Watch
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>23 Sep</td>
+                                <td>46.7 m³/d</td>
+                                <td>46.1 m³/d</td>
+                                <td class="positive-text">+1.3%</td>
+                                <td>57.1°C</td>
+                                <td>6.8</td>
+                                <td>
+                                    <span class="status-badge success">
+                                        Accurate
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>22 Sep</td>
+                                <td>47.5 m³/d</td>
+                                <td>46.8 m³/d</td>
+                                <td class="positive-text">+1.5%</td>
+                                <td>57.8°C</td>
+                                <td>6.7</td>
+                                <td>
+                                    <span class="status-badge success">
+                                        Accurate
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= INSIGHTS ================= -->
+
+            <div class="two-column-grid">
+
+
+                <div class="panel insight-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="section-kicker">
+                                DIGITAL TWIN INSIGHT
+                            </span>
+
+                            <h3>
+                                Production Interpretation
+                            </h3>
+                        </div>
+
+                        <span class="confidence-badge">
+                            91% Confidence
+                        </span>
+
+                    </div>
+
+
+                    <div class="insight-content">
+
+                        <div class="insight-item">
+
+                            <span class="insight-number">
+                                01
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Thermal response is supporting production.
+                                </strong>
+
+                                <p>
+                                    Reservoir temperature remains above the estimated
+                                    heavy-oil mobility threshold, helping maintain lower
+                                    effective viscosity and improved inflow.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="insight-item">
+
+                            <span class="insight-number">
+                                02
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Production is entering the cooling phase.
+                                </strong>
+
+                                <p>
+                                    The Digital Twin indicates gradual temperature
+                                    decline after the previous CSS cycle. Continued
+                                    cooling may increase viscosity and reduce oil rate.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="insight-item">
+
+                            <span class="insight-number">
+                                03
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    SRP operation remains within the current envelope.
+                                </strong>
+
+                                <p>
+                                    Current SPM and stroke combination is supporting
+                                    production without a significant increase in
+                                    predicted mechanical risk.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CALIBRATION SIGNAL -->
+
+                <div class="panel calibration-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="section-kicker">
+                                MODEL CALIBRATION
+                            </span>
+
+                            <h3>
+                                Prediction Health
+                            </h3>
+                        </div>
+
+                        <span class="status-badge success">
+                            Healthy
+                        </span>
+
+                    </div>
+
+
+                    <div class="calibration-score">
+
+                        <div class="score-circle">
+                            <strong>98.8</strong>
+                            <span>%</span>
+                        </div>
+
+                        <div>
+                            <strong>High Agreement</strong>
+
+                            <p>
+                                Recent actual production remains close to
+                                Digital Twin predictions.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="calibration-metrics">
+
+                        <div>
+                            <span>MAE</span>
+                            <strong>0.52 m³/d</strong>
+                        </div>
+
+                        <div>
+                            <span>Bias</span>
+                            <strong>-0.18%</strong>
+                        </div>
+
+                        <div>
+                            <span>Last Calibration</span>
+                            <strong>26 Sep</strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="openCalibration()">
+
+                        View Calibration →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= OPERATOR NOTICE ================= -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <strong>
+                        Operator Decision Support
+                    </strong>
+
+                    <p>
+                        Production values and model outputs shown in this frontend
+                        prototype are illustrative. Final production, CSS and SRP
+                        decisions must use validated field data, engineering
+                        constraints and operator approval.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= PAGE CSS ================= -->
+
+<style>
+
+.production-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 22px;
+}
+
+.production-toolbar h2 {
+    margin: 4px 0 0;
+}
+
+.period-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.period-btn {
+    border: 1px solid var(--border-color, #d9e0e7);
+    background: white;
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.period-btn:hover {
+    border-color: #8b98a8;
+}
+
+.period-btn.active {
+    background: #17212b;
+    color: white;
+    border-color: #17212b;
+}
+
+
+.production-kpis {
+    margin-bottom: 20px;
+}
+
+.kpi-change {
+    font-size: 12px;
+    color: #66717d;
+}
+
+.kpi-change span {
+    margin-left: 4px;
+}
+
+.kpi-change.positive {
+    color: #238653;
+}
+
+.kpi-change.positive span {
+    color: #66717d;
+}
+
+
+.production-chart-panel {
+    margin-bottom: 20px;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    font-size: 12px;
+}
+
+.chart-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-line {
+    width: 25px;
+    height: 3px;
+    display: inline-block;
+}
+
+.legend-line.actual {
+    background: #1e6fb8;
+}
+
+.legend-line.predicted {
+    border-top: 2px dashed #9aa6b2;
+}
+
+.legend-css {
+    width: 10px;
+    height: 10px;
+    background: rgba(238, 174, 67, .35);
+    border: 1px solid #d69b2f;
+}
+
+
+.chart-wrapper {
+    display: flex;
+    height: 330px;
+    margin-top: 18px;
+}
+
+.y-axis {
+    width: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    font-size: 11px;
+    color: #7b8793;
+}
+
+.chart-area {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.grid-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed #e1e6eb;
+}
+
+.line-1 {
+    top: 0;
+}
+
+.line-2 {
+    top: 25%;
+}
+
+.line-3 {
+    top: 50%;
+}
+
+.line-4 {
+    top: 75%;
+}
+
+.line-5 {
+    top: 100%;
+}
+
+
+.production-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow: visible;
+}
+
+.production-svg polyline {
+    fill: none;
+    stroke-width: 4;
+    vector-effect: non-scaling-stroke;
+}
+
+#actualLine {
+    stroke: #1e6fb8;
+}
+
+#predictedLine {
+    stroke: #9aa6b2;
+    stroke-width: 2;
+    stroke-dasharray: 8 6;
+}
+
+
+.css-marker {
+    position: absolute;
+    top: 0;
+    bottom: 30px;
+    width: 34px;
+    background: rgba(238, 174, 67, .10);
+    border-left: 1px dashed #d69b2f;
+    border-right: 1px dashed #d69b2f;
+}
+
+.css-marker span {
+    position: absolute;
+    top: 8px;
+    left: 3px;
+    font-size: 9px;
+    color: #996d18;
+    font-weight: 700;
+}
+
+.marker-one {
+    left: 24%;
+}
+
+.marker-two {
+    left: 51%;
+}
+
+.marker-three {
+    left: 76%;
+}
+
+
+.x-axis {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #7b8793;
+}
+
+
+.chart-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid #e5e9ed;
+    margin-top: 10px;
+    padding-top: 18px;
+}
+
+.chart-summary div {
+    padding: 0 16px;
+    border-right: 1px solid #e5e9ed;
+}
+
+.chart-summary div:first-child {
+    padding-left: 0;
+}
+
+.chart-summary div:last-child {
+    border-right: 0;
+}
+
+.chart-summary span {
+    display: block;
+    font-size: 11px;
+    color: #7b8793;
+    margin-bottom: 5px;
+}
+
+.chart-summary strong {
+    font-size: 17px;
+}
+
+
+.positive-text {
+    color: #238653 !important;
+}
+
+
+.two-column-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+
+.response-flow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.response-stage {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: #f7f9fb;
+    border: 1px solid #e2e7eb;
+    border-radius: 10px;
+}
+
+.response-stage.highlight {
+    background: #f0f8f4;
+    border-color: #b9ddc9;
+}
+
+.stage-number {
+    font-size: 11px;
+    font-weight: 800;
+    color: #788592;
+}
+
+.response-stage strong {
+    display: block;
+    font-size: 13px;
+}
+
+.response-stage span:not(.stage-number) {
+    display: block;
+    font-size: 19px;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+.response-stage small {
+    color: #788592;
+    font-size: 10px;
+}
+
+.response-arrow {
+    color: #9aa5af;
+    font-size: 20px;
+}
+
+.response-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #e4e8ec;
+    padding-top: 15px;
+}
+
+.response-metrics span {
+    display: block;
+    font-size: 11px;
+    color: #7c8792;
+}
+
+.response-metrics strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 17px;
+}
+
+
+.driver-list {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 18px;
+}
+
+.driver-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 80px;
+    gap: 15px;
+    align-items: center;
+}
+
+.driver-label {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.driver-label strong {
+    display: block;
+    font-size: 12px;
+}
+
+.driver-label small {
+    display: block;
+    color: #7b8793;
+    margin-top: 3px;
+}
+
+.driver-icon {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: #f1f4f7;
+    font-weight: 800;
+}
+
+.driver-bar {
+    height: 7px;
+    background: #e8edf1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.driver-bar span {
+    display: block;
+    height: 100%;
+    background: #3c8b68;
+    border-radius: inherit;
+}
+
+.driver-value {
+    text-align: right;
+    font-size: 11px;
+}
+
+
+.accuracy-badge {
+    text-align: right;
+}
+
+.accuracy-badge span {
+    display: block;
+    color: #7a8691;
+    font-size: 11px;
+}
+
+.accuracy-badge strong {
+    font-size: 25px;
+    color: #238653;
+}
+
+
+.prediction-table-wrapper {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 12px 10px;
+    color: #707c87;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #dfe5e9;
+}
+
+.data-table td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.data-table tbody tr:hover {
+    background: #fafbfd;
+}
+
+
+.insight-content {
+    margin-top: 18px;
+}
+
+.insight-item {
+    display: flex;
+    gap: 14px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e8ecef;
+}
+
+.insight-item:last-child {
+    border-bottom: 0;
+}
+
+.insight-number {
+    font-size: 11px;
+    font-weight: 800;
+    color: #7c8791;
+}
+
+.insight-item strong {
+    font-size: 13px;
+}
+
+.insight-item p {
+    margin: 5px 0 0;
+    color: #687580;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+
+.confidence-badge {
+    background: #eef6f1;
+    color: #26754c;
+    border: 1px solid #cce2d5;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.calibration-score {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 20px 0;
+}
+
+.score-circle {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 7px solid #d6eadf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.score-circle strong {
+    font-size: 22px;
+}
+
+.score-circle span {
+    font-size: 11px;
+}
+
+.calibration-score > div:last-child {
+    flex: 1;
+}
+
+.calibration-score > div:last-child strong {
+    display: block;
+}
+
+.calibration-score p {
+    color: #707c87;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+.calibration-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.calibration-metrics div {
+    background: #f7f9fb;
+    padding: 11px;
+    border-radius: 8px;
+}
+
+.calibration-metrics span {
+    display: block;
+    color: #7a8691;
+    font-size: 10px;
+}
+
+.calibration-metrics strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+
+.secondary-btn {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd3da;
+    background: white;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.secondary-btn:hover {
+    background: #f5f7f9;
+}
+
+
+.operator-notice {
+    display: flex;
+    gap: 15px;
+    padding: 17px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background: #f6f8fa;
+    border: 1px solid #dce3e8;
+    border-radius: 10px;
+}
+
+.notice-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #17212b;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+}
+
+.operator-notice strong {
+    font-size: 12px;
+}
+
+.operator-notice p {
+    margin: 4px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #697681;
+}
+
+
+@media (max-width: 1000px) {
+
+    .two-column-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .chart-summary div {
+        border-right: 0;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .production-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .period-buttons {
+        width: 100%;
+    }
+
+    .period-btn {
+        flex: 1;
+    }
+
+    .response-flow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .response-arrow {
+        text-align: center;
+        transform: rotate(90deg);
+    }
+
+    .response-metrics {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .driver-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    .driver-value {
+        text-align: left;
+    }
+
+    .calibration-metrics {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const productionData = {
+
+    7: {
+        oil: "43.8",
+        liquid: "62.1",
+        water: "29.5",
+        cumulative: "18,642",
+        accuracy: "98.8%"
+    },
+
+    30: {
+        oil: "43.8",
+        liquid: "62.1",
+        water: "29.5",
+        cumulative: "18,642",
+        accuracy: "98.8%"
+    },
+
+    90: {
+        oil: "41.6",
+        liquid: "61.4",
+        water: "32.1",
+        cumulative: "18,642",
+        accuracy: "97.9%"
+    }
+
+};
+
+
+document.querySelectorAll(".period-btn").forEach(button => {
+
+    button.addEventListener("click", function () {
+
+        document.querySelectorAll(".period-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        const period = this.dataset.period;
+
+        const data = productionData[period];
+
+        document.getElementById("oilRate").textContent =
+            data.oil;
+
+        document.getElementById("liquidRate").textContent =
+            data.liquid;
+
+        document.getElementById("waterCut").textContent =
+            data.water;
+
+        document.getElementById("cumulativeOil").textContent =
+            data.cumulative;
+
+    });
+
+});
+
+
+function openCalibration() {
+
+    window.location.href = "calibration.html";
+
+}
+
+
+</script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

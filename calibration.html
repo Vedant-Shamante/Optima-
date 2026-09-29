@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calibration | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                BW
+            </div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+
+        </div>
+
+
+        <div class="well-selector">
+
+            <span class="small-label">
+                ACTIVE WELL
+            </span>
+
+            <strong>BW-01</strong>
+
+            <span class="well-status">
+                <span class="status-dot"></span>
+                Producing
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">
+                OVERVIEW
+            </div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+
+            <div class="nav-section-title">
+                OPTIMIZATION
+            </div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⚙</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⇄</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>⌁</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+
+            <div class="nav-section-title">
+                ANALYTICS
+            </div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item">
+                <span>△</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>▥</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>⚡</span>
+                Energy
+            </a>
+
+
+            <div class="nav-section-title">
+                OPERATIONS
+            </div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>✓</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item active">
+                <span>↻</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+            <span>SIH 2026 Prototype</span>
+            <small>Decision Support System</small>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+
+                <div class="breadcrumb">
+                    OPERATIONS / CALIBRATION
+                </div>
+
+                <h1>
+                    Digital Twin Calibration
+                </h1>
+
+                <p class="page-subtitle">
+                    Compare predicted and actual field response and continuously
+                    improve model reliability.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="well-header">
+                    <span>BAGHEWALA</span>
+                    <strong>WELL BW-01</strong>
+                </div>
+
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    LIVE
+                </div>
+
+                <div class="header-date">
+                    27 Sep 2026
+                </div>
+
+                <div class="operator">
+                    OPERATOR
+                    <strong>Field Operations</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="page-content calibration-page">
+
+
+            <!-- INTRO -->
+
+            <div class="calibration-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        MODEL FEEDBACK LOOP
+                    </span>
+
+                    <h2>
+                        Predicted vs Actual
+                    </h2>
+
+                    <p>
+                        Field measurements are compared with Digital Twin
+                        predictions to identify model deviation and calibration needs.
+                    </p>
+
+                </div>
+
+
+                <div class="calibration-status">
+
+                    <span class="status-badge success">
+                        MODEL HEALTHY
+                    </span>
+
+                    <small>
+                        Last calibration: 26 Sep 2026
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- KPI CARDS -->
+
+            <div class="calibration-kpis">
+
+
+                <div class="panel calibration-kpi">
+
+                    <span>
+                        PRODUCTION MAPE
+                    </span>
+
+                    <strong>
+                        4.8%
+                    </strong>
+
+                    <small class="positive-text">
+                        ↓ 1.6% vs previous period
+                    </small>
+
+                </div>
+
+
+                <div class="panel calibration-kpi">
+
+                    <span>
+                        TEMPERATURE ERROR
+                    </span>
+
+                    <strong>
+                        1.9°C
+                    </strong>
+
+                    <small class="positive-text">
+                        Within target
+                    </small>
+
+                </div>
+
+
+                <div class="panel calibration-kpi">
+
+                    <span>
+                        VISCOSITY ERROR
+                    </span>
+
+                    <strong>
+                        6.4%
+                    </strong>
+
+                    <small class="positive-text">
+                        Within target
+                    </small>
+
+                </div>
+
+
+                <div class="panel calibration-kpi">
+
+                    <span>
+                        MODEL CONFIDENCE
+                    </span>
+
+                    <strong>
+                        94%
+                    </strong>
+
+                    <small class="positive-text">
+                        High reliability
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- PREDICTED VS ACTUAL -->
+
+            <div class="panel calibration-chart-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            PRODUCTION RESPONSE
+                        </span>
+
+                        <h3>
+                            Predicted vs Actual Oil Production
+                        </h3>
+
+                    </div>
+
+
+                    <div class="chart-legend">
+
+                        <span>
+                            <i class="legend-dot actual"></i>
+                            Actual
+                        </span>
+
+                        <span>
+                            <i class="legend-dot predicted"></i>
+                            Predicted
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="calibration-chart">
+
+                    <div class="chart-y-label">
+                        Oil Production (m³/d)
+                    </div>
+
+                    <svg
+                        viewBox="0 0 900 300"
+                        preserveAspectRatio="none">
+
+                        <!-- GRID -->
+
+                        <line
+                            x1="50"
+                            y1="50"
+                            x2="870"
+                            y2="50"
+                            class="chart-grid-line"/>
+
+                        <line
+                            x1="50"
+                            y1="110"
+                            x2="870"
+                            y2="110"
+                            class="chart-grid-line"/>
+
+                        <line
+                            x1="50"
+                            y1="170"
+                            x2="870"
+                            y2="170"
+                            class="chart-grid-line"/>
+
+                        <line
+                            x1="50"
+                            y1="230"
+                            x2="870"
+                            y2="230"
+                            class="chart-grid-line"/>
+
+
+                        <!-- PREDICTED -->
+
+                        <polyline
+                            points="
+                            50,205
+                            120,195
+                            190,188
+                            260,170
+                            330,142
+                            400,125
+                            470,118
+                            540,105
+                            610,112
+                            680,130
+                            750,145
+                            820,160
+                            870,172"
+                            class="predicted-line"
+                        />
+
+
+                        <!-- ACTUAL -->
+
+                        <polyline
+                            points="
+                            50,210
+                            120,200
+                            190,190
+                            260,178
+                            330,147
+                            400,132
+                            470,120
+                            540,111
+                            610,116
+                            680,126
+                            750,149
+                            820,154
+                            870,168"
+                            class="actual-line"
+                        />
+
+
+                        <!-- AXIS -->
+
+                        <line
+                            x1="50"
+                            y1="250"
+                            x2="870"
+                            y2="250"
+                            class="chart-axis"/>
+
+                    </svg>
+
+                    <div class="chart-x-labels">
+
+                        <span>16 Sep</span>
+                        <span>18 Sep</span>
+                        <span>20 Sep</span>
+                        <span>22 Sep</span>
+                        <span>24 Sep</span>
+                        <span>26 Sep</span>
+                        <span>27 Sep</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-summary">
+
+                    <div>
+
+                        <span>
+                            ACTUAL
+                        </span>
+
+                        <strong>
+                            44.8 m³/d
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            PREDICTED
+                        </span>
+
+                        <strong>
+                            43.9 m³/d
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            DEVIATION
+                        </span>
+
+                        <strong class="positive-text">
+                            +2.0%
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            R²
+                        </span>
+
+                        <strong>
+                            0.94
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODEL COMPONENTS -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            MODEL COMPONENTS
+                        </span>
+
+                        <h3>
+                            Calibration Health
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="model-health-grid">
+
+
+                    <div class="model-health-card">
+
+                        <div class="model-health-top">
+
+                            <div>
+
+                                <strong>
+                                    Thermal Model
+                                </strong>
+
+                                <span>
+                                    Reservoir temperature
+                                </span>
+
+                            </div>
+
+                            <b>
+                                96%
+                            </b>
+
+                        </div>
+
+                        <div class="health-bar">
+                            <div style="width:96%;"></div>
+                        </div>
+
+                        <small>
+                            Error: 1.9°C
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="model-health-card">
+
+                        <div class="model-health-top">
+
+                            <div>
+
+                                <strong>
+                                    Viscosity Model
+                                </strong>
+
+                                <span>
+                                    Heavy-oil mobility
+                                </span>
+
+                            </div>
+
+                            <b>
+                                92%
+                            </b>
+
+                        </div>
+
+                        <div class="health-bar">
+                            <div style="width:92%;"></div>
+                        </div>
+
+                        <small>
+                            Error: 6.4%
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="model-health-card">
+
+                        <div class="model-health-top">
+
+                            <div>
+
+                                <strong>
+                                    Production Model
+                                </strong>
+
+                                <span>
+                                    Oil-rate response
+                                </span>
+
+                            </div>
+
+                            <b>
+                                94%
+                            </b>
+
+                        </div>
+
+                        <div class="health-bar">
+                            <div style="width:94%;"></div>
+                        </div>
+
+                        <small>
+                            MAPE: 4.8%
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="model-health-card">
+
+                        <div class="model-health-top">
+
+                            <div>
+
+                                <strong>
+                                    SRP Model
+                                </strong>
+
+                                <span>
+                                    Pump and rod response
+                                </span>
+
+                            </div>
+
+                            <b>
+                                91%
+                            </b>
+
+                        </div>
+
+                        <div class="health-bar">
+                            <div style="width:91%;"></div>
+                        </div>
+
+                        <small>
+                            Load error: 5.7%
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ERROR TABLE -->
+
+            <div class="panel calibration-table-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ERROR ANALYSIS
+                        </span>
+
+                        <h3>
+                            Recent Prediction Errors
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="calibration-action"
+                        onclick="runCalibration()">
+
+                        ↻ Run Calibration
+
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table class="calibration-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    DATE
+                                </th>
+
+                                <th>
+                                    PARAMETER
+                                </th>
+
+                                <th>
+                                    PREDICTED
+                                </th>
+
+                                <th>
+                                    ACTUAL
+                                </th>
+
+                                <th>
+                                    ERROR
+                                </th>
+
+                                <th>
+                                    STATUS
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    27 Sep
+                                </td>
+
+                                <td>
+                                    Oil Production
+                                </td>
+
+                                <td>
+                                    43.9 m³/d
+                                </td>
+
+                                <td>
+                                    44.8 m³/d
+                                </td>
+
+                                <td class="error-low">
+                                    +2.0%
+                                </td>
+
+                                <td>
+                                    <span class="mini-status good">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    26 Sep
+                                </td>
+
+                                <td>
+                                    Reservoir Temperature
+                                </td>
+
+                                <td>
+                                    57.8°C
+                                </td>
+
+                                <td>
+                                    59.1°C
+                                </td>
+
+                                <td class="error-low">
+                                    +1.3°C
+                                </td>
+
+                                <td>
+                                    <span class="mini-status good">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    25 Sep
+                                </td>
+
+                                <td>
+                                    Viscosity
+                                </td>
+
+                                <td>
+                                    1,790 cP
+                                </td>
+
+                                <td>
+                                    1,680 cP
+                                </td>
+
+                                <td class="error-medium">
+                                    -6.1%
+                                </td>
+
+                                <td>
+                                    <span class="mini-status watch">
+                                        Watch
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    24 Sep
+                                </td>
+
+                                <td>
+                                    Pump Fillage
+                                </td>
+
+                                <td>
+                                    81%
+                                </td>
+
+                                <td>
+                                    84%
+                                </td>
+
+                                <td class="error-low">
+                                    +3.0%
+                                </td>
+
+                                <td>
+                                    <span class="mini-status good">
+                                        Normal
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    23 Sep
+                                </td>
+
+                                <td>
+                                    Rod Load
+                                </td>
+
+                                <td>
+                                    67%
+                                </td>
+
+                                <td>
+                                    70%
+                                </td>
+
+                                <td class="error-medium">
+                                    +4.5%
+                                </td>
+
+                                <td>
+                                    <span class="mini-status watch">
+                                        Watch
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- CALIBRATION LOGIC -->
+
+            <div class="calibration-process panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            AUTOMATIC FEEDBACK LOOP
+                        </span>
+
+                        <h3>
+                            How Calibration Works
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="calibration-flow">
+
+
+                    <div class="flow-step">
+
+                        <div class="flow-number">
+                            01
+                        </div>
+
+                        <strong>
+                            Field Data
+                        </strong>
+
+                        <span>
+                            Actual production,
+                            temperature and pump data
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-arrow">
+                        →
+                    </div>
+
+
+                    <div class="flow-step">
+
+                        <div class="flow-number">
+                            02
+                        </div>
+
+                        <strong>
+                            Compare
+                        </strong>
+
+                        <span>
+                            Predicted values are
+                            compared with measurements
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-arrow">
+                        →
+                    </div>
+
+
+                    <div class="flow-step">
+
+                        <div class="flow-number">
+                            03
+                        </div>
+
+                        <strong>
+                            Error Detection
+                        </strong>
+
+                        <span>
+                            Bias and prediction
+                            errors are identified
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-arrow">
+                        →
+                    </div>
+
+
+                    <div class="flow-step">
+
+                        <div class="flow-number">
+                            04
+                        </div>
+
+                        <strong>
+                            Calibration
+                        </strong>
+
+                        <span>
+                            Model parameters are
+                            updated using validated data
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-arrow">
+                        →
+                    </div>
+
+
+                    <div class="flow-step">
+
+                        <div class="flow-number">
+                            05
+                        </div>
+
+                        <strong>
+                            New Prediction
+                        </strong>
+
+                        <span>
+                            Updated Digital Twin
+                            generates future predictions
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PARAMETERS -->
+
+            <div class="calibration-bottom-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                MODEL PARAMETERS
+                            </span>
+
+                            <h3>
+                                Current Calibration Factors
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="parameter-calibration-list">
+
+                        <div>
+
+                            <span>
+                                Thermal Transfer Factor
+                            </span>
+
+                            <strong>
+                                0.86
+                            </strong>
+
+                            <small>
+                                +2.4%
+                            </small>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Mobility Response Factor
+                            </span>
+
+                            <strong>
+                                0.78
+                            </strong>
+
+                            <small>
+                                +1.7%
+                            </small>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Pump Efficiency Factor
+                            </span>
+
+                            <strong>
+                                0.91
+                            </strong>
+
+                            <small>
+                                +0.9%
+                            </small>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Rod Load Correction
+                            </span>
+
+                            <strong>
+                                1.04
+                            </strong>
+
+                            <small>
+                                -0.6%
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                DATA QUALITY
+                            </span>
+
+                            <h3>
+                                Calibration Readiness
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="data-quality-score">
+
+                        <div class="quality-circle">
+                            <span>94</span>
+                            <small>%</small>
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Suitable for calibration
+                            </strong>
+
+                            <p>
+                                Current sensor coverage and data
+                                consistency meet the prototype
+                                calibration threshold.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quality-list">
+
+                        <div>
+                            <span>Production data</span>
+                            <b>✓</b>
+                        </div>
+
+                        <div>
+                            <span>Temperature data</span>
+                            <b>✓</b>
+                        </div>
+
+                        <div>
+                            <span>SRP telemetry</span>
+                            <b>✓</b>
+                        </div>
+
+                        <div>
+                            <span>CSS cycle data</span>
+                            <b>✓</b>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTICE -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <strong>
+                        Calibration Safety
+                    </strong>
+
+                    <p>
+                        Calibration should use validated field measurements
+                        and approved data-quality rules. The prototype does
+                        not automatically deploy model changes to field
+                        control systems. Model updates should be reviewed
+                        before being used for operational recommendations.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+function runCalibration() {
+
+    const button =
+        document.querySelector(".calibration-action");
+
+    button.innerHTML =
+        "✓ Calibration Complete";
+
+    button.classList.add("calibration-complete");
+
+    setTimeout(() => {
+
+        button.innerHTML =
+            "↻ Run Calibration";
+
+        button.classList.remove(
+            "calibration-complete"
+        );
+
+    }, 3000);
+
+}
+
+</script>
+
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

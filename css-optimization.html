@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Baghewala Digital Twin | CSS Optimization</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">◇</div>
+
+            <div class="brand-text">
+                <h2>BAGHEWALA</h2>
+                <span>DIGITAL TWIN</span>
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <div class="nav-section">
+
+                <span class="nav-title">OVERVIEW</span>
+
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="digital-twin.html" class="nav-item">
+                    <span class="nav-icon">◎</span>
+                    <span>Digital Twin</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">OPTIMIZATION</span>
+
+                <a href="css-optimization.html" class="nav-item active">
+                    <span class="nav-icon">♨</span>
+                    <span>CSS Optimization</span>
+                </a>
+
+                <a href="srp-optimization.html" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>SRP Optimization</span>
+                </a>
+
+                <a href="joint-optimization.html" class="nav-item">
+                    <span class="nav-icon">⇄</span>
+                    <span>Joint CSS–SRP</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">MONITORING</span>
+
+                <a href="simulator.html" class="nav-item">
+                    <span class="nav-icon">◇</span>
+                    <span>What-If Simulator</span>
+                </a>
+
+                <a href="operating-envelope.html" class="nav-item">
+                    <span class="nav-icon">△</span>
+                    <span>Operating Envelope</span>
+                </a>
+
+                <a href="predictions.html" class="nav-item">
+                    <span class="nav-icon">⌁</span>
+                    <span>Predictions</span>
+                </a>
+
+                <a href="risk-monitoring.html" class="nav-item">
+                    <span class="nav-icon">!</span>
+                    <span>Risk Monitoring</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">ANALYTICS</span>
+
+                <a href="production.html" class="nav-item">
+                    <span class="nav-icon">▥</span>
+                    <span>Production</span>
+                </a>
+
+                <a href="energy.html" class="nav-item">
+                    <span class="nav-icon">⚡</span>
+                    <span>Energy</span>
+                </a>
+
+                <a href="history.html" class="nav-item">
+                    <span class="nav-icon">◷</span>
+                    <span>Well History</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">SYSTEM</span>
+
+                <a href="alerts.html" class="nav-item">
+                    <span class="nav-icon">♢</span>
+                    <span>Alerts</span>
+                    <b class="notification">3</b>
+                </a>
+
+                <a href="recommendations.html" class="nav-item">
+                    <span class="nav-icon">✦</span>
+                    <span>Recommendations</span>
+                </a>
+
+                <a href="calibration.html" class="nav-item">
+                    <span class="nav-icon">↻</span>
+                    <span>Calibration</span>
+                </a>
+
+                <a href="data-management.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Data Management</span>
+                </a>
+
+                <a href="settings.html" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>Settings</span>
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>System Operational</strong>
+                    <small>All services running</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <div class="breadcrumb">
+                    FIELD
+                    <span>/</span>
+                    BAGHEWALA
+                    <span>/</span>
+                    WELL BW-01
+                </div>
+
+                <h1>CSS Optimization</h1>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="well-selector">
+
+                    <span class="status-dot"></span>
+
+                    <strong>BW-01</strong>
+
+                    <span class="live-text">LIVE</span>
+
+                </div>
+
+
+                <div class="header-time">
+
+                    <strong>27 Sep 2026</strong>
+
+                    <span id="currentTime">
+                        --:--:--
+                    </span>
+
+                </div>
+
+
+                <div class="user">
+
+                    <div class="avatar">
+                        OP
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>Operator</strong>
+                        <small>Control Room</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="content">
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="page-intro">
+
+                <div class="intro-left">
+
+                    <h2>Steam Injection Optimization</h2>
+
+                    <p>
+                        Evaluate CSS cycle parameters and their predicted
+                        impact on reservoir temperature, viscosity and oil production.
+                    </p>
+
+                </div>
+
+
+                <div class="last-update">
+
+                    <span class="status-dot"></span>
+
+                    Digital Twin Updated
+
+                    <strong>12 sec ago</strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CURRENT CSS STATUS
+            ================================================== -->
+
+            <div class="metric-grid">
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Current Steam Volume
+                    </div>
+
+                    <div class="metric-value">
+                        120
+                        <span>m³</span>
+                    </div>
+
+                    <div class="metric-sub positive">
+                        Current cycle
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Injection Pressure
+                    </div>
+
+                    <div class="metric-value">
+                        42
+                        <span>bar</span>
+                    </div>
+
+                    <div class="metric-sub">
+                        Current cycle
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Soak Time
+                    </div>
+
+                    <div class="metric-value">
+                        18
+                        <span>hr</span>
+                    </div>
+
+                    <div class="metric-sub">
+                        Current cycle
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Current SOR
+                    </div>
+
+                    <div class="metric-value">
+                        3.82
+                    </div>
+
+                    <div class="metric-sub warning">
+                        Steam / oil
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CSS CONTROL + PREDICTION
+            ================================================== -->
+
+            <div class="optimization-layout">
+
+
+                <!-- LEFT CONTROL PANEL -->
+
+                <div class="panel css-control-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>CSS Cycle Parameters</h3>
+
+                            <p>
+                                Adjust parameters to run a virtual CSS scenario.
+                            </p>
+
+                        </div>
+
+                        <span class="simulation-badge">
+                            WHAT-IF
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- STEAM VOLUME -->
+
+                    <div class="control-group">
+
+                        <div class="control-heading">
+
+                            <label for="steamVolume">
+                                Steam Volume
+                            </label>
+
+                            <strong>
+                                <span id="steamValue">120</span> m³
+                            </strong>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="steamVolume"
+                            min="50"
+                            max="250"
+                            value="120"
+                            step="5"
+                            oninput="updateCSSModel()"
+                        >
+
+                        <div class="range-labels">
+
+                            <span>50 m³</span>
+                            <span>250 m³</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PRESSURE -->
+
+                    <div class="control-group">
+
+                        <div class="control-heading">
+
+                            <label for="injectionPressure">
+                                Injection Pressure
+                            </label>
+
+                            <strong>
+                                <span id="pressureValue">42</span> bar
+                            </strong>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="injectionPressure"
+                            min="25"
+                            max="60"
+                            value="42"
+                            step="1"
+                            oninput="updateCSSModel()"
+                        >
+
+                        <div class="range-labels">
+
+                            <span>25 bar</span>
+                            <span>60 bar</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SOAK TIME -->
+
+                    <div class="control-group">
+
+                        <div class="control-heading">
+
+                            <label for="soakTime">
+                                Soak Time
+                            </label>
+
+                            <strong>
+                                <span id="soakValue">18</span> hr
+                            </strong>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="soakTime"
+                            min="6"
+                            max="36"
+                            value="18"
+                            step="1"
+                            oninput="updateCSSModel()"
+                        >
+
+                        <div class="range-labels">
+
+                            <span>6 hr</span>
+                            <span>36 hr</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PRODUCTION CYCLE -->
+
+                    <div class="control-group">
+
+                        <div class="control-heading">
+
+                            <label for="productionDays">
+                                Production Period
+                            </label>
+
+                            <strong>
+                                <span id="productionDaysValue">30</span> days
+                            </strong>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="productionDays"
+                            min="10"
+                            max="60"
+                            value="30"
+                            step="1"
+                            oninput="updateCSSModel()"
+                        >
+
+                        <div class="range-labels">
+
+                            <span>10 days</span>
+                            <span>60 days</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="control-actions">
+
+                        <button
+                            class="btn primary"
+                            onclick="runCSSSimulation()"
+                        >
+                            Run Simulation
+                        </button>
+
+                        <button
+                            class="btn secondary"
+                            onclick="resetCSSModel()"
+                        >
+                            Reset
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RIGHT PREDICTION -->
+
+                <div class="panel prediction-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Predicted CSS Response</h3>
+
+                            <p>
+                                Digital Twin virtual response
+                            </p>
+
+                        </div>
+
+                        <span class="prediction-status">
+                            MODEL READY
+                        </span>
+
+                    </div>
+
+
+                    <div class="prediction-grid">
+
+
+                        <div class="prediction-item">
+
+                            <span>
+                                Reservoir Temperature
+                            </span>
+
+                            <strong id="predTemperature">
+                                53.6°C
+                            </strong>
+
+                            <small class="positive">
+                                +6.4°C
+                            </small>
+
+                        </div>
+
+
+                        <div class="prediction-item">
+
+                            <span>
+                                Oil Viscosity
+                            </span>
+
+                            <strong id="predViscosity">
+                                1,420 cP
+                            </strong>
+
+                            <small class="positive">
+                                -23.2%
+                            </small>
+
+                        </div>
+
+
+                        <div class="prediction-item">
+
+                            <span>
+                                Oil Production
+                            </span>
+
+                            <strong id="predProduction">
+                                36.8 m³/day
+                            </strong>
+
+                            <small class="positive">
+                                +17.2%
+                            </small>
+
+                        </div>
+
+
+                        <div class="prediction-item">
+
+                            <span>
+                                Steam-Oil Ratio
+                            </span>
+
+                            <strong id="predSOR">
+                                3.26
+                            </strong>
+
+                            <small class="positive">
+                                -14.7%
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- TEMPERATURE BAR -->
+
+                    <div class="response-section">
+
+                        <div class="response-heading">
+
+                            <span>
+                                Thermal Response
+                            </span>
+
+                            <strong>
+                                <span id="thermalPercent">72</span>%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-track">
+
+                            <div
+                                id="thermalBar"
+                                class="progress-fill"
+                                style="width:72%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MODEL NOTE -->
+
+                    <div class="model-note">
+
+                        <span class="note-icon">i</span>
+
+                        <div>
+
+                            <strong>
+                                Digital Twin Prediction
+                            </strong>
+
+                            <p>
+                                Higher steam volume increases predicted
+                                thermal response, but excessive steam may
+                                increase SOR and operating cost.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 OPTIMIZATION TARGET
+            ================================================== -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>Optimization Objectives</h3>
+
+                        <p>
+                            Configure the priorities used by the CSS optimizer.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="objective-grid">
+
+
+                    <div class="objective-card">
+
+                        <div class="objective-top">
+
+                            <span class="objective-icon">
+                                ↑
+                            </span>
+
+                            <strong>
+                                Oil Production
+                            </strong>
+
+                            <span class="objective-weight">
+                                HIGH
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Increase predicted oil production.
+                        </p>
+
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="80"
+                        >
+
+                    </div>
+
+
+
+                    <div class="objective-card">
+
+                        <div class="objective-top">
+
+                            <span class="objective-icon">
+                                ↓
+                            </span>
+
+                            <strong>
+                                Steam Consumption
+                            </strong>
+
+                            <span class="objective-weight">
+                                HIGH
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Reduce steam required per unit of oil.
+                        </p>
+
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="75"
+                        >
+
+                    </div>
+
+
+
+                    <div class="objective-card">
+
+                        <div class="objective-top">
+
+                            <span class="objective-icon">
+                                ⚡
+                            </span>
+
+                            <strong>
+                                Energy
+                            </strong>
+
+                            <span class="objective-weight">
+                                MEDIUM
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Reduce steam and surface energy consumption.
+                        </p>
+
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="60"
+                        >
+
+                    </div>
+
+
+
+                    <div class="objective-card">
+
+                        <div class="objective-top">
+
+                            <span class="objective-icon">
+                                !
+                            </span>
+
+                            <strong>
+                                Mechanical Risk
+                            </strong>
+
+                            <span class="objective-weight">
+                                HIGH
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Avoid operating conditions that increase SRP risk.
+                        </p>
+
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="85"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CSS OPERATING WINDOW
+            ================================================== -->
+
+            <div class="two-column-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Recommended CSS Window</h3>
+
+                            <p>
+                                Current Digital Twin operating envelope.
+                            </p>
+
+                        </div>
+
+                        <span class="safe-badge">
+                            SAFE RANGE
+                        </span>
+
+                    </div>
+
+
+                    <div class="window-table">
+
+                        <div class="window-row header">
+
+                            <span>Parameter</span>
+                            <span>Minimum</span>
+                            <span>Optimal</span>
+                            <span>Maximum</span>
+
+                        </div>
+
+
+                        <div class="window-row">
+
+                            <span>Steam Volume</span>
+                            <strong>90 m³</strong>
+                            <strong>130 m³</strong>
+                            <strong>170 m³</strong>
+
+                        </div>
+
+
+                        <div class="window-row">
+
+                            <span>Injection Pressure</span>
+                            <strong>35 bar</strong>
+                            <strong>43 bar</strong>
+                            <strong>50 bar</strong>
+
+                        </div>
+
+
+                        <div class="window-row">
+
+                            <span>Soak Time</span>
+                            <strong>12 hr</strong>
+                            <strong>20 hr</strong>
+                            <strong>28 hr</strong>
+
+                        </div>
+
+
+                        <div class="window-row">
+
+                            <span>Production Period</span>
+                            <strong>20 days</strong>
+                            <strong>30 days</strong>
+                            <strong>42 days</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RECOMMENDATION -->
+
+                <div class="panel recommendation-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Digital Twin Recommendation</h3>
+
+                            <p>
+                                Current virtual recommendation.
+                            </p>
+
+                        </div>
+
+                        <span class="recommendation-icon">
+                            ✦
+                        </span>
+
+                    </div>
+
+
+                    <div class="recommendation-content">
+
+                        <div class="recommendation-main">
+
+                            <span class="recommendation-label">
+                                RECOMMENDED CSS CYCLE
+                            </span>
+
+                            <strong>
+                                130 m³ Steam
+                            </strong>
+
+                            <p>
+                                43 bar injection pressure ·
+                                20 hr soak time ·
+                                30 day production period
+                            </p>
+
+                        </div>
+
+
+                        <div class="recommendation-impact">
+
+                            <div>
+
+                                <span>
+                                    Predicted Oil
+                                </span>
+
+                                <strong>
+                                    +18.4%
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    SOR
+                                </span>
+
+                                <strong>
+                                    -15.2%
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Thermal Gain
+                                </span>
+
+                                <strong>
+                                    +7.1°C
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="recommendation-reason">
+
+                            <strong>
+                                Why this recommendation?
+                            </strong>
+
+                            <p>
+                                The selected CSS window provides sufficient
+                                thermal stimulation to reduce heavy-oil
+                                viscosity while avoiding excessive steam
+                                consumption.
+                            </p>
+
+                        </div>
+
+
+                        <div class="recommendation-actions">
+
+                            <a
+                                href="simulator.html"
+                                class="btn secondary"
+                            >
+                                Test in Simulator
+                            </a>
+
+                            <a
+                                href="joint-optimization.html"
+                                class="btn primary"
+                            >
+                                Continue to Joint Optimization
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 IMPORTANT NOTICE
+            ================================================== -->
+
+            <div class="operator-notice">
+
+                <div class="notice-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <strong>
+                        Operator Decision Support
+                    </strong>
+
+                    <p>
+                        These values are Digital Twin predictions for
+                        scenario evaluation. The system does not directly
+                        control steam injection equipment. Final operating
+                        decisions remain with the field operator.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+    /* =====================================================
+       CLOCK
+    ====================================================== */
+
+    function updateTime() {
+
+        const element =
+            document.getElementById("currentTime");
+
+        if (!element) return;
+
+        const now = new Date();
+
+        element.textContent =
+            now.toLocaleTimeString(
+                "en-IN",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+    }
+
+    updateTime();
+
+    setInterval(updateTime, 1000);
+
+
+
+    /* =====================================================
+       CSS DIGITAL TWIN MODEL
+    ====================================================== */
+
+    function updateCSSModel() {
+
+        const steam =
+            Number(
+                document.getElementById("steamVolume").value
+            );
+
+        const pressure =
+            Number(
+                document.getElementById("injectionPressure").value
+            );
+
+        const soak =
+            Number(
+                document.getElementById("soakTime").value
+            );
+
+        const productionDays =
+            Number(
+                document.getElementById("productionDays").value
+            );
+
+
+        /* DISPLAY VALUES */
+
+        document.getElementById("steamValue")
+            .textContent = steam;
+
+        document.getElementById("pressureValue")
+            .textContent = pressure;
+
+        document.getElementById("soakValue")
+            .textContent = soak;
+
+        document.getElementById("productionDaysValue")
+            .textContent = productionDays;
+
+
+
+        /* =================================================
+           SIMPLIFIED PROTOTYPE RESPONSE MODEL
+
+           This is frontend demonstration logic only.
+           Later this will be replaced by the actual
+           Digital Twin / ML backend.
+        ================================================== */
+
+
+        const thermalGain =
+            (
+                steam * 0.035
+                +
+                pressure * 0.055
+                +
+                soak * 0.075
+            );
+
+
+        const temperature =
+            Math.min(
+                70,
+                47.2 + thermalGain
+            );
+
+
+        const viscosity =
+            Math.max(
+                700,
+                1850 *
+                Math.exp(
+                    -0.025 *
+                    (temperature - 47.2)
+                )
+            );
+
+
+        const productionGain =
+            Math.min(
+                40,
+                (
+                    steam * 0.045
+                    +
+                    pressure * 0.08
+                    +
+                    soak * 0.10
+                )
+            );
+
+
+        const production =
+            31.4 *
+            (
+                1 +
+                productionGain / 100
+            );
+
+
+        const sor =
+            Math.max(
+                2.3,
+                steam / production
+            );
+
+
+        const thermalPercent =
+            Math.min(
+                100,
+                Math.round(
+                    45 +
+                    thermalGain * 1.8
+                )
+            );
+
+
+        const viscosityReduction =
+            (
+                1 -
+                viscosity / 1850
+            ) * 100;
+
+
+        const productionIncrease =
+            (
+                production / 31.4 - 1
+            ) * 100;
+
+
+        const sorReduction =
+            (
+                1 -
+                sor / 3.82
+            ) * 100;
+
+
+
+        /* =================================================
+           UPDATE UI
+        ================================================== */
+
+        document.getElementById(
+            "predTemperature"
+        ).textContent =
+            temperature.toFixed(1) + "°C";
+
+
+        document.getElementById(
+            "predViscosity"
+        ).textContent =
+            Math.round(viscosity)
+            .toLocaleString() + " cP";
+
+
+        document.getElementById(
+            "predProduction"
+        ).textContent =
+            production.toFixed(1)
+            + " m³/day";
+
+
+        document.getElementById(
+            "predSOR"
+        ).textContent =
+            sor.toFixed(2);
+
+
+        document.getElementById(
+            "thermalPercent"
+        ).textContent =
+            thermalPercent;
+
+
+        document.getElementById(
+            "thermalBar"
+        ).style.width =
+            thermalPercent + "%";
+
+
+        const viscosityElement =
+            document.querySelector(
+                "#predViscosity + small"
+            );
+
+        if (viscosityElement) {
+
+            viscosityElement.textContent =
+                "-" +
+                Math.abs(
+                    viscosityReduction
+                ).toFixed(1) +
+                "%";
+
+        }
+
+
+        const productionElement =
+            document.querySelector(
+                "#predProduction + small"
+            );
+
+        if (productionElement) {
+
+            productionElement.textContent =
+                "+" +
+                Math.max(
+                    0,
+                    productionIncrease
+                ).toFixed(1) +
+                "%";
+
+        }
+
+
+        const sorElement =
+            document.querySelector(
+                "#predSOR + small"
+            );
+
+        if (sorElement) {
+
+            sorElement.textContent =
+                (
+                    sorReduction >= 0
+                    ? "-"
+                    : "+"
+                ) +
+                Math.abs(
+                    sorReduction
+                ).toFixed(1) +
+                "%";
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       RUN SIMULATION
+    ====================================================== */
+
+    function runCSSSimulation() {
+
+        updateCSSModel();
+
+
+        const button =
+            document.querySelector(
+                ".css-control-panel .btn.primary"
+            );
+
+
+        const originalText =
+            button.textContent;
+
+
+        button.textContent =
+            "Running Twin...";
+
+
+        button.disabled = true;
+
+
+        setTimeout(
+            function () {
+
+                button.textContent =
+                    "Simulation Complete ✓";
+
+                button.disabled = false;
+
+
+                setTimeout(
+                    function () {
+
+                        button.textContent =
+                            originalText;
+
+                    },
+                    1800
+                );
+
+            },
+            900
+        );
+
+    }
+
+
+
+    /* =====================================================
+       RESET
+    ====================================================== */
+
+    function resetCSSModel() {
+
+        document.getElementById(
+            "steamVolume"
+        ).value = 120;
+
+
+        document.getElementById(
+            "injectionPressure"
+        ).value = 42;
+
+
+        document.getElementById(
+            "soakTime"
+        ).value = 18;
+
+
+        document.getElementById(
+            "productionDays"
+        ).value = 30;
+
+
+        updateCSSModel();
+
+    }
+
+
+
+    /* INITIAL MODEL */
+
+    updateCSSModel();
+
+</script>
+
+</body>
+</html>

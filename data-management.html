@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Management | Baghewala Digital Twin</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .page-intro {
+      margin-bottom: 24px;
+    }
+
+    .page-intro h1 {
+      margin-bottom: 6px;
+    }
+
+    .page-intro p {
+      color: #64748b;
+    }
+
+    .data-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .data-kpi {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .data-kpi .label {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .data-kpi .value {
+      font-size: 27px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .data-kpi .sub {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .data-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .data-card h2 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+
+    .data-card .subtitle {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .status-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .status-table th,
+    .status-table td {
+      padding: 13px 10px;
+      border-bottom: 1px solid #eef2f7;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .status-table th {
+      color: #64748b;
+      font-weight: 600;
+      background: #f8fafc;
+    }
+
+    .status-table td {
+      color: #334155;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 7px;
+    }
+
+    .online {
+      background: #16a34a;
+    }
+
+    .warning {
+      background: #f59e0b;
+    }
+
+    .offline {
+      background: #ef4444;
+    }
+
+    .quality-box {
+      margin-bottom: 18px;
+    }
+
+    .quality-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      font-size: 13px;
+    }
+
+    .quality-header span:first-child {
+      color: #475569;
+    }
+
+    .quality-header span:last-child {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .progress {
+      height: 9px;
+      border-radius: 20px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: #2563eb;
+    }
+
+    .progress-green {
+      background: #16a34a;
+    }
+
+    .progress-yellow {
+      background: #f59e0b;
+    }
+
+    .data-source-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .source-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px;
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      border-radius: 10px;
+    }
+
+    .source-name {
+      font-weight: 600;
+      color: #334155;
+      font-size: 13px;
+    }
+
+    .source-meta {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .source-status {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .source-status.active {
+      color: #15803d;
+    }
+
+    .source-status.warn {
+      color: #b45309;
+    }
+
+    .source-status.off {
+      color: #dc2626;
+    }
+
+    .import-box {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .import-box:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .import-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .import-box h3 {
+      margin: 0 0 6px;
+      color: #334155;
+    }
+
+    .import-box p {
+      margin: 0 0 14px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mapping-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mapping-item {
+      border: 1px solid #e2e8f0;
+      padding: 13px;
+      border-radius: 10px;
+    }
+
+    .mapping-item .field {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 5px;
+    }
+
+    .mapping-item .mapped {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .anomaly-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .anomaly {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .anomaly.high {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .anomaly-icon {
+      font-size: 18px;
+    }
+
+    .anomaly-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .anomaly-text {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 15px 17px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      color: #1e40af;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .sync-status {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #f0fdf4;
+      color: #166534;
+      font-size: 12px;
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .data-kpis {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .data-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .data-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .mapping-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .status-table {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="logo-mark">BW</div>
+        <div>
+          <strong>Baghewala DT</strong>
+          <span>Well Intelligence</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <div class="nav-section">Overview</div>
+
+        <a href="index.html">Dashboard</a>
+        <a href="digital-twin.html">Digital Twin</a>
+
+        <div class="nav-section">Optimization</div>
+
+        <a href="css-optimization.html">CSS Optimization</a>
+        <a href="srp-optimization.html">SRP Optimization</a>
+        <a href="joint-optimization.html">Joint Optimization</a>
+        <a href="simulator.html">What-if Simulator</a>
+        <a href="operating-envelope.html">Operating Envelope</a>
+
+        <div class="nav-section">Analytics</div>
+
+        <a href="predictions.html">Predictions</a>
+        <a href="risk-monitoring.html">Risk Monitoring</a>
+        <a href="production.html">Production</a>
+        <a href="energy.html">Energy</a>
+
+        <div class="nav-section">Operations</div>
+
+        <a href="history.html">History</a>
+        <a href="alerts.html">Alerts</a>
+        <a href="recommendations.html">Recommendations</a>
+        <a href="calibration.html">Calibration</a>
+
+        <div class="nav-section">System</div>
+
+        <a href="data-management.html" class="active">Data Management</a>
+        <a href="settings.html">Settings</a>
+
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- HEADER -->
+      <header class="top-header">
+        <div>
+          <strong>BAGHEWALA / WELL BW-01</strong>
+          <span class="live-badge">● LIVE</span>
+        </div>
+
+        <div class="header-right">
+          <span>27 Sep 2026</span>
+          <span>Operator: Control Room</span>
+        </div>
+      </header>
+
+      <section class="page-content">
+
+        <div class="page-intro">
+          <h1>Data Management</h1>
+          <p>
+            Monitor field data ingestion, sensor health, data quality and Digital Twin inputs.
+          </p>
+        </div>
+
+        <!-- KPI CARDS -->
+        <div class="data-kpis">
+
+          <div class="data-kpi">
+            <div class="label">Data Quality Score</div>
+            <div class="value">94%</div>
+            <div class="sub">↑ 2.1% from previous cycle</div>
+          </div>
+
+          <div class="data-kpi">
+            <div class="label">Connected Sensors</div>
+            <div class="value">18 / 20</div>
+            <div class="sub">2 sensors require attention</div>
+          </div>
+
+          <div class="data-kpi">
+            <div class="label">Data Latency</div>
+            <div class="value">8 sec</div>
+            <div class="sub">Target &lt; 30 seconds</div>
+          </div>
+
+          <div class="data-kpi">
+            <div class="label">Records Today</div>
+            <div class="value" id="recordsToday">12,480</div>
+            <div class="sub">Continuous field ingestion</div>
+          </div>
+
+        </div>
+
+        <div class="data-grid">
+
+          <!-- SENSOR STATUS -->
+          <div class="data-card">
+
+            <h2>Field Sensor Status</h2>
+            <div class="subtitle">
+              Current health of critical well and surface measurements.
+            </div>
+
+            <table class="status-table">
+
+              <thead>
+                <tr>
+                  <th>Sensor</th>
+                  <th>Measurement</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <td>PT-101</td>
+                  <td>Injection Pressure</td>
+                  <td>14.2 bar</td>
+                  <td>
+                    <span class="status-dot online"></span>Online
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>TT-201</td>
+                  <td>Wellhead Temperature</td>
+                  <td>54.8 °C</td>
+                  <td>
+                    <span class="status-dot online"></span>Online
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>FT-301</td>
+                  <td>Oil Flow Rate</td>
+                  <td>44.8 m³/d</td>
+                  <td>
+                    <span class="status-dot online"></span>Online
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>LT-401</td>
+                  <td>Fluid Level</td>
+                  <td>38.6 m</td>
+                  <td>
+                    <span class="status-dot warning"></span>Drift
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>VFD-01</td>
+                  <td>SRP Speed</td>
+                  <td>7.0 SPM</td>
+                  <td>
+                    <span class="status-dot online"></span>Online
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>LOAD-01</td>
+                  <td>Rod Load</td>
+                  <td>69%</td>
+                  <td>
+                    <span class="status-dot online"></span>Online
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>TT-RES</td>
+                  <td>Reservoir Temperature</td>
+                  <td>58.6 °C</td>
+                  <td>
+                    <span class="status-dot online"></span>Online
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>VIS-01</td>
+                  <td>Estimated Viscosity</td>
+                  <td>1,860 cP</td>
+                  <td>
+                    <span class="status-dot warning"></span>Model
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <!-- DATA QUALITY -->
+          <div class="data-card">
+
+            <h2>Data Quality</h2>
+            <div class="subtitle">
+              Quality indicators used by the Digital Twin.
+            </div>
+
+            <div class="quality-box">
+              <div class="quality-header">
+                <span>Completeness</span>
+                <span>97%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-fill progress-green" style="width:97%"></div>
+              </div>
+            </div>
+
+            <div class="quality-box">
+              <div class="quality-header">
+                <span>Validity</span>
+                <span>95%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-fill progress-green" style="width:95%"></div>
+              </div>
+            </div>
+
+            <div class="quality-box">
+              <div class="quality-header">
+                <span>Consistency</span>
+                <span>92%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-fill progress-green" style="width:92%"></div>
+              </div>
+            </div>
+
+            <div class="quality-box">
+              <div class="quality-header">
+                <span>Timeliness</span>
+                <span>98%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-fill progress-green" style="width:98%"></div>
+              </div>
+            </div>
+
+            <div class="quality-box">
+              <div class="quality-header">
+                <span>Anomaly-free Records</span>
+                <span>91%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-fill progress-yellow" style="width:91%"></div>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" onclick="runQualityCheck()">
+                Run Quality Check
+              </button>
+
+              <button class="btn btn-secondary" onclick="refreshData()">
+                Refresh Data
+              </button>
+            </div>
+
+            <div class="sync-status" id="syncStatus">
+              ✓ Data quality check completed successfully.
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="data-grid">
+
+          <!-- DATA SOURCES -->
+          <div class="data-card">
+
+            <h2>Data Sources</h2>
+            <div class="subtitle">
+              Interfaces supplying information to the Well-to-Surface Digital Twin.
+            </div>
+
+            <div class="data-source-list">
+
+              <div class="source-item">
+                <div>
+                  <div class="source-name">SCADA / Historian</div>
+                  <div class="source-meta">Pressure, temperature, flow, level</div>
+                </div>
+                <div class="source-status active">● Connected</div>
+              </div>
+
+              <div class="source-item">
+                <div>
+                  <div class="source-name">SRP Controller</div>
+                  <div class="source-meta">SPM, stroke, load, VFD frequency</div>
+                </div>
+                <div class="source-status active">● Connected</div>
+              </div>
+
+              <div class="source-item">
+                <div>
+                  <div class="source-name">Steam Injection System</div>
+                  <div class="source-meta">Steam volume, pressure, temperature</div>
+                </div>
+                <div class="source-status active">● Connected</div>
+              </div>
+
+              <div class="source-item">
+                <div>
+                  <div class="source-name">Production Allocation</div>
+                  <div class="source-meta">Oil, water and liquid production</div>
+                </div>
+                <div class="source-status active">● Connected</div>
+              </div>
+
+              <div class="source-item">
+                <div>
+                  <div class="source-name">Laboratory Data</div>
+                  <div class="source-meta">Viscosity, API gravity, PVT parameters</div>
+                </div>
+                <div class="source-status warn">● Partial</div>
+              </div>
+
+              <div class="source-item">
+                <div>
+                  <div class="source-name">Well Test Records</div>
+                  <div class="source-meta">Pressure build-up and production tests</div>
+                </div>
+                <div class="source-status active">● Available</div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- IMPORT -->
+          <div class="data-card">
+
+            <h2>Import Field Data</h2>
+            <div class="subtitle">
+              Load historical CSV data for calibration and analysis.
+            </div>
+
+            <div class="import-box" onclick="simulateUpload()">
+
+              <div class="import-icon">⇧</div>
+
+              <h3>Upload CSV File</h3>
+
+              <p>
+                Drag and drop or click to select a field data file.
+              </p>
+
+              <button class="btn btn-primary">
+                Select File
+              </button>
+
+              <input
+                type="file"
+                id="fileInput"
+                accept=".csv"
+                style="display:none"
+                onchange="handleFile(event)"
+              >
+
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-secondary" onclick="downloadTemplate()">
+                Download Template
+              </button>
+
+              <button class="btn btn-danger" onclick="clearImport()">
+                Clear Import
+              </button>
+            </div>
+
+            <div class="sync-status" id="uploadStatus"></div>
+
+          </div>
+
+        </div>
+
+        <!-- MAPPING + ANOMALIES -->
+        <div class="data-grid">
+
+          <div class="data-card">
+
+            <h2>Digital Twin Data Mapping</h2>
+            <div class="subtitle">
+              Field measurements mapped to model variables.
+            </div>
+
+            <div class="mapping-grid">
+
+              <div class="mapping-item">
+                <div class="field">Steam Volume</div>
+                <div class="mapped">CSS.steam_volume</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">Injection Pressure</div>
+                <div class="mapped">CSS.injection_pressure</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">Reservoir Temperature</div>
+                <div class="mapped">Thermal.reservoir_temp</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">Oil Production</div>
+                <div class="mapped">Production.oil_rate</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">SPM</div>
+                <div class="mapped">SRP.speed_spm</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">Stroke Length</div>
+                <div class="mapped">SRP.stroke_length</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">Rod Load</div>
+                <div class="mapped">SRP.rod_load</div>
+              </div>
+
+              <div class="mapping-item">
+                <div class="field">Fluid Level</div>
+                <div class="mapped">SRP.fluid_level</div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="data-card">
+
+            <h2>Detected Data Issues</h2>
+            <div class="subtitle">
+              Items that may affect prediction confidence.
+            </div>
+
+            <div class="anomaly-list">
+
+              <div class="anomaly">
+                <div class="anomaly-icon">⚠</div>
+                <div>
+                  <div class="anomaly-title">
+                    Fluid Level Sensor Drift
+                  </div>
+                  <div class="anomaly-text">
+                    LT-401 shows a slow offset over the last 6 hours.
+                  </div>
+                </div>
+              </div>
+
+              <div class="anomaly">
+                <div class="anomaly-icon">⚠</div>
+                <div>
+                  <div class="anomaly-title">
+                    Laboratory Viscosity Data Delayed
+                  </div>
+                  <div class="anomaly-text">
+                    Latest validated sample is 18 hours old.
+                  </div>
+                </div>
+              </div>
+
+              <div class="anomaly high">
+                <div class="anomaly-icon">!</div>
+                <div>
+                  <div class="anomaly-title">
+                    12 Missing Records
+                  </div>
+                  <div class="anomaly-text">
+                    Short communication gap detected between 03:10–03:22.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-secondary" onclick="acknowledgeIssues()">
+                Acknowledge Issues
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="notice">
+          <strong>Operator / Data Governance Notice:</strong>
+          This frontend demonstrates the intended data-management workflow.
+          Sensor values, quality scores and connectivity states are illustrative
+          prototype values. In the deployed system, these values should come from
+          validated field data, historian/SCADA interfaces and approved laboratory
+          or well-test datasets.
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="js/app.js"></script>
+
+  <script>
+
+    function runQualityCheck() {
+
+      const status = document.getElementById("syncStatus");
+
+      status.style.display = "block";
+      status.innerHTML = "⟳ Running data quality checks...";
+
+      setTimeout(() => {
+
+        status.innerHTML =
+          "✓ Quality check completed. Current data quality score: 94%.";
+
+      }, 1200);
+    }
+
+    function refreshData() {
+
+      const status = document.getElementById("syncStatus");
+
+      status.style.display = "block";
+      status.innerHTML = "⟳ Synchronizing latest field records...";
+
+      setTimeout(() => {
+
+        const records = document.getElementById("recordsToday");
+
+        let current = parseInt(records.innerText.replace(",", ""));
+
+        current += Math.floor(Math.random() * 50) + 10;
+
+        records.innerText =
+          current.toLocaleString();
+
+        status.innerHTML =
+          "✓ Field data refreshed successfully.";
+
+      }, 1000);
+    }
+
+    function simulateUpload() {
+
+      document.getElementById("fileInput").click();
+
+    }
+
+    function handleFile(event) {
+
+      const file = event.target.files[0];
+
+      if (!file) return;
+
+      const status = document.getElementById("uploadStatus");
+
+      status.style.display = "block";
+
+      status.innerHTML =
+        "✓ " + file.name +
+        " selected. Ready for validation and import.";
+
+    }
+
+    function downloadTemplate() {
+
+      const csv =
+        "timestamp,steam_volume_t,steam_pressure_bar,spm,stroke_in,oil_rate_m3d,reservoir_temp_c,rod_load_pct\n" +
+        "2026-09-27 00:00,65,14,7,54,44.8,58.6,69\n";
+
+      const blob = new Blob([csv], {
+        type: "text/csv"
+      });
+
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = "baghewala_data_template.csv";
+
+      a.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    function clearImport() {
+
+      document.getElementById("fileInput").value = "";
+
+      const status =
+        document.getElementById("uploadStatus");
+
+      status.style.display = "block";
+
+      status.innerHTML =
+        "Import selection cleared.";
+
+    }
+
+    function acknowledgeIssues() {
+
+      const issues =
+        document.querySelectorAll(".anomaly");
+
+      issues.forEach(issue => {
+        issue.style.opacity = "0.55";
+      });
+
+      alert(
+        "Data issues acknowledged. They remain visible for audit and monitoring."
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>

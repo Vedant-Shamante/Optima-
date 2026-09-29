@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Risk Monitoring | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+        .page-header {
+            margin-bottom: 22px;
+        }
+
+        .page-header h1 {
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            max-width: 850px;
+        }
+
+        .risk-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .risk-summary-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .summary-label {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .summary-value {
+            margin-top: 8px;
+            color: #0f172a;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .summary-subtitle {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        .risk-low {
+            color: #15803d;
+        }
+
+        .risk-watch {
+            color: #b45309;
+        }
+
+        .risk-high {
+            color: #b91c1c;
+        }
+
+        .risk-main-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .card-title {
+            color: #0f172a;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .card-subtitle {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+            margin-bottom: 18px;
+        }
+
+        .risk-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 11px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .risk-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .risk-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .risk-name {
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .risk-badge {
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .badge-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-watch {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .risk-meter {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .risk-meter-fill {
+            height: 100%;
+            width: 30%;
+            border-radius: 10px;
+            transition: width .4s ease;
+        }
+
+        .fill-low {
+            background: #22c55e;
+        }
+
+        .fill-watch {
+            background: #eab308;
+        }
+
+        .fill-high {
+            background: #ef4444;
+        }
+
+        .risk-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 7px;
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        .trend-card {
+            position: relative;
+        }
+
+        .risk-chart {
+            position: relative;
+            height: 320px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .risk-chart-grid {
+            position: absolute;
+            left: 55px;
+            right: 25px;
+            top: 25px;
+            bottom: 45px;
+
+            border-left: 2px solid #94a3b8;
+            border-bottom: 2px solid #94a3b8;
+
+            background:
+                linear-gradient(
+                    to right,
+                    rgba(148,163,184,.15) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    to bottom,
+                    rgba(148,163,184,.15) 1px,
+                    transparent 1px
+                );
+
+            background-size: 10% 20%;
+        }
+
+        .risk-threshold {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            border-top: 2px dashed #eab308;
+        }
+
+        .watch-line {
+            bottom: 45%;
+        }
+
+        .high-line {
+            bottom: 72%;
+            border-color: #ef4444;
+        }
+
+        .risk-curve {
+            position: absolute;
+            left: 5%;
+            bottom: 20%;
+            width: 88%;
+            height: 2px;
+            background: #eab308;
+            transform: rotate(-12deg);
+            transform-origin: left center;
+        }
+
+        .risk-point {
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .rp1 {
+            left: 8%;
+            bottom: 25%;
+            background: #22c55e;
+        }
+
+        .rp2 {
+            left: 25%;
+            bottom: 30%;
+            background: #22c55e;
+        }
+
+        .rp3 {
+            left: 43%;
+            bottom: 36%;
+            background: #eab308;
+        }
+
+        .rp4 {
+            left: 61%;
+            bottom: 45%;
+            background: #eab308;
+        }
+
+        .rp5 {
+            left: 79%;
+            bottom: 58%;
+            background: #ef4444;
+        }
+
+        .chart-axis {
+            position: absolute;
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .axis-y-top {
+            left: 9px;
+            top: 20px;
+        }
+
+        .axis-y-mid {
+            left: 9px;
+            top: 47%;
+        }
+
+        .axis-y-bottom {
+            left: 9px;
+            bottom: 42px;
+        }
+
+        .axis-x-left {
+            left: 7%;
+            bottom: 18px;
+        }
+
+        .axis-x-mid {
+            left: 48%;
+            bottom: 18px;
+        }
+
+        .axis-x-right {
+            right: 4%;
+            bottom: 18px;
+        }
+
+        .risk-chart-label {
+            position: absolute;
+            right: 15px;
+            padding: 4px 7px;
+            border-radius: 5px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .watch-label {
+            bottom: 46%;
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .high-label {
+            bottom: 73%;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .alert-item {
+            display: flex;
+            gap: 12px;
+            padding: 13px;
+            border-radius: 9px;
+            background: #f8fafc;
+            border-left: 4px solid #eab308;
+        }
+
+        .alert-item.high {
+            border-left-color: #ef4444;
+        }
+
+        .alert-item.low {
+            border-left-color: #22c55e;
+        }
+
+        .alert-icon {
+            min-width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fef3c7;
+            color: #92400e;
+            font-weight: 800;
+        }
+
+        .alert-item.high .alert-icon {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .alert-item.low .alert-icon {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .alert-content strong {
+            display: block;
+            color: #334155;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .alert-content span {
+            display: block;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .risk-table-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .risk-table th,
+        .risk-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 12px;
+        }
+
+        .risk-table th {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .risk-table td {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .action-button {
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            color: #334155;
+            padding: 7px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .action-button:hover {
+            background: #f8fafc;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .prevention-box {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 14px;
+            border-radius: 8px;
+            color: #334155;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 15px 18px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1100px) {
+
+            .risk-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .risk-main-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .risk-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+<style id="layout-adjustments">
+    html, body {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .app-container {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    /* Fixed, consistent sidebar */
+    .sidebar {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 250px !important;
+        min-width: 250px !important;
+        height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        z-index: 1000 !important;
+    }
+
+    /* Main area starts exactly after sidebar */
+    .main-content {
+        width: calc(100% - 250px) !important;
+        max-width: none !important;
+        margin-left: 250px !important;
+        padding: 0 !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Top header */
+    .topbar {
+        width: 100% !important;
+        min-height: 76px !important;
+        padding: 0 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 20px !important;
+    }
+
+    .topbar > div:first-child {
+        min-width: 0;
+    }
+
+    .topbar-right {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 18px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Page content */
+    .page-content {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 26px 28px 36px !important;
+        margin: 0 !important;
+    }
+
+    .page-header {
+        width: 100%;
+        margin-bottom: 22px;
+    }
+
+    /* Summary cards */
+    .risk-summary {
+        width: 100%;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+    }
+
+    .risk-summary-card {
+        min-width: 0;
+    }
+
+    /* Main risk section */
+    .risk-main-grid {
+        width: 100%;
+        grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr) !important;
+        gap: 20px !important;
+        align-items: stretch !important;
+    }
+
+    .card,
+    .risk-table-card {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .risk-chart {
+        width: 100%;
+        min-height: 320px;
+    }
+
+    /* Alerts */
+    .alert-list {
+        width: 100%;
+    }
+
+    .alert-item {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .alert-content {
+        min-width: 0;
+    }
+
+    /* Forecast table */
+    .risk-table-card {
+        overflow-x: auto;
+    }
+
+    .risk-table {
+        width: 100%;
+        min-width: 760px;
+    }
+
+    /* Bottom section */
+    .bottom-grid {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+    }
+
+    .prevention-box {
+        width: 100%;
+    }
+
+    .notice {
+        width: 100%;
+    }
+
+    /* Large screens */
+    @media (min-width: 1400px) {
+        .page-content {
+            padding-left: 32px !important;
+            padding-right: 32px !important;
+        }
+
+        .risk-summary {
+            gap: 18px !important;
+        }
+
+        .risk-main-grid,
+        .bottom-grid {
+            gap: 22px !important;
+        }
+    }
+
+    /* Medium desktop / laptop */
+    @media (max-width: 1200px) {
+        .sidebar {
+            width: 235px !important;
+            min-width: 235px !important;
+        }
+
+        .main-content {
+            width: calc(100% - 235px) !important;
+            margin-left: 235px !important;
+        }
+
+        .risk-summary {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        .risk-main-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+        .page-content {
+            padding: 22px 20px 30px !important;
+        }
+
+        .topbar {
+            padding: 0 20px !important;
+        }
+
+        .bottom-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        .risk-chart {
+            min-height: 300px;
+            height: 300px;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 700px) {
+        .sidebar {
+            position: relative !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
+        .main-content {
+            width: 100% !important;
+            margin-left: 0 !important;
+        }
+
+        .topbar {
+            min-height: auto !important;
+            padding: 16px !important;
+            align-items: flex-start !important;
+            flex-direction: column !important;
+        }
+
+        .topbar-right {
+            width: 100% !important;
+            justify-content: flex-start !important;
+            flex-wrap: wrap !important;
+            gap: 10px 16px !important;
+        }
+
+        .page-content {
+            padding: 18px 16px 26px !important;
+        }
+
+        .risk-summary {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+        }
+
+        .risk-main-grid,
+        .bottom-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+        }
+
+        .card,
+        .risk-table-card {
+            padding: 16px !important;
+        }
+
+        .risk-chart {
+            height: 280px;
+            min-height: 280px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                BW
+            </div>
+
+            <div>
+                <h2>Baghewala</h2>
+                <span>Digital Twin</span>
+            </div>
+
+        </div>
+
+        <div class="well-selector">
+
+            <span>ACTIVE WELL</span>
+
+            <strong>BW-01</strong>
+
+            <small>
+                Heavy Oil Producer
+            </small>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">
+                OVERVIEW
+            </div>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="digital-twin.html" class="nav-item">
+                <span>◉</span>
+                Digital Twin
+            </a>
+
+            <div class="nav-section-title">
+                OPTIMIZATION
+            </div>
+
+            <a href="css-optimization.html" class="nav-item">
+                <span>♨</span>
+                CSS Optimization
+            </a>
+
+            <a href="srp-optimization.html" class="nav-item">
+                <span>⇅</span>
+                SRP Optimization
+            </a>
+
+            <a href="joint-optimization.html" class="nav-item">
+                <span>⚙</span>
+                Joint Optimization
+            </a>
+
+            <a href="simulator.html" class="nav-item">
+                <span>◌</span>
+                What-if Simulator
+            </a>
+
+            <a href="operating-envelope.html" class="nav-item">
+                <span>◇</span>
+                Operating Envelope
+            </a>
+
+            <div class="nav-section-title">
+                MONITORING
+            </div>
+
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span>
+                Predictions
+            </a>
+
+            <a href="risk-monitoring.html" class="nav-item active">
+                <span>⚠</span>
+                Risk Monitoring
+            </a>
+
+            <a href="production.html" class="nav-item">
+                <span>◫</span>
+                Production
+            </a>
+
+            <a href="energy.html" class="nav-item">
+                <span>ϟ</span>
+                Energy
+            </a>
+
+            <div class="nav-section-title">
+                HISTORY
+            </div>
+
+            <a href="history.html" class="nav-item">
+                <span>◷</span>
+                History
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <span>!</span>
+                Alerts
+            </a>
+
+            <div class="nav-section-title">
+                SYSTEM
+            </div>
+
+            <a href="recommendations.html" class="nav-item">
+                <span>★</span>
+                Recommendations
+            </a>
+
+            <a href="calibration.html" class="nav-item">
+                <span>⟳</span>
+                Calibration
+            </a>
+
+            <a href="data-management.html" class="nav-item">
+                <span>▤</span>
+                Data Management
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    BAGHEWALA / WELL BW-01
+                </div>
+
+                <h3>
+                    Risk Monitoring
+                </h3>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <span class="live-indicator">
+                    <span></span>
+                    LIVE
+                </span>
+
+                <span>
+                    27 Sep 2026
+                </span>
+
+                <div class="operator">
+
+                    <div class="operator-avatar">
+                        OP
+                    </div>
+
+                    <span>
+                        Operator
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="page-content">
+
+            <div class="page-header">
+
+                <h1>
+                    Predictive Risk Monitoring
+                </h1>
+
+                <p>
+                    Early-warning monitoring for thermal, pumping,
+                    mechanical and energy-related risks generated by the
+                    Well-to-Surface Digital Twin.
+                </p>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="risk-summary">
+
+                <div class="risk-summary-card">
+
+                    <div class="summary-label">
+                        Overall Well Risk
+                    </div>
+
+                    <div
+                        id="overallRisk"
+                        class="summary-value risk-low"
+                    >
+                        LOW
+                    </div>
+
+                    <div class="summary-subtitle">
+                        Joint CSS + SRP assessment
+                    </div>
+
+                </div>
+
+
+                <div class="risk-summary-card">
+
+                    <div class="summary-label">
+                        Active Warnings
+                    </div>
+
+                    <div
+                        id="warningCount"
+                        class="summary-value risk-watch"
+                    >
+                        2
+                    </div>
+
+                    <div class="summary-subtitle">
+                        Require operator review
+                    </div>
+
+                </div>
+
+
+                <div class="risk-summary-card">
+
+                    <div class="summary-label">
+                        High-Risk Conditions
+                    </div>
+
+                    <div
+                        id="highRiskCount"
+                        class="summary-value risk-high"
+                    >
+                        0
+                    </div>
+
+                    <div class="summary-subtitle">
+                        Immediate attention
+                    </div>
+
+                </div>
+
+
+                <div class="risk-summary-card">
+
+                    <div class="summary-label">
+                        Prediction Confidence
+                    </div>
+
+                    <div class="summary-value">
+                        87%
+                    </div>
+
+                    <div class="summary-subtitle">
+                        Current Digital Twin state
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAIN RISK SECTION -->
+
+            <div class="risk-main-grid">
+
+
+                <!-- RISK COMPONENTS -->
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Risk Components
+                    </div>
+
+                    <div class="card-subtitle">
+                        Current estimated risk contribution by operating
+                        mechanism.
+                    </div>
+
+
+                    <div class="risk-item">
+
+                        <div class="risk-item-header">
+
+                            <span class="risk-name">
+                                Rod Floating Risk
+                            </span>
+
+                            <span
+                                id="rodRiskBadge"
+                                class="risk-badge badge-low"
+                            >
+                                LOW
+                            </span>
+
+                        </div>
+
+                        <div class="risk-meter">
+
+                            <div
+                                id="rodRiskBar"
+                                class="risk-meter-fill fill-low"
+                                style="width: 24%"
+                            ></div>
+
+                        </div>
+
+                        <div class="risk-meta">
+
+                            <span>
+                                Risk Score
+                            </span>
+
+                            <span id="rodRiskScore">
+                                24 / 100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="risk-item">
+
+                        <div class="risk-item-header">
+
+                            <span class="risk-name">
+                                Pump Unsetting Risk
+                            </span>
+
+                            <span
+                                id="pumpRiskBadge"
+                                class="risk-badge badge-low"
+                            >
+                                LOW
+                            </span>
+
+                        </div>
+
+                        <div class="risk-meter">
+
+                            <div
+                                id="pumpRiskBar"
+                                class="risk-meter-fill fill-low"
+                                style="width: 29%"
+                            ></div>
+
+                        </div>
+
+                        <div class="risk-meta">
+
+                            <span>
+                                Risk Score
+                            </span>
+
+                            <span id="pumpRiskScore">
+                                29 / 100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="risk-item">
+
+                        <div class="risk-item-header">
+
+                            <span class="risk-name">
+                                Impact Loading Risk
+                            </span>
+
+                            <span
+                                id="impactRiskBadge"
+                                class="risk-badge badge-watch"
+                            >
+                                WATCH
+                            </span>
+
+                        </div>
+
+                        <div class="risk-meter">
+
+                            <div
+                                id="impactRiskBar"
+                                class="risk-meter-fill fill-watch"
+                                style="width: 48%"
+                            ></div>
+
+                        </div>
+
+                        <div class="risk-meta">
+
+                            <span>
+                                Risk Score
+                            </span>
+
+                            <span id="impactRiskScore">
+                                48 / 100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="risk-item">
+
+                        <div class="risk-item-header">
+
+                            <span class="risk-name">
+                                High Viscosity Risk
+                            </span>
+
+                            <span
+                                id="viscosityRiskBadge"
+                                class="risk-badge badge-low"
+                            >
+                                LOW
+                            </span>
+
+                        </div>
+
+                        <div class="risk-meter">
+
+                            <div
+                                id="viscosityRiskBar"
+                                class="risk-meter-fill fill-low"
+                                style="width: 31%"
+                            ></div>
+
+                        </div>
+
+                        <div class="risk-meta">
+
+                            <span>
+                                Risk Score
+                            </span>
+
+                            <span id="viscosityRiskScore">
+                                31 / 100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="risk-item">
+
+                        <div class="risk-item-header">
+
+                            <span class="risk-name">
+                                Energy Overload Risk
+                            </span>
+
+                            <span
+                                id="energyRiskBadge"
+                                class="risk-badge badge-watch"
+                            >
+                                WATCH
+                            </span>
+
+                        </div>
+
+                        <div class="risk-meter">
+
+                            <div
+                                id="energyRiskBar"
+                                class="risk-meter-fill fill-watch"
+                                style="width: 52%"
+                            ></div>
+
+                        </div>
+
+                        <div class="risk-meta">
+
+                            <span>
+                                Risk Score
+                            </span>
+
+                            <span id="energyRiskScore">
+                                52 / 100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TREND -->
+
+                <div class="card trend-card">
+
+                    <div class="card-title">
+                        Risk Trend
+                    </div>
+
+                    <div class="card-subtitle">
+                        Forecasted joint risk over the next operating period.
+                    </div>
+
+
+                    <div class="risk-chart">
+
+                        <div class="risk-chart-grid">
+
+                            <div class="risk-threshold watch-line"></div>
+
+                            <div class="risk-threshold high-line"></div>
+
+                            <div class="risk-curve"></div>
+
+                            <div class="risk-point rp1"></div>
+                            <div class="risk-point rp2"></div>
+                            <div class="risk-point rp3"></div>
+                            <div class="risk-point rp4"></div>
+                            <div class="risk-point rp5"></div>
+
+                        </div>
+
+
+                        <span class="chart-axis axis-y-top">
+                            100
+                        </span>
+
+                        <span class="chart-axis axis-y-mid">
+                            50
+                        </span>
+
+                        <span class="chart-axis axis-y-bottom">
+                            0
+                        </span>
+
+
+                        <span class="chart-axis axis-x-left">
+                            Now
+                        </span>
+
+                        <span class="chart-axis axis-x-mid">
+                            +48 hr
+                        </span>
+
+                        <span class="chart-axis axis-x-right">
+                            +96 hr
+                        </span>
+
+
+                        <span class="risk-chart-label watch-label">
+                            WATCH
+                        </span>
+
+                        <span class="risk-chart-label high-label">
+                            HIGH
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ALERTS -->
+
+            <div class="risk-table-card">
+
+                <div class="card-title">
+                    Active Risk Alerts
+                </div>
+
+                <div class="card-subtitle">
+                    Events generated from predicted deviation from the
+                    current operating envelope.
+                </div>
+
+
+                <div class="alert-list">
+
+                    <div class="alert-item">
+
+                        <div class="alert-icon">
+                            !
+                        </div>
+
+                        <div class="alert-content">
+
+                            <strong>
+                                Impact Loading Approaching Watch Zone
+                            </strong>
+
+                            <span>
+                                Predicted impact loading is increasing as
+                                SRP operating intensity rises. Current
+                                estimated risk score: 48/100.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="alert-item">
+
+                        <div class="alert-icon">
+                            ϟ
+                        </div>
+
+                        <div class="alert-content">
+
+                            <strong>
+                                Energy Demand Increasing
+                            </strong>
+
+                            <span>
+                                Combined steam and pumping energy is
+                                approaching the prototype watch threshold.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="alert-item low">
+
+                        <div class="alert-icon">
+                            ✓
+                        </div>
+
+                        <div class="alert-content">
+
+                            <strong>
+                                Thermal Mobility Within Target
+                            </strong>
+
+                            <span>
+                                Predicted reservoir temperature is sufficient
+                                to maintain improved crude mobility.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RISK TABLE -->
+
+            <div class="risk-table-card">
+
+                <div class="card-title">
+                    Risk Forecast
+                </div>
+
+                <div class="card-subtitle">
+                    Predicted risk evolution under the current CSS + SRP
+                    operating point.
+                </div>
+
+
+                <table class="risk-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Rod Floating
+                            </th>
+
+                            <th>
+                                Pump Unsetting
+                            </th>
+
+                            <th>
+                                Impact Loading
+                            </th>
+
+                            <th>
+                                Viscosity
+                            </th>
+
+                            <th>
+                                Energy
+                            </th>
+
+                            <th>
+                                Overall
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                Now
+                            </td>
+
+                            <td>
+                                24
+                            </td>
+
+                            <td>
+                                29
+                            </td>
+
+                            <td>
+                                48
+                            </td>
+
+                            <td>
+                                31
+                            </td>
+
+                            <td>
+                                52
+                            </td>
+
+                            <td>
+                                <span class="risk-badge badge-low">
+                                    LOW
+                                </span>
+                            </td>
+
+                            <td>
+                                <button
+                                    class="action-button"
+                                    onclick="viewDetails('Now')"
+                                >
+                                    View
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                +24 hr
+                            </td>
+
+                            <td>
+                                27
+                            </td>
+
+                            <td>
+                                31
+                            </td>
+
+                            <td>
+                                51
+                            </td>
+
+                            <td>
+                                25
+                            </td>
+
+                            <td>
+                                56
+                            </td>
+
+                            <td>
+                                <span class="risk-badge badge-watch">
+                                    WATCH
+                                </span>
+                            </td>
+
+                            <td>
+                                <button
+                                    class="action-button"
+                                    onclick="viewDetails('+24 hr')"
+                                >
+                                    View
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                +48 hr
+                            </td>
+
+                            <td>
+                                30
+                            </td>
+
+                            <td>
+                                34
+                            </td>
+
+                            <td>
+                                57
+                            </td>
+
+                            <td>
+                                24
+                            </td>
+
+                            <td>
+                                62
+                            </td>
+
+                            <td>
+                                <span class="risk-badge badge-watch">
+                                    WATCH
+                                </span>
+                            </td>
+
+                            <td>
+                                <button
+                                    class="action-button"
+                                    onclick="viewDetails('+48 hr')"
+                                >
+                                    View
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                +72 hr
+                            </td>
+
+                            <td>
+                                35
+                            </td>
+
+                            <td>
+                                39
+                            </td>
+
+                            <td>
+                                63
+                            </td>
+
+                            <td>
+                                29
+                            </td>
+
+                            <td>
+                                67
+                            </td>
+
+                            <td>
+                                <span class="risk-badge badge-watch">
+                                    WATCH
+                                </span>
+                            </td>
+
+                            <td>
+                                <button
+                                    class="action-button"
+                                    onclick="viewDetails('+72 hr')"
+                                >
+                                    View
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- LOWER SECTION -->
+
+            <div class="bottom-grid">
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Risk Mitigation Logic
+                    </div>
+
+                    <div class="card-subtitle">
+                        How the Digital Twin can respond when risk increases.
+                    </div>
+
+
+                    <div class="prevention-box">
+
+                        When predicted mechanical risk increases, the
+                        optimizer can evaluate a lower SRP speed or modified
+                        stroke length. If thermal risk increases, the system
+                        can evaluate steam volume, pressure and soak-time
+                        adjustments. The final operating recommendation is
+                        generated by considering production, energy and
+                        mechanical constraints together.
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Explainable Risk Assessment
+                    </div>
+
+                    <div class="card-subtitle">
+                        Main factors contributing to the current risk state.
+                    </div>
+
+
+                    <div class="prevention-box">
+
+                        <strong>Current assessment:</strong>
+
+                        Moderate energy demand and increasing SRP mechanical
+                        intensity are the main contributors to the current
+                        watch-level risk. Thermal mobility remains within
+                        the prototype target range, reducing the estimated
+                        viscosity-related risk.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="notice">
+
+                <strong>
+                    Operator Decision Support:
+                </strong>
+
+                Risk scores shown here are illustrative prototype values.
+                They are not validated field failure probabilities. The
+                production system should calculate risk using measured
+                dynamometer data, pump behavior, thermal response, operating
+                history, equipment limits and calibrated machine-learning
+                models.
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+    /*
+        Prototype risk model.
+
+        These functions demonstrate how the frontend can react to
+        changing operating conditions. In the final system these
+        values will be received from the prediction/risk backend.
+    */
+
+    function calculateRisk() {
+
+        const spm =
+            Number(localStorage.getItem("selectedSPM")) || 7;
+
+        const steam =
+            Number(localStorage.getItem("selectedSteam")) || 65;
+
+        const stroke =
+            Number(localStorage.getItem("selectedStroke")) || 54;
+
+
+        let rodRisk =
+            10 +
+            (spm * 2.2) +
+            ((stroke - 36) * 0.25);
+
+
+        let pumpRisk =
+            12 +
+            (spm * 2.1) +
+            ((stroke - 36) * 0.18);
+
+
+        let impactRisk =
+            18 +
+            (spm * 3.1) +
+            ((stroke - 36) * 0.42);
+
+
+        let viscosityRisk =
+            Math.max(
+                10,
+                65 - (steam * 0.52)
+            );
+
+
+        let energyRisk =
+            18 +
+            (steam * 0.35) +
+            (spm * 2.1);
+
+
+        updateRisk(
+            "rod",
+            rodRisk
+        );
+
+        updateRisk(
+            "pump",
+            pumpRisk
+        );
+
+        updateRisk(
+            "impact",
+            impactRisk
+        );
+
+        updateRisk(
+            "viscosity",
+            viscosityRisk
+        );
+
+        updateRisk(
+            "energy",
+            energyRisk
+        );
+
+
+        const overall =
+            (
+                rodRisk +
+                pumpRisk +
+                impactRisk +
+                viscosityRisk +
+                energyRisk
+            ) / 5;
+
+
+        const overallElement =
+            document.getElementById("overallRisk");
+
+        const warningCount =
+            document.getElementById("warningCount");
+
+        const highRiskCount =
+            document.getElementById("highRiskCount");
+
+
+        let warnings = 0;
+        let highRisks = 0;
+
+
+        [
+            rodRisk,
+            pumpRisk,
+            impactRisk,
+            viscosityRisk,
+            energyRisk
+        ].forEach(value => {
+
+            if (value >= 45) {
+                warnings++;
+            }
+
+            if (value >= 70) {
+                highRisks++;
+            }
+
+        });
+
+
+        warningCount.textContent =
+            warnings;
+
+        highRiskCount.textContent =
+            highRisks;
+
+
+        if (overall < 40) {
+
+            overallElement.textContent =
+                "LOW";
+
+            overallElement.className =
+                "summary-value risk-low";
+
+        }
+        else if (overall < 65) {
+
+            overallElement.textContent =
+                "WATCH";
+
+            overallElement.className =
+                "summary-value risk-watch";
+
+        }
+        else {
+
+            overallElement.textContent =
+                "HIGH";
+
+            overallElement.className =
+                "summary-value risk-high";
+
+        }
+
+    }
+
+
+    function updateRisk(type, value) {
+
+        let bar =
+            document.getElementById(
+                type + "RiskBar"
+            );
+
+        let badge =
+            document.getElementById(
+                type + "RiskBadge"
+            );
+
+        let score =
+            document.getElementById(
+                type + "RiskScore"
+            );
+
+
+        value =
+            Math.max(
+                0,
+                Math.min(100, Math.round(value))
+            );
+
+
+        bar.style.width =
+            value + "%";
+
+        score.textContent =
+            value + " / 100";
+
+
+        if (value < 40) {
+
+            badge.textContent =
+                "LOW";
+
+            badge.className =
+                "risk-badge badge-low";
+
+            bar.className =
+                "risk-meter-fill fill-low";
+
+        }
+        else if (value < 70) {
+
+            badge.textContent =
+                "WATCH";
+
+            badge.className =
+                "risk-badge badge-watch";
+
+            bar.className =
+                "risk-meter-fill fill-watch";
+
+        }
+        else {
+
+            badge.textContent =
+                "HIGH";
+
+            badge.className =
+                "risk-badge badge-high";
+
+            bar.className =
+                "risk-meter-fill fill-high";
+
+        }
+
+    }
+
+
+    function viewDetails(time) {
+
+        alert(
+            "Risk details for " +
+            time +
+            "\n\n" +
+            "This prototype would open the detailed Digital Twin " +
+            "explanation, contributing variables and recommended " +
+            "mitigation actions."
+        );
+
+    }
+
+
+    /*
+        Run initial calculation.
+    */
+
+    calculateRisk();
+
+
+    /*
+        Small live-monitoring animation.
+    */
+
+    setInterval(() => {
+
+        const dot =
+            document.querySelector(
+                ".live-indicator span"
+            );
+
+        if (dot) {
+
+            dot.style.opacity =
+                dot.style.opacity === "0.4"
+                    ? "1"
+                    : "0.4";
+
+        }
+
+    }, 900);
+
+</script>
+
+</body>
+</html>

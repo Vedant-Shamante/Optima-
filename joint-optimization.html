@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Joint Optimization | Baghewala Digital Twin</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        /* =========================================================
+           WELLTWIN AI — JOINT CSS + SRP OPTIMIZATION
+           Premium light industrial dashboard theme
+           ========================================================= */
+
+        :root {
+            --navy: #0f2d52;
+            --navy-2: #173d68;
+            --blue: #2f6fed;
+            --blue-dark: #245bc5;
+            --blue-soft: #eaf2ff;
+            --blue-pale: #f4f8ff;
+
+            --text: #172b4d;
+            --text-2: #526581;
+            --muted: #8090a7;
+
+            --bg: #eef4fb;
+            --panel: #ffffff;
+            --line: #dbe5f1;
+
+            --green: #15966a;
+            --green-soft: #e7f7f0;
+
+            --orange: #e68a2e;
+            --orange-soft: #fff2df;
+
+            --purple: #8067d8;
+            --purple-soft: #f1edff;
+
+            --pink: #d85c91;
+            --pink-soft: #fff0f6;
+
+            --shadow: 0 5px 18px rgba(31, 64, 104, 0.07);
+            --shadow-hover: 0 9px 24px rgba(31, 64, 104, 0.11);
+
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           SIDEBAR
+           ========================================================= */
+
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 250px;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1000;
+
+            background: #dfeafd;
+            border-right: 1px solid #c9d9ef;
+            box-shadow: 2px 0 12px rgba(35, 66, 105, 0.05);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #b7c9e4;
+            border-radius: 10px;
+        }
+
+        .logo-area {
+            min-height: 82px;
+            padding: 18px 15px 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border-bottom: 1px solid #cbd9eb;
+        }
+
+        .logo-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 30px;
+
+            background: #c7daf9;
+            border: 1px solid #b6cdf1;
+            color: #1f4f9a;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .logo-area h2 {
+            margin: 0 0 2px;
+            color: #102f56;
+            font-size: 18px;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .logo-area span {
+            color: #607694;
+            font-size: 11px;
+        }
+
+        .nav-section {
+            padding: 14px 7px 0;
+        }
+
+        .nav-title {
+            padding: 0 9px 7px;
+            color: #637a9c;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+        }
+
+        .nav-item {
+            height: 38px;
+            margin: 2px 0;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #385575;
+            text-decoration: none;
+            border-radius: 7px;
+
+            font-size: 12px;
+            transition: 0.18s ease;
+        }
+
+        .nav-item span {
+            width: 17px;
+            text-align: center;
+            color: #607d9e;
+            font-size: 13px;
+        }
+
+        .nav-item:hover {
+            background: #d1e1fa;
+            color: #174d91;
+        }
+
+        .nav-item.active {
+            background: #a9c5f7;
+            color: #123f82;
+            font-weight: 700;
+            box-shadow: inset 3px 0 0 #2f6fed;
+        }
+
+        .nav-item.active span {
+            color: #174d91;
+        }
+
+        /* =========================================================
+           MAIN AREA
+           ========================================================= */
+
+        .main-content {
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            margin-left: 250px;
+            background: var(--bg);
+        }
+
+        .top-header {
+            height: 52px;
+            min-height: 52px;
+            padding: 0 15px 0 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid #d9e3ef;
+        }
+
+        .header-left,
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left {
+            gap: 8px;
+        }
+
+        .field-name {
+            color: #163b66;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+
+        .field-name span {
+            margin: 0 4px;
+            color: #9aaac0;
+        }
+
+        .header-right {
+            gap: 14px;
+            color: #6d7e95;
+            font-size: 11px;
+        }
+
+        .live-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #19aa78;
+            box-shadow: 0 0 0 3px rgba(25, 170, 120, 0.12);
+        }
+
+        .header-date {
+            color: #5e7088;
+        }
+
+        .operator-name {
+            color: #40536d;
+        }
+
+        /* =========================================================
+           PAGE CONTENT
+           ========================================================= */
+
+        .dashboard-content {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 17px 15px 32px;
+        }
+
+        .page-intro {
+            margin: 0 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .page-intro h1 {
+            margin: 0;
+            color: #102f55;
+            font-size: 28px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .page-intro p {
+            max-width: 600px;
+            margin: 0;
+            color: #73839a;
+            font-size: 12px;
+            line-height: 1.45;
+            text-align: right;
+        }
+
+        /* =========================================================
+           STATUS CARDS
+           ========================================================= */
+
+        .joint-status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .joint-status-card {
+            position: relative;
+            min-width: 0;
+            min-height: 100px;
+            padding: 15px 16px 14px 18px;
+
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+            transition: 0.18s ease;
+        }
+
+        .joint-status-card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .joint-status-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--blue);
+            border-radius: 12px 0 0 12px;
+        }
+
+        .joint-status-card:nth-child(2)::before {
+            background: var(--orange);
+        }
+
+        .joint-status-card:nth-child(3)::before {
+            background: var(--purple);
+        }
+
+        .joint-status-card:nth-child(4)::before {
+            background: var(--pink);
+        }
+
+        .joint-label {
+            margin-bottom: 7px;
+            color: #71829a;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .joint-value {
+            color: #112d51;
+            font-size: 24px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .joint-unit {
+            margin-left: 2px;
+            color: #71829a;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .joint-note {
+            margin-top: 7px;
+            color: var(--green);
+            font-size: 9px;
+            line-height: 1.2;
+        }
+
+        /* =========================================================
+           MAIN OPTIMIZER
+           ========================================================= */
+
+        .optimizer-layout {
+            display: grid;
+            grid-template-columns: minmax(330px, 0.92fr) minmax(0, 1.28fr);
+            gap: 18px;
+            margin-bottom: 18px;
+            align-items: start;
+        }
+
+        .joint-panel {
+            min-width: 0;
+            padding: 17px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .panel-heading {
+            min-height: 28px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel-heading h2 {
+            margin: 0;
+            color: #102f55;
+            font-size: 16px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .panel-heading span {
+            color: #7d8da4;
+            font-size: 9px;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           INPUT CONTROLS
+           ========================================================= */
+
+        .input-section-title {
+            margin: 18px 0 10px;
+            padding-bottom: 6px;
+
+            color: #3169c8;
+            border-bottom: 1px solid #e5edf8;
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .input-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .joint-control {
+            margin-bottom: 15px;
+        }
+
+        .joint-control-header {
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .joint-control-header label {
+            color: #334b68;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .joint-control-value {
+            color: #2463d1;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .joint-range {
+            width: 100%;
+            height: 5px;
+            margin: 0;
+            display: block;
+            accent-color: var(--blue);
+            cursor: pointer;
+        }
+
+        .joint-range-info {
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+            color: #97a6ba;
+            font-size: 8px;
+        }
+
+        /* =========================================================
+           OBJECTIVES
+           ========================================================= */
+
+        .objective-row {
+            margin-bottom: 11px;
+        }
+
+        .objective-header {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 10px;
+        }
+
+        .objective-header span:first-child {
+            color: #53677f;
+            font-weight: 700;
+        }
+
+        .objective-header span:last-child {
+            color: #2f6fed;
+            font-weight: 800;
+        }
+
+        .objective-bar {
+            height: 6px;
+            overflow: hidden;
+            background: #e8eef7;
+            border-radius: 20px;
+        }
+
+        .objective-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #72a2f7, #2f6fed);
+            border-radius: 20px;
+        }
+
+        /* =========================================================
+           BUTTONS
+           ========================================================= */
+
+        .joint-button-row {
+            margin-top: 17px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .joint-primary-btn,
+        .joint-secondary-btn {
+            min-height: 34px;
+            padding: 8px 14px;
+            border-radius: 7px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.18s ease;
+        }
+
+        .joint-primary-btn {
+            border: 1px solid var(--blue);
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 3px 8px rgba(47, 111, 237, 0.18);
+        }
+
+        .joint-primary-btn:hover {
+            background: var(--blue-dark);
+            transform: translateY(-1px);
+        }
+
+        .joint-secondary-btn {
+            border: 1px solid #d4deeb;
+            background: #f7f9fc;
+            color: #53657d;
+        }
+
+        .joint-secondary-btn:hover {
+            background: #eef3fa;
+        }
+
+        .simulation-status {
+            min-height: 15px;
+            margin-top: 8px;
+            color: #73839a;
+            font-size: 9px;
+        }
+
+        /* =========================================================
+           RESULTS
+           ========================================================= */
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .result-card {
+            min-width: 0;
+            min-height: 91px;
+            padding: 13px;
+
+            background: #f9fbfe;
+            border: 1px solid #dce6f2;
+            border-radius: 9px;
+
+            transition: 0.18s ease;
+        }
+
+        .result-card:nth-child(1) {
+            background: var(--blue-pale);
+            border-color: #d7e5fc;
+        }
+
+        .result-card:nth-child(2) {
+            background: #f8fbff;
+        }
+
+        .result-card:nth-child(3) {
+            background: var(--orange-soft);
+            border-color: #f5dfbd;
+        }
+
+        .result-card:nth-child(4) {
+            background: var(--purple-soft);
+            border-color: #e1dafa;
+        }
+
+        .result-card:nth-child(5) {
+            background: var(--green-soft);
+            border-color: #d2eee3;
+        }
+
+        .result-card:nth-child(6) {
+            background: var(--pink-soft);
+            border-color: #f1d4e2;
+        }
+
+        .result-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(31, 64, 104, 0.07);
+        }
+
+        .result-title {
+            margin-bottom: 6px;
+            color: #70829a;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .result-value {
+            color: #102f55;
+            font-size: 21px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .result-unit {
+            color: #70829a;
+            font-size: 9px;
+            font-weight: 500;
+        }
+
+        .result-change {
+            margin-top: 7px;
+            color: var(--green);
+            font-size: 8px;
+            line-height: 1.25;
+        }
+
+        /* =========================================================
+           OPTIMIZATION SCORE
+           ========================================================= */
+
+        .optimization-score {
+            margin-top: 12px;
+            padding: 13px 14px;
+
+            background: #eef5ff;
+            border: 1px solid #cfe0fb;
+            border-radius: 9px;
+        }
+
+        .score-header {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .score-header strong {
+            color: #234d88;
+            font-size: 10px;
+        }
+
+        .score-number {
+            color: #2867d7;
+            font-size: 19px;
+            font-weight: 900;
+        }
+
+        .score-track {
+            height: 7px;
+            overflow: hidden;
+            background: #d9e7fb;
+            border-radius: 20px;
+        }
+
+        .score-progress {
+            width: 84%;
+            height: 100%;
+            background: linear-gradient(90deg, #79a9f5, #2f6fed);
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
+        /* =========================================================
+           JOINT FLOW
+           ========================================================= */
+
+        .joint-flow-panel {
+            margin-bottom: 18px;
+        }
+
+        .joint-flow {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr);
+            align-items: center;
+            gap: 6px;
+        }
+
+        .flow-box {
+            min-height: 82px;
+            padding: 13px 9px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            text-align: center;
+            border: 1px solid #d8e5f6;
+            border-radius: 9px;
+            background: #f8fbff;
+        }
+
+        .flow-box:nth-of-type(1) {
+            background: #eef5ff;
+        }
+
+        .flow-box:nth-of-type(3) {
+            background: #f3efff;
+        }
+
+        .flow-box:nth-of-type(5) {
+            background: #eaf8f2;
+        }
+
+        .flow-box:nth-of-type(7) {
+            background: #fff3e4;
+        }
+
+        .flow-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #244a7b;
+            font-size: 10px;
+        }
+
+        .flow-box span {
+            color: #71839a;
+            font-size: 8px;
+            line-height: 1.4;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: #5e8de1;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* =========================================================
+           COMPARISON TABLE
+           ========================================================= */
+
+        .comparison-panel {
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border: 1px solid #dce5f0;
+            border-radius: 8px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #e4eaf2;
+            font-size: 9px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #f4f7fb;
+            color: #64758d;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .comparison-table td {
+            color: #3e526d;
+            background: #fff;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .comparison-table th:first-child,
+        .comparison-table td:first-child {
+            font-weight: 700;
+        }
+
+        .joint-highlight {
+            background: #eef5ff !important;
+            color: #245ec1 !important;
+            font-weight: 800;
+        }
+
+        .positive {
+            color: var(--green) !important;
+            font-weight: 800;
+        }
+
+        /* =========================================================
+           RECOMMENDATION
+           ========================================================= */
+
+        .joint-recommendation {
+            margin-bottom: 18px;
+            padding: 17px;
+
+            background: linear-gradient(135deg, #eef5ff, #f8fbff);
+            border: 1px solid #cfe0f8;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .recommendation-header {
+            margin-bottom: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .recommendation-header h2 {
+            margin: 0;
+            color: #214b82;
+            font-size: 15px;
+        }
+
+        .confidence-badge {
+            padding: 5px 10px;
+            color: #245fc3;
+            background: #dceaff;
+            border: 1px solid #c6dcfc;
+            border-radius: 20px;
+            font-size: 8px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .recommendation-text {
+            margin: 0 0 13px;
+            color: #304a68;
+            font-size: 11px;
+            line-height: 1.55;
+            font-weight: 600;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 9px;
+        }
+
+        .why-box {
+            min-width: 0;
+            padding: 11px;
+
+            background: #fff;
+            border: 1px solid #dce7f5;
+            border-radius: 8px;
+        }
+
+        .why-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #285b9e;
+            font-size: 9px;
+        }
+
+        .why-box span {
+            display: block;
+            color: #60738d;
+            font-size: 8px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           OPERATOR NOTICE
+           ========================================================= */
+
+        .operator-notice {
+            margin-bottom: 5px;
+            padding: 12px 14px;
+
+            display: flex;
+            gap: 11px;
+            align-items: flex-start;
+
+            background: #fffaf0;
+            border: 1px solid #f1dfb9;
+            border-radius: 9px;
+        }
+
+        .notice-icon {
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #9a671e;
+            background: #fff1cc;
+            border-radius: 50%;
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .operator-notice strong {
+            display: block;
+            margin-bottom: 3px;
+            color: #805313;
+            font-size: 10px;
+        }
+
+        .operator-notice p {
+            margin: 0;
+            color: #80683f;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 1150px) {
+            .joint-status-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .optimizer-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .joint-flow {
+                grid-template-columns:
+                    minmax(0, 1fr)
+                    28px
+                    minmax(0, 1fr);
+            }
+
+            .flow-box:nth-of-type(5),
+            .flow-box:nth-of-type(7) {
+                margin-top: 8px;
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 220px;
+            }
+
+            .main-content {
+                width: calc(100% - 220px);
+                margin-left: 220px;
+            }
+
+            .dashboard-content {
+                padding: 15px;
+            }
+
+            .page-intro {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .page-intro p {
+                text-align: left;
+            }
+
+            .joint-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .top-header {
+                padding: 0 12px;
+            }
+
+            .header-date,
+            .operator-name {
+                display: none;
+            }
+
+            .page-intro h1 {
+                font-size: 23px;
+            }
+
+            .joint-status-grid,
+            .result-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-panel {
+                overflow-x: auto;
+            }
+
+            .comparison-table {
+                min-width: 650px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<div class="sidebar">
+
+    <div class="logo-area">
+        <div class="logo-icon">DT</div>
+
+        <div>
+            <h2>WellTwin AI</h2>
+            <span>Baghewala Field</span>
+        </div>
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">MAIN</div>
+
+        <a href="index.html" class="nav-item">
+            <span>▦</span>
+            Dashboard
+        </a>
+
+        <a href="digital-twin.html" class="nav-item">
+            <span>◈</span>
+            Digital Twin
+        </a>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">OPTIMIZATION</div>
+
+        <a href="css-optimization.html" class="nav-item">
+            <span>♨</span>
+            CSS Optimization
+        </a>
+
+        <a href="srp-optimization.html" class="nav-item">
+            <span>⚙</span>
+            SRP Optimization
+        </a>
+
+        <a href="joint-optimization.html" class="nav-item active">
+            <span>⇄</span>
+            Joint Optimization
+        </a>
+
+        <a href="simulator.html" class="nav-item">
+            <span>⌁</span>
+            What-if Simulator
+        </a>
+
+        <a href="operating-envelope.html" class="nav-item">
+            <span>▤</span>
+            Operating Envelope
+        </a>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">MONITORING</div>
+
+        <a href="predictions.html" class="nav-item">
+            <span>◌</span>
+            Predictions
+        </a>
+
+        <a href="risk-monitoring.html" class="nav-item">
+            <span>!</span>
+            Risk Monitoring
+        </a>
+
+        <a href="production.html" class="nav-item">
+            <span>↗</span>
+            Production
+        </a>
+
+        <a href="energy.html" class="nav-item">
+            <span>ϟ</span>
+            Energy
+        </a>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">SYSTEM</div>
+
+        <a href="history.html" class="nav-item">
+            <span>◷</span>
+            History
+        </a>
+
+        <a href="alerts.html" class="nav-item">
+            <span>⚠</span>
+            Alerts
+        </a>
+
+        <a href="recommendations.html" class="nav-item">
+            <span>✓</span>
+            Recommendations
+        </a>
+
+        <a href="calibration.html" class="nav-item">
+            <span>◎</span>
+            Model Calibration
+        </a>
+
+        <a href="data-management.html" class="nav-item">
+            <span>▥</span>
+            Data Management
+        </a>
+
+        <a href="settings.html" class="nav-item">
+            <span>⚙</span>
+            Settings
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<div class="main-content">
+
+    <header class="top-header">
+
+        <div class="header-left">
+
+            <div class="field-name">
+                BAGHEWALA
+                <span>/</span>
+                WELL BW-01
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="live-status">
+                <span class="live-dot"></span>
+                LIVE
+            </div>
+
+            <div class="header-date">
+                27 Sep 2026
+            </div>
+
+            <div class="operator-name">
+                Operator
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="dashboard-content">
+
+        <div class="page-intro">
+
+            <h1>Joint CSS + SRP Optimization</h1>
+
+            <p>
+                Integrated optimization of steam stimulation and artificial
+                lift using the Well-to-Surface Digital Twin.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             CURRENT SYSTEM STATUS
+        ================================================== -->
+
+        <section class="joint-status-grid">
+
+            <div class="joint-status-card">
+
+                <div class="joint-label">
+                    Current Oil Production
+                </div>
+
+                <div class="joint-value">
+                    <span id="currentProduction">37.8</span>
+                    <span class="joint-unit">m³/day</span>
+                </div>
+
+                <div class="joint-note">
+                    Current simulated baseline
+                </div>
+
+            </div>
+
+
+            <div class="joint-status-card">
+
+                <div class="joint-label">
+                    Steam-Oil Ratio
+                </div>
+
+                <div class="joint-value">
+                    <span id="currentSOR">4.2</span>
+                    <span class="joint-unit">t/t</span>
+                </div>
+
+                <div class="joint-note">
+                    Lower is generally preferable
+                </div>
+
+            </div>
+
+
+            <div class="joint-status-card">
+
+                <div class="joint-label">
+                    Daily Energy
+                </div>
+
+                <div class="joint-value">
+                    <span id="currentEnergy">31.6</span>
+                    <span class="joint-unit">kWh/day</span>
+                </div>
+
+                <div class="joint-note">
+                    SRP prototype estimate
+                </div>
+
+            </div>
+
+
+            <div class="joint-status-card">
+
+                <div class="joint-label">
+                    Mechanical Risk
+                </div>
+
+                <div class="joint-value">
+                    <span id="currentRisk">18</span>
+                    <span class="joint-unit">%</span>
+                </div>
+
+                <div class="joint-note">
+                    Composite risk indicator
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             OPTIMIZER
+        ================================================== -->
+
+        <section class="optimizer-layout">
+
+
+            <!-- Inputs -->
+
+            <div class="joint-panel">
+
+                <div class="panel-heading">
+
+                    <h2>Joint Optimization Inputs</h2>
+
+                    <span>What-if controls</span>
+
+                </div>
+
+
+                <div class="input-section-title">
+                    CSS Parameters
+                </div>
+
+
+                <!-- Steam -->
+
+                <div class="joint-control">
+
+                    <div class="joint-control-header">
+
+                        <label>
+                            Steam Volume
+                        </label>
+
+                        <span
+                            class="joint-control-value"
+                            id="steamValue"
+                        >
+                            65 t
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="steamSlider"
+                        class="joint-range"
+                        min="30"
+                        max="100"
+                        step="5"
+                        value="65"
+                    >
+
+                    <div class="joint-range-info">
+                        <span>30 t</span>
+                        <span>100 t</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Steam pressure -->
+
+                <div class="joint-control">
+
+                    <div class="joint-control-header">
+
+                        <label>
+                            Injection Pressure
+                        </label>
+
+                        <span
+                            class="joint-control-value"
+                            id="pressureValue"
+                        >
+                            14 bar
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="pressureSlider"
+                        class="joint-range"
+                        min="8"
+                        max="20"
+                        step="1"
+                        value="14"
+                    >
+
+                    <div class="joint-range-info">
+                        <span>8 bar</span>
+                        <span>20 bar</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Soak -->
+
+                <div class="joint-control">
+
+                    <div class="joint-control-header">
+
+                        <label>
+                            Soak Time
+                        </label>
+
+                        <span
+                            class="joint-control-value"
+                            id="soakValue"
+                        >
+                            36 hr
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="soakSlider"
+                        class="joint-range"
+                        min="12"
+                        max="72"
+                        step="6"
+                        value="36"
+                    >
+
+                    <div class="joint-range-info">
+                        <span>12 hr</span>
+                        <span>72 hr</span>
+                    </div>
+
+                </div>
+
+
+                <div class="input-section-title">
+                    SRP Parameters
+                </div>
+
+
+                <!-- SPM -->
+
+                <div class="joint-control">
+
+                    <div class="joint-control-header">
+
+                        <label>
+                            Pumping Speed
+                        </label>
+
+                        <span
+                            class="joint-control-value"
+                            id="jointSPMValue"
+                        >
+                            7.0 spm
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="jointSPMSlider"
+                        class="joint-range"
+                        min="3"
+                        max="12"
+                        step="0.5"
+                        value="7"
+                    >
+
+                    <div class="joint-range-info">
+                        <span>3 spm</span>
+                        <span>12 spm</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Stroke -->
+
+                <div class="joint-control">
+
+                    <div class="joint-control-header">
+
+                        <label>
+                            Stroke Length
+                        </label>
+
+                        <span
+                            class="joint-control-value"
+                            id="jointStrokeValue"
+                        >
+                            54 in
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="jointStrokeSlider"
+                        class="joint-range"
+                        min="36"
+                        max="72"
+                        step="3"
+                        value="54"
+                    >
+
+                    <div class="joint-range-info">
+                        <span>36 in</span>
+                        <span>72 in</span>
+                    </div>
+
+                </div>
+
+
+                <div class="input-section-title">
+                    Optimization Objectives
+                </div>
+
+
+                <!-- Production -->
+
+                <div class="objective-row">
+
+                    <div class="objective-header">
+                        <span>Oil Production</span>
+                        <span>35%</span>
+                    </div>
+
+                    <div class="objective-bar">
+                        <div
+                            class="objective-fill"
+                            style="width:35%;"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Steam -->
+
+                <div class="objective-row">
+
+                    <div class="objective-header">
+                        <span>Steam Efficiency</span>
+                        <span>25%</span>
+                    </div>
+
+                    <div class="objective-bar">
+                        <div
+                            class="objective-fill"
+                            style="width:25%;"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Energy -->
+
+                <div class="objective-row">
+
+                    <div class="objective-header">
+                        <span>Energy</span>
+                        <span>20%</span>
+                    </div>
+
+                    <div class="objective-bar">
+                        <div
+                            class="objective-fill"
+                            style="width:20%;"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Risk -->
+
+                <div class="objective-row">
+
+                    <div class="objective-header">
+                        <span>Mechanical Risk</span>
+                        <span>20%</span>
+                    </div>
+
+                    <div class="objective-bar">
+                        <div
+                            class="objective-fill"
+                            style="width:20%;"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <div class="joint-button-row">
+
+                    <button
+                        class="joint-primary-btn"
+                        onclick="runJointOptimization()"
+                    >
+                        Run Joint Optimization
+                    </button>
+
+                    <button
+                        class="joint-secondary-btn"
+                        onclick="resetJoint()"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+                <div
+                    id="simulationStatus"
+                    class="simulation-status"
+                ></div>
+
+            </div>
+
+
+            <!-- Results -->
+
+            <div class="joint-panel">
+
+                <div class="panel-heading">
+
+                    <h2>Optimized Operating Point</h2>
+
+                    <span>Digital Twin output</span>
+
+                </div>
+
+
+                <div class="result-grid">
+
+
+                    <div class="result-card">
+
+                        <div class="result-title">
+                            Predicted Oil Production
+                        </div>
+
+                        <div class="result-value">
+                            <span id="optProduction">41.6</span>
+                            <span class="result-unit">
+                                m³/day
+                            </span>
+                        </div>
+
+                        <div
+                            class="result-change"
+                            id="productionChange"
+                        >
+                            +10.1% vs baseline
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <div class="result-title">
+                            Steam-Oil Ratio
+                        </div>
+
+                        <div class="result-value">
+                            <span id="optSOR">3.8</span>
+                            <span class="result-unit">
+                                t/t
+                            </span>
+                        </div>
+
+                        <div
+                            class="result-change"
+                            id="sorChange"
+                        >
+                            Improved steam utilization
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <div class="result-title">
+                            Reservoir Temperature
+                        </div>
+
+                        <div class="result-value">
+                            <span id="optTemperature">71</span>
+                            <span class="result-unit">
+                                °C
+                            </span>
+                        </div>
+
+                        <div class="result-change">
+                            Estimated thermal response
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <div class="result-title">
+                            Estimated Viscosity
+                        </div>
+
+                        <div class="result-value">
+                            <span id="optViscosity">680</span>
+                            <span class="result-unit">
+                                cP
+                            </span>
+                        </div>
+
+                        <div class="result-change">
+                            Lower viscosity improves mobility
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <div class="result-title">
+                            SRP Energy
+                        </div>
+
+                        <div class="result-value">
+                            <span id="optEnergy">32.4</span>
+                            <span class="result-unit">
+                                kWh/day
+                            </span>
+                        </div>
+
+                        <div class="result-change">
+                            Integrated energy estimate
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <div class="result-title">
+                            Mechanical Risk
+                        </div>
+
+                        <div class="result-value">
+                            <span id="optRisk">16</span>
+                            <span class="result-unit">
+                                %
+                            </span>
+                        </div>
+
+                        <div class="result-change">
+                            Within prototype envelope
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="optimization-score">
+
+                    <div class="score-header">
+
+                        <strong>
+                            Joint Optimization Score
+                        </strong>
+
+                        <span
+                            class="score-number"
+                            id="optimizationScore"
+                        >
+                            84
+                        </span>
+
+                    </div>
+
+                    <div class="score-track">
+
+                        <div
+                            class="score-progress"
+                            id="scoreProgress"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             JOINT OPTIMIZATION FLOW
+        ================================================== -->
+
+        <section class="joint-panel joint-flow-panel">
+
+            <div class="panel-heading">
+
+                <h2>CSS → Reservoir → SRP Interaction</h2>
+
+                <span>Digital Twin decision flow</span>
+
+            </div>
+
+
+            <div class="joint-flow">
+
+                <div class="flow-box">
+
+                    <strong>Steam Injection</strong>
+
+                    <span>
+                        Heat input increases reservoir temperature
+                    </span>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="flow-box">
+
+                    <strong>Reservoir Response</strong>
+
+                    <span>
+                        Viscosity decreases and mobility improves
+                    </span>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="flow-box">
+
+                    <strong>SRP Response</strong>
+
+                    <span>
+                        Pump efficiency and lifting conditions change
+                    </span>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="flow-box">
+
+                    <strong>Surface Production</strong>
+
+                    <span>
+                        Production, energy and mechanical risk are evaluated
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CSS VS SRP VS JOINT
+        ================================================== -->
+
+        <section class="joint-panel comparison-panel">
+
+            <div class="panel-heading">
+
+                <h2>Optimization Approach Comparison</h2>
+
+                <span>Illustrative prototype results</span>
+
+            </div>
+
+
+            <table class="comparison-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Operation</th>
+                        <th>CSS Only</th>
+                        <th>SRP Only</th>
+                        <th>Joint Optimization</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Oil Production</td>
+
+                        <td>37.8 m³/day</td>
+
+                        <td>40.1 m³/day</td>
+
+                        <td>39.0 m³/day</td>
+
+                        <td class="joint-highlight">
+                            41.6 m³/day
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>Steam-Oil Ratio</td>
+
+                        <td>4.2</td>
+
+                        <td>3.9</td>
+
+                        <td>4.2</td>
+
+                        <td class="joint-highlight">
+                            3.8
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>SRP Energy</td>
+
+                        <td>31.6 kWh/day</td>
+
+                        <td>35.1 kWh/day</td>
+
+                        <td>30.9 kWh/day</td>
+
+                        <td class="joint-highlight">
+                            32.4 kWh/day
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>Mechanical Risk</td>
+
+                        <td>18%</td>
+
+                        <td>23%</td>
+
+                        <td>16%</td>
+
+                        <td class="joint-highlight">
+                            16%
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>Thermal Utilization</td>
+
+                        <td>Baseline</td>
+
+                        <td>Improved</td>
+
+                        <td>Baseline</td>
+
+                        <td class="joint-highlight">
+                            Coordinated
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- =================================================
+             RECOMMENDATION
+        ================================================== -->
+
+        <section class="joint-recommendation">
+
+            <div class="recommendation-header">
+
+                <h2>
+                    Integrated Digital Twin Recommendation
+                </h2>
+
+                <span class="confidence-badge">
+                    Confidence: 84%
+                </span>
+
+            </div>
+
+
+            <div
+                class="recommendation-text"
+                id="recommendationText"
+            >
+                For the current simulated well state, the Digital Twin
+                recommends coordinating moderate steam input with a
+                moderate SRP operating point rather than maximizing either
+                CSS or SRP independently.
+            </div>
+
+
+            <div class="why-grid">
+
+
+                <div class="why-box">
+
+                    <strong>Production</strong>
+
+                    <span id="whyProduction">
+                        Thermal stimulation improves fluid mobility,
+                        allowing SRP operation to recover additional oil.
+                    </span>
+
+                </div>
+
+
+                <div class="why-box">
+
+                    <strong>Steam Efficiency</strong>
+
+                    <span id="whySteam">
+                        Steam input is evaluated against the predicted
+                        production response instead of maximizing steam alone.
+                    </span>
+
+                </div>
+
+
+                <div class="why-box">
+
+                    <strong>SRP Stability</strong>
+
+                    <span id="whySRP">
+                        SRP speed is selected considering the changing
+                        viscosity after thermal stimulation.
+                    </span>
+
+                </div>
+
+
+                <div class="why-box">
+
+                    <strong>Risk</strong>
+
+                    <span id="whyRisk">
+                        Mechanical loading is included as an optimization
+                        constraint rather than treated separately.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             OPERATOR NOTICE
+        ================================================== -->
+
+        <section class="operator-notice">
+
+            <div class="notice-icon">
+                ℹ
+            </div>
+
+            <div>
+
+                <strong>
+                    Operator Decision Support
+                </strong>
+
+                <p>
+                    This page demonstrates an integrated decision-support
+                    workflow. The prototype does not directly control steam
+                    injection or the SRP. Recommended values must be reviewed
+                    by the field operator against actual well conditions,
+                    equipment limits and operating procedures.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="js/app.js"></script>
+
+<script>
+
+    /*
+     * =========================================================
+     * JOINT CSS + SRP PROTOTYPE MODEL
+     * =========================================================
+     *
+     * Frontend demonstration only.
+     *
+     * Later this model can be replaced by:
+     *
+     * 1. Reservoir model
+     * 2. Thermal model
+     * 3. Viscosity model
+     * 4. SRP physics
+     * 5. ML production prediction
+     * 6. Failure-risk model
+     * 7. Multi-objective optimizer
+     */
+
+
+    const steamSlider =
+        document.getElementById("steamSlider");
+
+    const pressureSlider =
+        document.getElementById("pressureSlider");
+
+    const soakSlider =
+        document.getElementById("soakSlider");
+
+    const jointSPMSlider =
+        document.getElementById("jointSPMSlider");
+
+    const jointStrokeSlider =
+        document.getElementById("jointStrokeSlider");
+
+
+    /*
+     * Input listeners
+     */
+
+    steamSlider.addEventListener(
+        "input",
+        updateJointModel
+    );
+
+    pressureSlider.addEventListener(
+        "input",
+        updateJointModel
+    );
+
+    soakSlider.addEventListener(
+        "input",
+        updateJointModel
+    );
+
+    jointSPMSlider.addEventListener(
+        "input",
+        updateJointModel
+    );
+
+    jointStrokeSlider.addEventListener(
+        "input",
+        updateJointModel
+    );
+
+
+    /*
+     * Calculate integrated system response
+     */
+
+    function calculateJointModel() {
+
+        const steam =
+            parseFloat(steamSlider.value);
+
+        const pressure =
+            parseFloat(pressureSlider.value);
+
+        const soak =
+            parseFloat(soakSlider.value);
+
+        const spm =
+            parseFloat(jointSPMSlider.value);
+
+        const stroke =
+            parseFloat(jointStrokeSlider.value);
+
+
+        /*
+         * Thermal gain
+         */
+
+        const thermalGain =
+            (steam * 0.31)
+            + (pressure * 0.55)
+            + (soak * 0.08);
+
+
+        /*
+         * Reservoir temperature
+         */
+
+        let temperature =
+            48 + thermalGain;
+
+        temperature =
+            Math.min(90, temperature);
+
+
+        /*
+         * Simplified viscosity relationship
+         *
+         * Higher temperature -> lower viscosity
+         */
+
+        let viscosity =
+            1550 -
+            ((temperature - 48) * 22);
+
+        viscosity =
+            Math.max(350, viscosity);
+
+
+        /*
+         * CSS production contribution
+         */
+
+        let cssProduction =
+            34
+            + (steam * 0.075)
+            + ((temperature - 48) * 0.08);
+
+
+        /*
+         * SRP contribution
+         */
+
+        let srpContribution =
+            0.9
+            + ((spm - 5) * 0.65)
+            + ((stroke - 48) * 0.035);
+
+
+        /*
+         * Thermal mobility multiplier
+         */
+
+        let mobilityMultiplier =
+            1 +
+            ((1550 - viscosity) / 1550) * 0.24;
+
+
+        /*
+         * Integrated production
+         */
+
+        let production =
+            (cssProduction + srpContribution)
+            * mobilityMultiplier;
+
+
+        /*
+         * Penalize extreme operating points
+         */
+
+        if (steam > 85) {
+            production -=
+                (steam - 85) * 0.06;
+        }
+
+        if (spm > 9) {
+            production -=
+                (spm - 9) * 0.9;
+        }
+
+
+        /*
+         * Steam-oil ratio
+         */
+
+        let sor =
+            steam / Math.max(production, 1);
+
+        /*
+         * Scale for prototype display
+         */
+
+        sor *= 2.65;
+
+
+        /*
+         * SRP energy
+         */
+
+        let energy =
+            31
+            + ((spm - 7) * 2)
+            + ((stroke - 54) * 0.13);
+
+
+        /*
+         * Mechanical risk
+         */
+
+        let risk =
+            15
+            + Math.max(0, spm - 7) * 5
+            + Math.max(0, stroke - 60) * 0.5;
+
+
+        /*
+         * High steam + high pumping speed
+         * creates additional interaction risk
+         */
+
+        if (
+            steam > 80 &&
+            spm > 8
+        ) {
+            risk += 7;
+        }
+
+
+        risk =
+            Math.min(95, Math.max(5, risk));
+
+
+        /*
+         * Optimization score
+         */
+
+        let productionScore =
+            Math.min(100, production / 0.45);
+
+        let steamScore =
+            Math.max(0, 100 - (sor * 14));
+
+        let energyScore =
+            Math.max(0, 100 - energy);
+
+        let riskScore =
+            100 - risk;
+
+
+        let score =
+            productionScore * 0.35 +
+            steamScore * 0.25 +
+            energyScore * 0.20 +
+            riskScore * 0.20;
+
+
+        score =
+            Math.max(0, Math.min(100, score));
+
+
+        return {
+            steam,
+            pressure,
+            soak,
+            spm,
+            stroke,
+            temperature,
+            viscosity,
+            production,
+            sor,
+            energy,
+            risk,
+            score
+        };
+    }
+
+
+    /*
+     * Update UI
+     */
+
+    function updateJointModel() {
+
+        const data =
+            calculateJointModel();
+
+
+        /*
+         * Input values
+         */
+
+        document.getElementById("steamValue")
+            .textContent =
+            data.steam + " t";
+
+        document.getElementById("pressureValue")
+            .textContent =
+            data.pressure + " bar";
+
+        document.getElementById("soakValue")
+            .textContent =
+            data.soak + " hr";
+
+        document.getElementById("jointSPMValue")
+            .textContent =
+            data.spm.toFixed(1) + " spm";
+
+        document.getElementById("jointStrokeValue")
+            .textContent =
+            data.stroke + " in";
+
+
+        /*
+         * Main outputs
+         */
+
+        document.getElementById("optProduction")
+            .textContent =
+            data.production.toFixed(1);
+
+        document.getElementById("optSOR")
+            .textContent =
+            data.sor.toFixed(1);
+
+        document.getElementById("optTemperature")
+            .textContent =
+            Math.round(data.temperature);
+
+        document.getElementById("optViscosity")
+            .textContent =
+            Math.round(data.viscosity);
+
+        document.getElementById("optEnergy")
+            .textContent =
+            data.energy.toFixed(1);
+
+        document.getElementById("optRisk")
+            .textContent =
+            Math.round(data.risk);
+
+
+        /*
+         * Baseline comparison
+         */
+
+        const baselineProduction = 37.8;
+
+        const productionImprovement =
+            ((data.production - baselineProduction)
+            / baselineProduction) * 100;
+
+
+        document.getElementById("productionChange")
+            .textContent =
+            (productionImprovement >= 0 ? "+" : "") +
+            productionImprovement.toFixed(1) +
+            "% vs baseline";
+
+
+        document.getElementById("sorChange")
+            .textContent =
+            data.sor < 4.2
+                ? "Improved steam utilization"
+                : "Higher steam intensity";
+
+
+        /*
+         * Optimization score
+         */
+
+        document.getElementById("optimizationScore")
+            .textContent =
+            Math.round(data.score);
+
+        document.getElementById("scoreProgress")
+            .style.width =
+            data.score + "%";
+
+
+        /*
+         * Recommendation
+         */
+
+        updateJointRecommendation(data);
+    }
+
+
+    /*
+     * Recommendation logic
+     */
+
+    function updateJointRecommendation(data) {
+
+        const recommendation =
+            document.getElementById("recommendationText");
+
+        const whyProduction =
+            document.getElementById("whyProduction");
+
+        const whySteam =
+            document.getElementById("whySteam");
+
+        const whySRP =
+            document.getElementById("whySRP");
+
+        const whyRisk =
+            document.getElementById("whyRisk");
+
+
+        /*
+         * High steam + high SPM
+         */
+
+        if (
+            data.steam > 80 &&
+            data.spm > 9
+        ) {
+
+            recommendation.textContent =
+                "The simulated operating point is aggressive on both steam input and SRP speed. Consider reducing one or both variables toward the moderate operating region while monitoring production response and mechanical loading.";
+
+            whyProduction.textContent =
+                "Additional steam and pumping speed may provide diminishing production gains at this operating point.";
+
+            whySteam.textContent =
+                "High steam intensity increases the steam requirement relative to incremental production.";
+
+            whySRP.textContent =
+                "High SPM under changing thermal conditions can increase dynamic loading.";
+
+            whyRisk.textContent =
+                "The combined CSS-SRP operating point increases the modeled mechanical risk.";
+
+        }
+
+
+        /*
+         * Low steam
+         */
+
+        else if (
+            data.steam < 45
+        ) {
+
+            recommendation.textContent =
+                "The simulated steam input is relatively low. A moderate increase in thermal stimulation may improve fluid mobility before increasing SRP speed.";
+
+            whyProduction.textContent =
+                "Additional thermal input can reduce viscosity and improve reservoir mobility.";
+
+            whySteam.textContent =
+                "Moderate steam input can be evaluated against incremental production rather than maximizing steam.";
+
+            whySRP.textContent =
+                "Improved fluid mobility may allow the SRP to operate more effectively.";
+
+            whyRisk.textContent =
+                "Maintaining moderate SRP speed avoids adding mechanical stress while evaluating thermal response.";
+
+        }
+
+
+        /*
+         * High SPM
+         */
+
+        else if (
+            data.spm > 9
+        ) {
+
+            recommendation.textContent =
+                "The simulated SRP speed is above the moderate operating region. Consider reducing SPM while retaining sufficient thermal stimulation.";
+
+            whyProduction.textContent =
+                "Production gains from additional pumping speed may diminish beyond the moderate range.";
+
+            whySteam.textContent =
+                "Thermal input is already contributing to improved fluid mobility.";
+
+            whySRP.textContent =
+                "Lower SPM can reduce estimated rod loading and impact exposure.";
+
+            whyRisk.textContent =
+                "The modeled mechanical risk increases with aggressive pumping speed.";
+
+        }
+
+
+        /*
+         * Balanced condition
+         */
+
+        else {
+
+            recommendation.textContent =
+                "The current simulated operating point provides a balanced CSS + SRP condition. Moderate steam input improves fluid mobility while the SRP remains within a moderate pumping region.";
+
+            whyProduction.textContent =
+                "Thermal stimulation reduces viscosity while SRP converts the improved mobility into surface production.";
+
+            whySteam.textContent =
+                "Steam intensity is evaluated against the predicted production response.";
+
+            whySRP.textContent =
+                "SRP speed is selected considering the thermally modified fluid condition.";
+
+            whyRisk.textContent =
+                "Mechanical loading remains within the prototype operating envelope.";
+        }
+    }
+
+
+    /*
+     * Run optimization
+     */
+
+    function runJointOptimization() {
+
+        const status =
+            document.getElementById("simulationStatus");
+
+        status.textContent =
+            "Running integrated CSS + SRP Digital Twin optimization...";
+
+
+        setTimeout(function () {
+
+            /*
+             * Simulated optimizer search
+             *
+             * Move toward a balanced operating point.
+             */
+
+            steamSlider.value = 65;
+            pressureSlider.value = 14;
+            soakSlider.value = 36;
+            jointSPMSlider.value = 7;
+            jointStrokeSlider.value = 54;
+
+
+            updateJointModel();
+
+
+            status.textContent =
+                "Joint optimization complete ✓ — balanced operating point generated.";
+
+        }, 900);
+    }
+
+
+    /*
+     * Reset
+     */
+
+    function resetJoint() {
+
+        steamSlider.value = 65;
+        pressureSlider.value = 14;
+        soakSlider.value = 36;
+        jointSPMSlider.value = 7;
+        jointStrokeSlider.value = 54;
+
+
+        document.getElementById("simulationStatus")
+            .textContent =
+            "Controls reset to baseline condition.";
+
+
+        updateJointModel();
+    }
+
+
+    /*
+     * Initial state
+     */
+
+    updateJointModel();
+
+</script>
+
+</body>
+</html>
