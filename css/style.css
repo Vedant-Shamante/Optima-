@@ -224,6 +224,32 @@ input {
 
 }
 
+.navigation .nav-item {
+
+    flex-wrap: nowrap;
+
+    white-space: nowrap;
+
+}
+
+.navigation .nav-item > .nav-icon {
+
+    flex: 0 0 18px;
+
+}
+
+.navigation .nav-item > span:not(.nav-icon) {
+
+    width: auto;
+
+    flex: 1 1 auto;
+
+    text-align: left;
+
+    white-space: nowrap;
+
+}
+
 .notification {
 
     margin-left: auto;
@@ -8325,7 +8351,7 @@ body {
 
 .sidebar *,
 .sidebar a {
-    color: #53627A !important;
+    color: #34435B !important;
 }
 
 .sidebar .logo,
@@ -8337,7 +8363,7 @@ body {
 }
 
 .sidebar .subtitle {
-    color: #53627A !important;
+    color: #34435B !important;
 }
 
 .sidebar a:hover {
@@ -8356,7 +8382,7 @@ body {
 .sidebar-section,
 .nav-section,
 .section-title {
-    color: #7A879C !important;
+    color: #52627B !important;
 }
 
 

@@ -5,11 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Recommendations | Baghewala Digital Twin</title>
+    <title>Recommendations | Optima</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/responsive.css">
+<style>
+html,body{margin:0;padding:0;min-height:100%;}body{overflow-x:hidden}.app-layout{min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;height:100vh;overflow-y:auto;overflow-x:hidden;z-index:1000;box-sizing:border-box}
+.main-content{width:calc(100% - 250px);margin-left:250px;min-height:100vh;box-sizing:border-box}
+.top-header{width:100%;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;gap:28px;padding:24px 32px}
+.header-right{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:16px;min-width:0}
+.page-content.recommendations-page{width:100%;max-width:none;box-sizing:border-box;padding:0 32px 36px}
+.recommendations-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:8px 0 24px}
+.recommendation-status{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right}
+.recommendation-hero{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:24px;padding:26px 28px}
+.recommendation-hero-left{display:flex;align-items:flex-start;gap:18px;min-width:0}.recommendation-hero-left>div:last-child{min-width:0}
+.recommendation-icon{flex:0 0 auto}.confidence-box{flex:0 0 190px;min-width:170px}
+.recommendation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:24px;align-items:stretch}
+.recommendation-grid>.panel{min-width:0}.panel-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.parameter-highlight{display:flex;align-items:center;gap:16px;margin:20px 0}.parameter-value{flex:0 0 auto}
+.parameter-list{display:flex;flex-direction:column;gap:0}.parameter-list>div{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid rgba(0,0,0,.08)}
+.expected-impact-panel .impact-list{display:grid;gap:10px}.impact-row{display:flex;align-items:center;gap:14px}
+.why-panel,.comparison-panel,.decision-panel,.model-trace-panel,.operator-notice{margin-bottom:24px}
+.reason-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.reason-card{display:flex;align-items:flex-start;gap:14px;min-width:0}.reason-card>div:last-child{min-width:0}
+.comparison-table-wrapper{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.recommendation-table{width:100%;min-width:760px;border-collapse:collapse}
+.decision-panel{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 26px}.decision-content{display:flex;align-items:flex-start;gap:16px;min-width:0}
+.decision-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;flex:0 0 auto}.decision-result{margin:-8px 0 24px}
+.trace-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.trace-item{min-width:0;padding:16px;border-radius:12px}
+.trace-item span,.trace-item strong,.trace-item small{display:block;overflow-wrap:anywhere}.operator-notice{display:flex;align-items:flex-start;gap:14px}
+@media(max-width:1250px){.sidebar{width:235px}.main-content{width:calc(100% - 235px);margin-left:235px}.page-content.recommendations-page{padding-left:26px;padding-right:26px}.top-header{padding-left:26px;padding-right:26px}.recommendation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.expected-impact-panel{grid-column:1/-1}.reason-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.trace-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.top-header{flex-direction:column;align-items:stretch}.header-right{justify-content:flex-start}.recommendations-heading{align-items:flex-start;flex-direction:column}.recommendation-status{align-items:flex-start;text-align:left}.recommendation-hero{align-items:flex-start;flex-direction:column}.confidence-box{width:100%;max-width:300px}.decision-panel{align-items:flex-start;flex-direction:column}.decision-actions{justify-content:flex-start;width:100%}}
+@media(max-width:700px){.sidebar{position:relative;width:100%;height:auto;min-height:0;max-height:none;overflow:visible}.main-content{width:100%;margin-left:0}.top-header{padding:20px 18px}.page-content.recommendations-page{padding:0 18px 28px}.recommendation-grid,.reason-grid,.trace-grid{grid-template-columns:1fr}.expected-impact-panel{grid-column:auto}.recommendation-hero{padding:20px}.recommendation-hero-left{flex-direction:column}.decision-actions{flex-direction:column;align-items:stretch}.decision-btn{width:100%}}
+</style>
 </head>
 
 <body>
@@ -175,54 +203,7 @@
 
     <main class="main-content">
 
-        <!-- HEADER -->
-
-        <header class="top-header">
-
-            <div>
-
-                <div class="breadcrumb">
-                    OPERATIONS / RECOMMENDATIONS
-                </div>
-
-                <h1>
-                    AI Recommendations
-                </h1>
-
-                <p class="page-subtitle">
-                    Explainable operating recommendations generated from
-                    the Well-to-Surface Digital Twin.
-                </p>
-
-            </div>
-
-
-            <div class="header-right">
-
-                <div class="well-header">
-                    <span>BAGHEWALA</span>
-                    <strong>WELL BW-01</strong>
-                </div>
-
-                <div class="live-indicator">
-                    <span class="live-dot"></span>
-                    LIVE
-                </div>
-
-                <div class="header-date">
-                    27 Sep 2026
-                </div>
-
-                <div class="operator">
-                    OPERATOR
-                    <strong>Field Operations</strong>
-                </div>
-
-            </div>
-
-        </header>
-
-
+        
         <!-- =====================================================
              PAGE
         ====================================================== -->
@@ -1191,6 +1172,7 @@ function rejectRecommendation() {
 </script>
 
 
+<script src="js/navigation.js"></script>
 <script src="js/app.js"></script>
 
 </body>

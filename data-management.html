@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Management | Baghewala Digital Twin</title>
+  <title>Data Management | Optima</title>
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/dashboard.css">
@@ -376,6 +376,59 @@
       }
     }
   </style>
+
+<style>
+/* ===== Baghewala consistent page + sidebar layout ===== */
+html,body{margin:0;min-height:100%;box-sizing:border-box}
+*,*:before,*:after{box-sizing:inherit}
+.app-layout{min-height:100vh;display:flex;align-items:stretch}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;height:100vh;overflow-y:auto;z-index:1000}
+.main-content{width:calc(100% - 250px);margin-left:250px;min-height:100vh;min-width:0}
+.top-header{min-height:76px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 28px}
+.header-right{display:flex;align-items:center;justify-content:flex-end;gap:20px;flex-wrap:wrap}
+.page-content{width:100%;padding:26px 28px 36px}
+.page-intro{max-width:1200px}
+.data-kpis{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.data-kpi{min-width:0}
+.data-grid{grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);gap:20px;align-items:start}
+.data-card{min-width:0}
+.status-table{min-width:680px}
+.data-card:has(.status-table){overflow:hidden}
+.data-card:has(.status-table) .status-table{width:100%}
+.mapping-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.button-row{align-items:center}
+.import-box{min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.notice{margin-bottom:0}
+@media (max-width:1250px){
+  .sidebar{width:235px}
+  .main-content{width:calc(100% - 235px);margin-left:235px}
+  .data-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .data-grid{grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr)}
+  .top-header{padding:16px 22px}
+  .page-content{padding:22px}
+}
+@media (max-width:900px){
+  .header-right{gap:10px}
+  .data-grid{grid-template-columns:1fr}
+  .data-card{width:100%}
+}
+@media (max-width:700px){
+  .sidebar{position:relative;width:100%;height:auto;max-height:none}
+  .main-content{width:100%;margin-left:0}
+  .app-layout{display:block}
+  .top-header{align-items:flex-start;flex-direction:column;padding:16px}
+  .header-right{width:100%;justify-content:flex-start}
+  .page-content{padding:18px 16px 28px}
+  .data-kpis{grid-template-columns:1fr;gap:12px}
+  .mapping-grid{grid-template-columns:1fr}
+  .data-card{padding:16px}
+  .status-table{min-width:650px}
+  .data-card:has(.status-table){overflow-x:auto}
+  .button-row{flex-direction:column;align-items:stretch}
+  .button-row .btn{width:100%}
+}
+</style>
+
 </head>
 
 <body>
@@ -431,19 +484,6 @@
 
     <!-- MAIN -->
     <main class="main-content">
-
-      <!-- HEADER -->
-      <header class="top-header">
-        <div>
-          <strong>BAGHEWALA / WELL BW-01</strong>
-          <span class="live-badge">● LIVE</span>
-        </div>
-
-        <div class="header-right">
-          <span>27 Sep 2026</span>
-          <span>Operator: Control Room</span>
-        </div>
-      </header>
 
       <section class="page-content">
 
@@ -900,6 +940,7 @@
 
   </div>
 
+  <script src="js/navigation.js"></script>
   <script src="js/app.js"></script>
 
   <script>
